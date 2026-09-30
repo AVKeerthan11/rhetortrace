@@ -1,0 +1,28 @@
+project:
+  name: RhetorTrace
+  mode: scripted
+
+audio:
+  sample_rate: 16000
+  channels: 1
+
+severity:
+  min: 0
+  max: 4
+
+scoring:
+  pacing: 0.25
+  pitch: 0.25
+  pauses: 0.20
+  energy: 0.15
+  clarity: 0.15
+
+detection:
+  z_open: 2.0
+  z_close: 1.0
+  min_consecutive_words: 3
+  merge_gap_seconds: 0.5
+  boundary_refinement_ms: 150
+
+reproducibility:
+  seed: 1337

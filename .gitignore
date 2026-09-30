@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Audio
+*.wav
+*.mp3
+*.flac
+
+# Local data
+dataset/raw/
+dataset/processed/
+
+# Results
+results/tmp/
+
+# OS
+.DS_Store
+Thumbs.db
