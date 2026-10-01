@@ -44,3 +44,21 @@ alignment:
     min_word_duration: 0.03     # seconds; one wav2vec2 frame = 0.02
     max_word_duration: 2.0      # seconds
     max_asr_wer: 0.20           # above -> warn (take may deviate from script)
+
+features:
+  output_dir: results/features
+  pitch:
+    time_step: 0.01             # s between F0 frames
+    floor_hz: 75
+    ceiling_hz: 500
+    voicing_threshold: 0.45     # Praat autocorrelation defaults
+    silence_threshold: 0.03
+    octave_cost: 0.01
+    octave_jump_cost: 0.35
+    voiced_unvoiced_cost: 0.14
+    min_voiced_frames: 3        # per word; fewer -> pitch stats are null
+    range_percentiles: [10, 90] # F0 range = p90 - p10 in semitones
+    energy_gate: true           # suppress F0 in frames near the noise floor (background hum)
+    gate_window: 0.04           # s, RMS window per F0 frame
+    noise_floor_percentile: 10  # of frame energies in the take
+    gate_margin_db: 6           # keep F0 only above floor + margin
