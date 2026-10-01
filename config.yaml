@@ -26,3 +26,21 @@ detection:
 
 reproducibility:
   seed: 1337
+
+alignment:
+  asr_model: small          # Whisper model, used only for the ASR quality check
+  align_model: null         # null = WhisperX default wav2vec2 model for the language
+  language: en
+  device: cpu
+  compute_type: int8
+  batch_size: 8
+  asr_qc: true
+  dataset_dir: dataset
+  output_dir: results/alignments
+  qc:
+    min_aligned_ratio: 0.95     # below -> fail
+    low_score_threshold: 0.3    # per-word wav2vec2 char-probability mean
+    max_low_score_ratio: 0.15   # above -> warn
+    min_word_duration: 0.03     # seconds; one wav2vec2 frame = 0.02
+    max_word_duration: 2.0      # seconds
+    max_asr_wer: 0.20           # above -> warn (take may deviate from script)

@@ -1,46 +1,18 @@
-import soundfile as sf
-import whisperx
+"""Force-align one take against its canonical transcript.
 
-audio_file = "dataset/speech_01/audio/good_01.wav"
-device = "cpu"
-compute_type = "int8"
+Thin wrapper around src.alignment (equivalent to `python -m src.alignment`).
 
-print("Loading audio...")
-audio, sample_rate = sf.read(audio_file, dtype="float32")
+    python scripts/align_one.py                         # speech_01/good_01
+    python scripts/align_one.py --speech speech_02 --take good_03
+    python scripts/align_one.py --all --quiet
+"""
 
-print(f"Sample rate: {sample_rate}")
-print(f"Duration: {len(audio) / sample_rate:.2f}s")
+import sys
+from pathlib import Path
 
-print("Loading WhisperX...")
-model = whisperx.load_model(
-    "small",
-    device=device,
-    compute_type=compute_type
-)
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-print("Transcribing...")
-result = model.transcribe(audio)
+from src.alignment import main  # noqa: E402
 
-print("Loading alignment model...")
-align_model, metadata = whisperx.load_align_model(
-    language_code=result["language"],
-    device=device
-)
-
-print("Aligning...")
-aligned = whisperx.align(
-    result["segments"],
-    align_model,
-    metadata,
-    audio,
-    device
-)
-
-print("\nWORD TIMESTAMPS:")
-for segment in aligned["segments"]:
-    for word in segment.get("words", []):
-        print(
-            f"{word['word']:20s} "
-            f"{word.get('start', 0):7.2f} → "
-            f"{word.get('end', 0):7.2f}"
-        )
+if __name__ == "__main__":
+    sys.exit(main())
