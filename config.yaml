@@ -72,3 +72,6 @@ features:
     window_words: 5             # centred local window, clipped to the sentence
     min_window_words: 3         # fewer aligned words -> local rate is null
     sentence_end: ".?!"         # region boundaries
+  pause:
+    min_pause_s: 0.15           # inter-word gaps shorter than this are not pauses
+    sentence_end: ".?!"         # sentence-boundary vs within-sentence pauses
