@@ -19,6 +19,7 @@ dataset/processed/
 
 # Results
 results/tmp/
+*.npz
 
 # OS
 .DS_Store
