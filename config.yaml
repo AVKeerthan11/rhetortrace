@@ -62,3 +62,9 @@ features:
     gate_window: 0.04           # s, RMS window per F0 frame
     noise_floor_percentile: 10  # of frame energies in the take
     gate_margin_db: 6           # keep F0 only above floor + margin
+  energy:
+    time_step: 0.01             # s between frames
+    window: 0.025               # s, RMS window
+    noise_floor_percentile: 10  # of frame energies in the take
+    active_margin_db: 6         # frame is audible above floor + margin
+    peak_percentile: 95         # robust per-word peak
