@@ -87,6 +87,19 @@ features:
   pause:
     min_pause_s: 0.15           # inter-word gaps shorter than this are not pauses
     sentence_end: ".?!"         # sentence-boundary vs within-sentence pauses
+  spectral:
+    n_mfcc: 13
+    n_mels: 40
+    n_fft: 512                  # 32 ms FFT
+    win_length: 0.025           # s
+    hop: 0.01                   # s
+    fmin: 0
+    fmax: 8000
+    rolloff_percent: 0.85
+    noise_floor_percentile: 10  # only frames above floor + margin are aggregated
+    active_margin_db: 6
+    min_active_frames: 3        # per word / sentence; fewer -> null features
+    sentence_end: ".?!"
 
 baseline:
   reference_prefix: good_       # takes whose id starts with this are references
