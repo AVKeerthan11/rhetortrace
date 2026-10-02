@@ -9,6 +9,18 @@ audio:
 severity:
   min: 0
   max: 4
+  # temporal refinement (src/flaws.py)
+  trim_z: {default: 2.0, pitch: 0.0}  # edge words with raw |z| below are trimmed; pitch off (span evidence, tracks already short)
+  extend_z: 3.0                 # neighbours with word-level |z| >= this are added
+  # severity score = clip((evidence x support - z_min) / (z_max - z_min), 0, 1)
+  top_fraction: 0.5             # evidence = median of the top max(min_evidence_words, ceil(0.5 x n)) raw |z| in the region
+  min_evidence_words: {default: 3, pause: 1}  # support = min(1, usable words / this): thin evidence shrinks the score
+  z_min: 2.0                    # evidence at or below -> score 0
+  z_max: {default: 8.0, pitch/flatter: 5.0}  # evidence at or above -> 1; flatter span evidence saturates near z 4.5
+  level_thresholds: [0.05, 0.2, 0.45, 0.7]   # score cut-offs for levels 1..4
+  labels: [negligible, mild, noticeable, strong, severe]
+  low_coverage: 0.5             # flag regions with less usable evidence than this fraction of words
+  output_dir: results/flaws
 
 scoring:
   pacing: 0.25
@@ -34,7 +46,7 @@ detection:
   min_alignment_score: 0.0      # tested: 0.6 cut FP 5 pt but lost pause recall (gaps of flawed speech); off
   monotone_min_ref_std_st: 0.75 # span pitch flattening only counts where the reference span varies at least this much (st)
   output_dir: results/detections
-  boundary_refinement_ms: 150   # reserved for boundary refinement (not used yet)
+  boundary_refinement_ms: 150   # cap on per-side boundary uncertainty of refined flaws (src/flaws.py)
 
 reproducibility:
   seed: 1337

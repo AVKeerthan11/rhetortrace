@@ -1,0 +1,285 @@
+{
+  "schema_version": 1,
+  "speech_id": "speech_01",
+  "take_id": "good_01",
+  "audio_sha256": "fc664a8ab8d6cf7f22feba4134b4b3b676e75d3369e432c01a7e2d8af13fa01b",
+  "alignment_cache_key": "64b5b0d541e81dc9cb32b551b936528e3a43f613ff2da520fd88dd7e00412b5a",
+  "baseline": {
+    "path": "leave-one-out:good_01",
+    "references": [
+      "good_02",
+      "good_03"
+    ],
+    "in_sample": false
+  },
+  "detection_settings": {
+    "z_open": 3.0,
+    "z_close": 2.0,
+    "min_consecutive_words": 3,
+    "min_words": {
+      "pause": 1
+    },
+    "smooth_words": 3,
+    "smooth_override": {
+      "pause": 1
+    },
+    "merge_gap_seconds": 0.5,
+    "min_scale": {
+      "pause_after_s": 0.1
+    },
+    "max_evidence": 5,
+    "duration_frame_s": 0.02,
+    "pitch_directional": true,
+    "min_clarity_active_frames": 0,
+    "min_alignment_score": 0.0,
+    "monotone_min_ref_std_st": 0.75
+  },
+  "settings": {
+    "trim_z": {
+      "default": 2.0,
+      "pitch": 0.0
+    },
+    "extend_z": 3.0,
+    "boundary_refinement_ms": 150,
+    "top_fraction": 0.5,
+    "min_evidence_words": {
+      "default": 3,
+      "pause": 1
+    },
+    "z_min": 2.0,
+    "z_max": {
+      "default": 8.0,
+      "pitch/flatter": 5.0
+    },
+    "level_thresholds": [
+      0.05,
+      0.2,
+      0.45,
+      0.7
+    ],
+    "labels": [
+      "negligible",
+      "mild",
+      "noticeable",
+      "strong",
+      "severe"
+    ],
+    "low_coverage": 0.5
+  },
+  "summary": {
+    "n_flaws": 2,
+    "by_level": {
+      "negligible": 0,
+      "mild": 0,
+      "noticeable": 2,
+      "strong": 0,
+      "severe": 0
+    },
+    "by_category": {
+      "pause": 2
+    },
+    "max_score": 0.418
+  },
+  "flaws": [
+    {
+      "flaw_id": 0,
+      "region_id": 0,
+      "category": "pause",
+      "direction": "long",
+      "start_idx": 80,
+      "end_idx": 80,
+      "start": 30.314,
+      "end": 30.915,
+      "duration_s": 0.601,
+      "start_uncertainty_s": 0.02,
+      "end_uncertainty_s": 0.02,
+      "words": [
+        "those"
+      ],
+      "n_words": 1,
+      "word_coverage": 1.0,
+      "severity": {
+        "score": 0.418,
+        "level": 2,
+        "label": "noticeable",
+        "evidence_z": 4.51,
+        "effective_z": 4.51,
+        "median_z": 4.51,
+        "peak_z": 4.51,
+        "n_evidence_words": 1,
+        "n_top": 1,
+        "support": 1.0
+      },
+      "confidence": 1.0,
+      "flags": [],
+      "strongest_evidence": {
+        "idx": 80,
+        "text": "those",
+        "feature": "pause_after_s",
+        "value": 0.601,
+        "median": 0.1,
+        "scale": 0.1,
+        "z": 4.51
+      },
+      "boundary": {
+        "detected_start_idx": 80,
+        "detected_end_idx": 80,
+        "detected_start": 30.054,
+        "detected_end": 30.915,
+        "trimmed_words": 0,
+        "extended_words": 0
+      },
+      "secondary": [],
+      "explanation": {
+        "summary": "Excessive pause compared with the references (30.31-30.91 s, \"those\"): pause after the word, \"those\": 0.601 s vs reference 0.1 s (+0.50 s; z = +4.51). Severity: noticeable (0.42).",
+        "headline": "Excessive pause compared with the references",
+        "category": "pause",
+        "direction": "long",
+        "severity": {
+          "level": 2,
+          "label": "noticeable",
+          "score": 0.418
+        },
+        "time": {
+          "start": 30.314,
+          "end": 30.915,
+          "duration_s": 0.601
+        },
+        "word_range": [
+          80,
+          80
+        ],
+        "words": [
+          "those"
+        ],
+        "strongest_evidence": {
+          "idx": 80,
+          "word": "those",
+          "feature": "pause_after_s",
+          "label": "pause after the word",
+          "unit": "s",
+          "observed": 0.601,
+          "reference": 0.1,
+          "comparison": "difference",
+          "change": 0.5,
+          "z": 4.51,
+          "stored": {
+            "value": 0.601,
+            "median": 0.1,
+            "scale": 0.1
+          },
+          "note": "z compares both gaps clipped up to the pause threshold (shorter gaps count as no pause)",
+          "statement": "pause after the word, \"those\": 0.601 s vs reference 0.1 s (+0.50 s; z = +4.51)"
+        },
+        "supporting_evidence": [],
+        "unavailable_evidence": [],
+        "confidence": {
+          "value": 1.0,
+          "label": "high"
+        },
+        "quality_flags": [],
+        "co_occurring": []
+      }
+    },
+    {
+      "flaw_id": 1,
+      "region_id": 1,
+      "category": "pause",
+      "direction": "long",
+      "start_idx": 101,
+      "end_idx": 101,
+      "start": 37.878,
+      "end": 38.838,
+      "duration_s": 0.96,
+      "start_uncertainty_s": 0.02,
+      "end_uncertainty_s": 0.02,
+      "words": [
+        "this."
+      ],
+      "n_words": 1,
+      "word_coverage": 1.0,
+      "severity": {
+        "score": 0.283,
+        "level": 2,
+        "label": "noticeable",
+        "evidence_z": 3.7,
+        "effective_z": 3.7,
+        "median_z": 3.7,
+        "peak_z": 3.7,
+        "n_evidence_words": 1,
+        "n_top": 1,
+        "support": 1.0
+      },
+      "confidence": 1.0,
+      "flags": [],
+      "strongest_evidence": {
+        "idx": 101,
+        "text": "this.",
+        "feature": "pause_after_s",
+        "value": 0.96,
+        "median": 0.59,
+        "scale": 0.1,
+        "z": 3.7
+      },
+      "boundary": {
+        "detected_start_idx": 101,
+        "detected_end_idx": 101,
+        "detected_start": 37.678,
+        "detected_end": 38.838,
+        "trimmed_words": 0,
+        "extended_words": 0
+      },
+      "secondary": [],
+      "explanation": {
+        "summary": "Excessive pause compared with the references (37.88-38.84 s, \"this.\"): pause after the word, \"this.\": 0.96 s vs reference 0.59 s (+0.37 s; z = +3.70). Severity: noticeable (0.28).",
+        "headline": "Excessive pause compared with the references",
+        "category": "pause",
+        "direction": "long",
+        "severity": {
+          "level": 2,
+          "label": "noticeable",
+          "score": 0.283
+        },
+        "time": {
+          "start": 37.878,
+          "end": 38.838,
+          "duration_s": 0.96
+        },
+        "word_range": [
+          101,
+          101
+        ],
+        "words": [
+          "this."
+        ],
+        "strongest_evidence": {
+          "idx": 101,
+          "word": "this.",
+          "feature": "pause_after_s",
+          "label": "pause after the word",
+          "unit": "s",
+          "observed": 0.96,
+          "reference": 0.59,
+          "comparison": "difference",
+          "change": 0.37,
+          "z": 3.7,
+          "stored": {
+            "value": 0.96,
+            "median": 0.59,
+            "scale": 0.1
+          },
+          "note": "z compares both gaps clipped up to the pause threshold (shorter gaps count as no pause)",
+          "statement": "pause after the word, \"this.\": 0.96 s vs reference 0.59 s (+0.37 s; z = +3.70)"
+        },
+        "supporting_evidence": [],
+        "unavailable_evidence": [],
+        "confidence": {
+          "value": 1.0,
+          "label": "high"
+        },
+        "quality_flags": [],
+        "co_occurring": []
+      }
+    }
+  ]
+}

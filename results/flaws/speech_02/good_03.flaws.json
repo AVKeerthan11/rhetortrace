@@ -1,0 +1,274 @@
+{
+  "schema_version": 1,
+  "speech_id": "speech_02",
+  "take_id": "good_03",
+  "audio_sha256": "31d3f93f3cfb69775f891a773527cbc975e3028c0abf0fab7c33a9be7c9c74b3",
+  "alignment_cache_key": "1c9e3626aa743fd1e47395b89e6fa632baf2a31c38d1b753b530533728fecb05",
+  "baseline": {
+    "path": "leave-one-out:good_03",
+    "references": [
+      "good_01",
+      "good_02"
+    ],
+    "in_sample": false
+  },
+  "detection_settings": {
+    "z_open": 3.0,
+    "z_close": 2.0,
+    "min_consecutive_words": 3,
+    "min_words": {
+      "pause": 1
+    },
+    "smooth_words": 3,
+    "smooth_override": {
+      "pause": 1
+    },
+    "merge_gap_seconds": 0.5,
+    "min_scale": {
+      "pause_after_s": 0.1
+    },
+    "max_evidence": 5,
+    "duration_frame_s": 0.02,
+    "pitch_directional": true,
+    "min_clarity_active_frames": 0,
+    "min_alignment_score": 0.0,
+    "monotone_min_ref_std_st": 0.75
+  },
+  "settings": {
+    "trim_z": {
+      "default": 2.0,
+      "pitch": 0.0
+    },
+    "extend_z": 3.0,
+    "boundary_refinement_ms": 150,
+    "top_fraction": 0.5,
+    "min_evidence_words": {
+      "default": 3,
+      "pause": 1
+    },
+    "z_min": 2.0,
+    "z_max": {
+      "default": 8.0,
+      "pitch/flatter": 5.0
+    },
+    "level_thresholds": [
+      0.05,
+      0.2,
+      0.45,
+      0.7
+    ],
+    "labels": [
+      "negligible",
+      "mild",
+      "noticeable",
+      "strong",
+      "severe"
+    ],
+    "low_coverage": 0.5
+  },
+  "summary": {
+    "n_flaws": 1,
+    "by_level": {
+      "negligible": 0,
+      "mild": 0,
+      "noticeable": 0,
+      "strong": 0,
+      "severe": 1
+    },
+    "by_category": {
+      "pitch": 1
+    },
+    "max_score": 0.814
+  },
+  "flaws": [
+    {
+      "flaw_id": 0,
+      "region_id": 0,
+      "category": "pitch",
+      "direction": "flatter",
+      "start_idx": 72,
+      "end_idx": 81,
+      "start": 24.008,
+      "end": 27.108,
+      "duration_s": 3.1,
+      "start_uncertainty_s": 0.03,
+      "end_uncertainty_s": 0.15,
+      "words": [
+        "injustice",
+        "and",
+        "cruelty",
+        "to",
+        "which",
+        "he",
+        "is",
+        "the",
+        "constant",
+        "victim."
+      ],
+      "n_words": 10,
+      "word_coverage": 1.0,
+      "severity": {
+        "score": 0.814,
+        "level": 4,
+        "label": "severe",
+        "evidence_z": 4.442,
+        "effective_z": 4.442,
+        "median_z": 3.506,
+        "peak_z": 5.069,
+        "n_evidence_words": 10,
+        "n_top": 5,
+        "support": 1.0
+      },
+      "confidence": 1.0,
+      "flags": [],
+      "strongest_evidence": {
+        "idx": 75,
+        "text": "to",
+        "feature": "f0_range_st",
+        "value": 0.863,
+        "median": 4.2145,
+        "scale": 0.661,
+        "z": -5.069
+      },
+      "boundary": {
+        "detected_start_idx": 73,
+        "detected_end_idx": 81,
+        "detected_start": 24.648,
+        "detected_end": 27.108,
+        "trimmed_words": 0,
+        "extended_words": 1
+      },
+      "secondary": [],
+      "explanation": {
+        "summary": "Flatter, reduced pitch variation compared with the references (24.01-27.11 s, \"injustice and cruelty to which he is the ...\"): word pitch range, \"to\": 0.863 st vs reference 4.215 st (-3.35 st; z = -5.07). Severity: severe (0.81).",
+        "headline": "Flatter, reduced pitch variation compared with the references",
+        "category": "pitch",
+        "direction": "flatter",
+        "severity": {
+          "level": 4,
+          "label": "severe",
+          "score": 0.814
+        },
+        "time": {
+          "start": 24.008,
+          "end": 27.108,
+          "duration_s": 3.1
+        },
+        "word_range": [
+          72,
+          81
+        ],
+        "words": [
+          "injustice",
+          "and",
+          "cruelty",
+          "to",
+          "which",
+          "he",
+          "is",
+          "the",
+          "constant",
+          "victim."
+        ],
+        "strongest_evidence": {
+          "idx": 75,
+          "word": "to",
+          "feature": "f0_range_st",
+          "label": "word pitch range",
+          "unit": "st",
+          "observed": 0.863,
+          "reference": 4.215,
+          "comparison": "difference",
+          "change": -3.35,
+          "z": -5.069,
+          "stored": {
+            "value": 0.863,
+            "median": 4.2145,
+            "scale": 0.661
+          },
+          "statement": "word pitch range, \"to\": 0.863 st vs reference 4.215 st (-3.35 st; z = -5.07)"
+        },
+        "supporting_evidence": [
+          {
+            "idx": 75,
+            "word": "to",
+            "feature": "log_f0_span_std",
+            "label": "pitch variation over the span",
+            "unit": "st (std)",
+            "observed": 0.548,
+            "reference": 2.713,
+            "comparison": "ratio",
+            "change": 0.2,
+            "z": -4.984,
+            "stored": {
+              "value": -0.6006,
+              "median": 0.9979,
+              "scale": 0.321
+            },
+            "statement": "pitch variation over the span, \"to\": 0.548 st (std) vs reference 2.713 st (std) (0.20x the reference; z = -4.98)"
+          },
+          {
+            "idx": 77,
+            "word": "he",
+            "feature": "log_f0_span_std",
+            "label": "pitch variation over the span",
+            "unit": "st (std)",
+            "observed": 0.543,
+            "reference": 2.38,
+            "comparison": "ratio",
+            "change": 0.23,
+            "z": -4.667,
+            "stored": {
+              "value": -0.6099,
+              "median": 0.8673,
+              "scale": 0.317
+            },
+            "statement": "pitch variation over the span, \"he\": 0.543 st (std) vs reference 2.38 st (std) (0.23x the reference; z = -4.67)"
+          },
+          {
+            "idx": 76,
+            "word": "which",
+            "feature": "f0_median_st",
+            "label": "word pitch",
+            "unit": "st re speaker median",
+            "observed": -0.594,
+            "reference": 3.107,
+            "comparison": "difference",
+            "change": -3.7,
+            "z": -4.442,
+            "stored": {
+              "value": -0.594,
+              "median": 3.1065,
+              "scale": 0.833
+            },
+            "statement": "word pitch, \"which\": -0.594 st re speaker median vs reference 3.107 st re speaker median (-3.70 st; z = -4.44)"
+          }
+        ],
+        "unavailable_evidence": [
+          {
+            "feature": "f0_median_st",
+            "label": "word pitch",
+            "n_words": 1,
+            "reasons": {
+              "no_baseline": 1
+            }
+          },
+          {
+            "feature": "f0_range_st",
+            "label": "word pitch range",
+            "n_words": 1,
+            "reasons": {
+              "no_baseline": 1
+            }
+          }
+        ],
+        "confidence": {
+          "value": 1.0,
+          "label": "high"
+        },
+        "quality_flags": [],
+        "co_occurring": []
+      }
+    }
+  ]
+}

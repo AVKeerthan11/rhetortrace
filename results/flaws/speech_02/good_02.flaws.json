@@ -1,0 +1,344 @@
+{
+  "schema_version": 1,
+  "speech_id": "speech_02",
+  "take_id": "good_02",
+  "audio_sha256": "ba0dcdd8c63f93e29ae073f414aec9a75c4e8f4584799115e2f495853e372a79",
+  "alignment_cache_key": "f9e5f033ffca7f7ef91980e6818e2287c26dd62f2b91d4e023e56e9b92a3debb",
+  "baseline": {
+    "path": "leave-one-out:good_02",
+    "references": [
+      "good_01",
+      "good_03"
+    ],
+    "in_sample": false
+  },
+  "detection_settings": {
+    "z_open": 3.0,
+    "z_close": 2.0,
+    "min_consecutive_words": 3,
+    "min_words": {
+      "pause": 1
+    },
+    "smooth_words": 3,
+    "smooth_override": {
+      "pause": 1
+    },
+    "merge_gap_seconds": 0.5,
+    "min_scale": {
+      "pause_after_s": 0.1
+    },
+    "max_evidence": 5,
+    "duration_frame_s": 0.02,
+    "pitch_directional": true,
+    "min_clarity_active_frames": 0,
+    "min_alignment_score": 0.0,
+    "monotone_min_ref_std_st": 0.75
+  },
+  "settings": {
+    "trim_z": {
+      "default": 2.0,
+      "pitch": 0.0
+    },
+    "extend_z": 3.0,
+    "boundary_refinement_ms": 150,
+    "top_fraction": 0.5,
+    "min_evidence_words": {
+      "default": 3,
+      "pause": 1
+    },
+    "z_min": 2.0,
+    "z_max": {
+      "default": 8.0,
+      "pitch/flatter": 5.0
+    },
+    "level_thresholds": [
+      0.05,
+      0.2,
+      0.45,
+      0.7
+    ],
+    "labels": [
+      "negligible",
+      "mild",
+      "noticeable",
+      "strong",
+      "severe"
+    ],
+    "low_coverage": 0.5
+  },
+  "summary": {
+    "n_flaws": 2,
+    "by_level": {
+      "negligible": 0,
+      "mild": 0,
+      "noticeable": 2,
+      "strong": 0,
+      "severe": 0
+    },
+    "by_category": {
+      "clarity": 1,
+      "pause": 1
+    },
+    "max_score": 0.434
+  },
+  "flaws": [
+    {
+      "flaw_id": 0,
+      "region_id": 0,
+      "category": "clarity",
+      "direction": null,
+      "start_idx": 102,
+      "end_idx": 104,
+      "start": 36.969,
+      "end": 38.01,
+      "duration_s": 1.041,
+      "start_uncertainty_s": 0.03,
+      "end_uncertainty_s": 0.07,
+      "words": [
+        "of",
+        "rejoicing",
+        "are"
+      ],
+      "n_words": 3,
+      "word_coverage": 1.0,
+      "severity": {
+        "score": 0.248,
+        "level": 2,
+        "label": "noticeable",
+        "evidence_z": 3.487,
+        "effective_z": 3.487,
+        "median_z": 3.487,
+        "peak_z": 4.143,
+        "n_evidence_words": 3,
+        "n_top": 3,
+        "support": 1.0
+      },
+      "confidence": 1.0,
+      "flags": [],
+      "strongest_evidence": {
+        "idx": 102,
+        "text": "of",
+        "feature": "log_flatness",
+        "value": -2.0,
+        "median": -2.5531,
+        "scale": 0.134,
+        "z": 4.143
+      },
+      "boundary": {
+        "detected_start_idx": 101,
+        "detected_end_idx": 105,
+        "detected_start": 36.609,
+        "detected_end": 38.49,
+        "trimmed_words": 2,
+        "extended_words": 0
+      },
+      "secondary": [],
+      "explanation": {
+        "summary": "Spectral / articulation deviation from the references (36.97-38.01 s, \"of rejoicing are\"): spectral flatness, \"of\": 0.01 vs reference 0.0028 (3.57x the reference; z = +4.14). Severity: noticeable (0.25).",
+        "headline": "Spectral / articulation deviation from the references",
+        "category": "clarity",
+        "direction": null,
+        "severity": {
+          "level": 2,
+          "label": "noticeable",
+          "score": 0.248
+        },
+        "time": {
+          "start": 36.969,
+          "end": 38.01,
+          "duration_s": 1.041
+        },
+        "word_range": [
+          102,
+          104
+        ],
+        "words": [
+          "of",
+          "rejoicing",
+          "are"
+        ],
+        "strongest_evidence": {
+          "idx": 102,
+          "word": "of",
+          "feature": "log_flatness",
+          "label": "spectral flatness",
+          "unit": "",
+          "observed": 0.01,
+          "reference": 0.0028,
+          "comparison": "ratio",
+          "change": 3.57,
+          "z": 4.143,
+          "stored": {
+            "value": -2.0,
+            "median": -2.5531,
+            "scale": 0.134
+          },
+          "statement": "spectral flatness, \"of\": 0.01 vs reference 0.0028 (3.57x the reference; z = +4.14)"
+        },
+        "supporting_evidence": [
+          {
+            "idx": 103,
+            "word": "rejoicing",
+            "feature": "log_flatness",
+            "label": "spectral flatness",
+            "unit": "",
+            "observed": 0.0067,
+            "reference": 0.0021,
+            "comparison": "ratio",
+            "change": 3.14,
+            "z": 3.487,
+            "stored": {
+              "value": -2.1739,
+              "median": -2.6705,
+              "scale": 0.142
+            },
+            "statement": "spectral flatness, \"rejoicing\": 0.0067 vs reference 0.0021 (3.14x the reference; z = +3.49)"
+          },
+          {
+            "idx": 104,
+            "word": "are",
+            "feature": "log_flatness",
+            "label": "spectral flatness",
+            "unit": "",
+            "observed": 0.0049,
+            "reference": 0.0017,
+            "comparison": "ratio",
+            "change": 2.81,
+            "z": 3.252,
+            "stored": {
+              "value": -2.3098,
+              "median": -2.7586,
+              "scale": 0.138
+            },
+            "statement": "spectral flatness, \"are\": 0.0049 vs reference 0.0017 (2.81x the reference; z = +3.25)"
+          },
+          {
+            "idx": 102,
+            "word": "of",
+            "feature": "centroid_rel_oct",
+            "label": "spectral centroid",
+            "unit": "octaves re take median",
+            "observed": 0.328,
+            "reference": 0.069,
+            "comparison": "difference",
+            "change": 0.26,
+            "z": 2.043,
+            "stored": {
+              "value": 0.328,
+              "median": 0.069,
+              "scale": 0.127
+            },
+            "statement": "spectral centroid, \"of\": 0.328 octaves re take median vs reference 0.069 octaves re take median (+0.26 oct; z = +2.04)"
+          }
+        ],
+        "unavailable_evidence": [],
+        "confidence": {
+          "value": 1.0,
+          "label": "high"
+        },
+        "quality_flags": [],
+        "co_occurring": []
+      }
+    },
+    {
+      "flaw_id": 1,
+      "region_id": 1,
+      "category": "pause",
+      "direction": "short",
+      "start_idx": 107,
+      "end_idx": 107,
+      "start": 39.21,
+      "end": 39.63,
+      "duration_s": 0.42,
+      "start_uncertainty_s": 0.02,
+      "end_uncertainty_s": 0.02,
+      "words": [
+        "heartless;"
+      ],
+      "n_words": 1,
+      "word_coverage": 1.0,
+      "severity": {
+        "score": 0.434,
+        "level": 2,
+        "label": "noticeable",
+        "evidence_z": 4.605,
+        "effective_z": 4.605,
+        "median_z": 4.605,
+        "peak_z": 4.605,
+        "n_evidence_words": 1,
+        "n_top": 1,
+        "support": 1.0
+      },
+      "confidence": 1.0,
+      "flags": [],
+      "strongest_evidence": {
+        "idx": 107,
+        "text": "heartless;",
+        "feature": "pause_after_s",
+        "value": 0.42,
+        "median": 0.8805,
+        "scale": 0.1,
+        "z": -4.605
+      },
+      "boundary": {
+        "detected_start_idx": 107,
+        "detected_end_idx": 107,
+        "detected_start": 38.77,
+        "detected_end": 39.63,
+        "trimmed_words": 0,
+        "extended_words": 0
+      },
+      "secondary": [],
+      "explanation": {
+        "summary": "Pause shortened compared with the references (39.21-39.63 s, \"heartless;\"): pause after the word, \"heartless;\": 0.42 s vs reference 0.88 s (-0.46 s; z = -4.61). Severity: noticeable (0.43).",
+        "headline": "Pause shortened compared with the references",
+        "category": "pause",
+        "direction": "short",
+        "severity": {
+          "level": 2,
+          "label": "noticeable",
+          "score": 0.434
+        },
+        "time": {
+          "start": 39.21,
+          "end": 39.63,
+          "duration_s": 0.42
+        },
+        "word_range": [
+          107,
+          107
+        ],
+        "words": [
+          "heartless;"
+        ],
+        "strongest_evidence": {
+          "idx": 107,
+          "word": "heartless;",
+          "feature": "pause_after_s",
+          "label": "pause after the word",
+          "unit": "s",
+          "observed": 0.42,
+          "reference": 0.88,
+          "comparison": "difference",
+          "change": -0.46,
+          "z": -4.605,
+          "stored": {
+            "value": 0.42,
+            "median": 0.8805,
+            "scale": 0.1
+          },
+          "note": "z compares both gaps clipped up to the pause threshold (shorter gaps count as no pause)",
+          "statement": "pause after the word, \"heartless;\": 0.42 s vs reference 0.88 s (-0.46 s; z = -4.61)"
+        },
+        "supporting_evidence": [],
+        "unavailable_evidence": [],
+        "confidence": {
+          "value": 1.0,
+          "label": "high"
+        },
+        "quality_flags": [],
+        "co_occurring": []
+      }
+    }
+  ]
+}

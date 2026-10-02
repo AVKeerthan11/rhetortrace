@@ -26,8 +26,17 @@ there, so a pre-existing false positive does not count as a hit.
 category (no baseline / low-confidence cells): such sites cannot be detected by
 design and are reported apart from misses.
 
+Boundaries and severity (``src.flaws`` on every detection): for each
+attributable injection the matching detected track and its refined version
+are compared with the injected span (words a..b; a pause is the gap after
+word a): start / end error in seconds, time IoU and word IoU. ``--severity``
+also runs a strength ladder per kind (strength 1 = the injections above) and
+reports score / level per strength and whether the score is non-decreasing in
+strength at each site (an undetected injection scores 0).
+
 Usage:
   python scripts/eval_detection.py                      # config.yaml settings
+  python scripts/eval_detection.py --severity           # + severity strength ladder
   python scripts/eval_detection.py --grid               # z_open x z_close sweep
   python scripts/eval_detection.py --set z_open=2.5 --out report.json
 """
@@ -47,6 +56,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src.alignment import AlignmentConfig  # noqa: E402
 from src.baseline import BaselineConfig, load_take, reference_takes  # noqa: E402
 from src.detection import DetectionConfig, baseline_for, detect_take  # noqa: E402
+from src.flaws import FlawConfig, score_detection  # noqa: E402
 
 SPAN = 8
 POSITIONS = (0.2, 0.5, 0.8)
@@ -59,6 +69,13 @@ KINDS = {  # kind -> (category, direction)
     "long_pause": ("pause", "long"),
     "missing_pause": ("pause", "short"),
 }
+LADDER = {  # kind -> injection strengths (1.0 = the standard injection)
+    "fast": (0.5, 1.0, 1.5, 2.0),
+    "slow": (0.5, 1.0, 1.5, 2.0),
+    "quiet": (0.5, 1.0, 1.5, 2.0),
+    "monotone": (0.25, 0.5, 0.75, 1.0),
+    "long_pause": (0.5, 1.0, 1.5, 2.0),
+}
 GRID_OPEN = (2.0, 2.5, 3.0, 3.5)
 GRID_CLOSE = (1.0, 1.5, 2.0)
 
@@ -67,13 +84,18 @@ def _words(take: dict, source: str) -> dict:
     return {w["idx"]: w for w in take[source]["words"]}
 
 
-def inject(take: dict, kind: str, a: int, b: int) -> dict:
-    """Copy of ``take`` with the deviation written into words a..b."""
+def inject(take: dict, kind: str, a: int, b: int, strength: float = 1.0) -> dict:
+    """Copy of ``take`` with the deviation written into words a..b.
+
+    ``strength`` scales the deviation (1.0 = the documented injection): rate
+    factors are raised to it, the dB drop and the pause excess over 0.15 s are
+    multiplied by it, the monotone contour is compressed by min(1, strength).
+    """
     t = copy.deepcopy(take)
     rate, energy, pitch, pause = (_words(t, s) for s in ("rate", "energy", "pitch", "pause"))
     for i in range(a, b + 1):
         if kind in ("fast", "slow"):
-            k = 0.67 if kind == "fast" else 1.5
+            k = (0.67 if kind == "fast" else 1.5) ** strength
             r = rate[i]
             if r["duration_s"] is not None:
                 r["duration_s"] *= k
@@ -84,14 +106,14 @@ def inject(take: dict, kind: str, a: int, b: int) -> dict:
             e = energy[i]
             for f in ("energy_rel_db", "energy_peak_rel_db"):
                 if e[f] is not None:
-                    e[f] -= 6.0
+                    e[f] -= 6.0 * strength
         elif kind in ("monotone", "monotone_mild"):
-            k, kr = (0.0, 0.3) if kind == "monotone" else (0.5, 0.6)
+            k, kr = (max(0.0, 1 - strength), 0.3 ** strength) if kind == "monotone" else (0.5, 0.6)
             p = pitch[i]
             if p["f0_median_st"] is not None:
                 p["f0_median_st"], p["f0_range_st"] = p["f0_median_st"] * k, p["f0_range_st"] * kr
         elif kind == "long_pause":
-            pause[i].update(pause_after_s=1.2, is_pause_after=True)
+            pause[i].update(pause_after_s=0.15 + 1.05 * strength, is_pause_after=True)
         elif kind == "missing_pause":
             pause[i].update(pause_after_s=0.03, is_pause_after=False)
     return t
@@ -147,7 +169,50 @@ def control_attribution(doc: dict) -> dict:
     return {k: dict(sorted(v.items())) for k, v in out.items()}
 
 
-def evaluate(cases: list[dict], cfg: DetectionConfig) -> dict:
+def truth_span(words: list[dict], kind: str, a: int, b: int) -> tuple[float, float]:
+    """Injected span in seconds: words a..b, or the gap after word a for pauses."""
+    if kind in ("long_pause", "missing_pause"):
+        return words[a]["end"], words[a + 1]["start"]
+    return words[a]["start"], words[b]["end"]
+
+
+def best_track(tracks: list[dict], cat: str, direction, a: int, b: int) -> dict | None:
+    """The matching track with the largest word overlap with a..b."""
+    def overlap(t):
+        return min(b, t["end_idx"]) - max(a, t["start_idx"]) + 1
+    hits = [t for t in tracks if t["category"] == cat and (direction is None or t["direction"] == direction)
+            and t["start_idx"] <= b and t["end_idx"] >= a]
+    return max(hits, key=lambda t: (overlap(t), -t["start_idx"])) if hits else None
+
+
+def boundary_errors(track: dict, truth: tuple[float, float], a: int, b: int) -> dict:
+    ts, te = truth
+    s, e = track["start"], track["end"]
+    union = max(e, te) - min(s, ts)
+    wa, wb = track["start_idx"], track["end_idx"]
+    return {"start_err_s": round(abs(s - ts), 3), "end_err_s": round(abs(e - te), 3),
+            "iou": round(max(0.0, min(e, te) - max(s, ts)) / union, 3) if union > 0 else 0.0,
+            "word_iou": round(max(0, min(b, wb) - max(a, wa) + 1) / (max(b, wb) - min(a, wa) + 1), 3)}
+
+
+def summarize_boundaries(errors: list[dict]) -> dict:
+    if not errors:
+        return {}
+    out = {}
+    for key in ("start_err_s", "end_err_s", "iou", "word_iou"):
+        vals = sorted(e[key] for e in errors)
+        out[f"mean_{key}"] = round(sum(vals) / len(vals), 3)
+        out[f"median_{key}"] = round(vals[len(vals) // 2], 3)
+    return out
+
+
+def flaw_tracks(flaws: dict) -> list[dict]:
+    """Every refined track of a flaws document (dominant + secondary)."""
+    return [t for f in flaws["flaws"] for t in (f, *f["secondary"])]
+
+
+def evaluate(cases: list[dict], cfg: DetectionConfig, fcfg: FlawConfig | None = None) -> dict:
+    fcfg = fcfg or FlawConfig()
     per_take, injections = [], []
     for case in cases:
         control = detect_take(case["take"], case["baseline"], cfg)
@@ -160,6 +225,7 @@ def evaluate(cases: list[dict], cfg: DetectionConfig) -> dict:
             "regions_per_min": round(len(control["regions"]) / dur_min, 2),
             "words_flagged": len(covered), "n_words": n_words,
             "attribution": control_attribution(control),
+            "severity_levels": [f["severity"]["label"] for f in score_detection(control, fcfg)["flaws"]],
         })
         for kind, (cat, direction) in KINDS.items():
             for a, b in injection_sites(case["take"], kind):
@@ -169,9 +235,19 @@ def evaluate(cases: list[dict], cfg: DetectionConfig) -> dict:
                 scorable = any(doc["words"][i]["categories"][cat] is not None for i in range(a, b + 1))
                 dominant = any(r["dominant_category"] == cat and r["start_idx"] <= b and r["end_idx"] >= a
                                for r in doc["regions"])
-                injections.append({"case": f"{case['speech_id']}/{case['take_id']}", "kind": kind,
-                                   "span": [a, b], "scorable": scorable, "detected": bool(hits), "dominant": dominant,
-                                   "confounded": bool(pre), "attributable": bool(hits) and not pre})
+                item = {"case": f"{case['speech_id']}/{case['take_id']}", "kind": kind,
+                        "span": [a, b], "scorable": scorable, "detected": bool(hits), "dominant": dominant,
+                        "confounded": bool(pre), "attributable": bool(hits) and not pre}
+                if item["attributable"]:
+                    truth = truth_span(doc["words"], kind, a, b)
+                    raw = best_track([t for r in doc["regions"] for t in r["tracks"]], cat, direction, a, b)
+                    refined = best_track(flaw_tracks(score_detection(doc, fcfg)), cat, direction, a, b)
+                    item["raw"] = boundary_errors(raw, truth, a, b)
+                    if refined is not None:
+                        item["refined"] = boundary_errors(refined, truth, a, b)
+                        item["severity"] = refined["severity"]["score"]
+                        item["level"] = refined["severity"]["label"]
+                injections.append(item)
     n_words = sum(t["n_words"] for t in per_take)
     clean = [i for i in injections if not i["confounded"] and i["scorable"]]
     by_kind = {k: {"n": sum(i["kind"] == k for i in injections),
@@ -196,9 +272,49 @@ def evaluate(cases: list[dict], cfg: DetectionConfig) -> dict:
             "clean_recall": round(sum(i["attributable"] for i in clean) / len(clean), 4) if clean else None,
             "n_clean": len(clean),
             "by_kind": by_kind,
+            "boundaries": {
+                kind: {"n": len(its),
+                       "raw": summarize_boundaries([i["raw"] for i in its]),
+                       "refined": summarize_boundaries([i["refined"] for i in its])}
+                for kind in KINDS for its in [[i for i in injections if i["kind"] == kind and "refined" in i]]
+            },
+            "boundaries_all": {
+                "raw": summarize_boundaries([i["raw"] for i in injections if "refined" in i]),
+                "refined": summarize_boundaries([i["refined"] for i in injections if "refined" in i]),
+            },
             "items": injections,
         },
     }
+
+
+def severity_ladder(cases: list[dict], cfg: DetectionConfig, fcfg: FlawConfig) -> dict:
+    """Score / level per kind and strength; is the score non-decreasing in strength per site."""
+    out = {}
+    for kind, strengths in LADDER.items():
+        cat, direction = KINDS[kind]
+        scores = {s: [] for s in strengths}
+        levels = {s: [] for s in strengths}
+        n_sites = monotone_sites = 0
+        for case in cases:
+            for a, b in injection_sites(case["take"], kind):
+                site = []
+                for s in strengths:
+                    doc = detect_take(inject(case["take"], kind, a, b, s), case["baseline"], cfg)
+                    t = best_track(flaw_tracks(score_detection(doc, fcfg)), cat, direction, a, b)
+                    site.append(t["severity"]["score"] if t else 0.0)
+                    scores[s].append(site[-1])
+                    levels[s].append(t["severity"]["level"] if t else 0)
+                n_sites += 1
+                monotone_sites += all(x <= y + 1e-9 for x, y in zip(site, site[1:]))
+        out[kind] = {
+            "strengths": list(strengths),
+            "mean_score": [round(sum(v) / len(v), 3) for v in scores.values()],
+            "mean_level": [round(sum(v) / len(v), 2) for v in levels.values()],
+            "level_counts": [dict(sorted(Counter(v).items())) for v in levels.values()],
+            "n_sites": n_sites,
+            "monotone_sites": monotone_sites,
+        }
+    return out
 
 
 def _line(rep: dict) -> str:
@@ -217,6 +333,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--grid", action="store_true", help="sweep z_open x z_close")
     parser.add_argument("--set", action="append", default=[], metavar="KEY=VALUE",
                         help="override a numeric detection setting (repeatable)")
+    parser.add_argument("--severity", action="store_true", help="also run the severity strength ladder")
     parser.add_argument("--speech", action="append", help="limit to these scripts")
     parser.add_argument("--out", help="write the JSON report here")
     parser.add_argument("--config", default="config.yaml")
@@ -230,16 +347,31 @@ def main(argv: list[str] | None = None) -> int:
     configs = [replace(cfg, z_open=o, z_close=c) for o in GRID_OPEN for c in GRID_CLOSE if c < o] \
         if args.grid else [cfg]
 
+    fcfg = FlawConfig.from_yaml(args.config)
     cases = load_cases(args.speech)
     reports = []
     for c in configs:
-        rep = evaluate(cases, c)
+        rep = evaluate(cases, c, fcfg)
         reports.append(rep)
         print(_line(rep))
     if not args.grid:
-        for t in reports[0]["controls"]["per_take"]:
+        rep = reports[0]
+        for t in rep["controls"]["per_take"]:
             print(f"  {t['case']}: {t['n_regions']} regions, {t['words_flagged']}/{t['n_words']} words  "
-                  f"dominant {t['attribution']['dominant']}")
+                  f"dominant {t['attribution']['dominant']}  severity {t['severity_levels']}")
+        for kind, v in [("all", rep["injections"]["boundaries_all"] | {"n": ""}),
+                        *rep["injections"]["boundaries"].items()]:
+            if v["raw"]:
+                r, f = v["raw"], v["refined"]
+                print(f"  boundaries {kind:14s} n={v['n']!s:3s} IoU {r['mean_iou']} -> {f['mean_iou']}  "
+                      f"word IoU {r['mean_word_iou']} -> {f['mean_word_iou']}  "
+                      f"start err {r['mean_start_err_s']} -> {f['mean_start_err_s']} s  "
+                      f"end err {r['mean_end_err_s']} -> {f['mean_end_err_s']} s")
+        if args.severity:
+            rep["severity_ladder"] = severity_ladder(cases, cfg, fcfg)
+            for kind, v in rep["severity_ladder"].items():
+                print(f"  severity {kind:10s} strength {v['strengths']}  score {v['mean_score']}  "
+                      f"level {v['mean_level']}  monotone sites {v['monotone_sites']}/{v['n_sites']}")
     if args.out:
         Path(args.out).parent.mkdir(parents=True, exist_ok=True)
         with open(args.out, "w", encoding="utf-8", newline="\n") as f:

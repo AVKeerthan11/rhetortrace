@@ -43,7 +43,11 @@
           "feature": {
             "pause_after_s": 2
           }
-        }
+        },
+        "severity_levels": [
+          "noticeable",
+          "noticeable"
+        ]
       },
       {
         "case": "speech_01/good_02",
@@ -64,7 +68,11 @@
             "log_f0_span_std": 1,
             "log_local_articulation_rate": 1
           }
-        }
+        },
+        "severity_levels": [
+          "strong",
+          "noticeable"
+        ]
       },
       {
         "case": "speech_01/good_03",
@@ -88,7 +96,12 @@
             "log_duration": 1,
             "pause_after_s": 1
           }
-        }
+        },
+        "severity_levels": [
+          "mild",
+          "noticeable",
+          "noticeable"
+        ]
       },
       {
         "case": "speech_02/good_01",
@@ -120,7 +133,18 @@
             "log_duration": 1,
             "pause_after_s": 1
           }
-        }
+        },
+        "severity_levels": [
+          "noticeable",
+          "negligible",
+          "strong",
+          "noticeable",
+          "severe",
+          "severe",
+          "strong",
+          "severe",
+          "strong"
+        ]
       },
       {
         "case": "speech_02/good_02",
@@ -141,7 +165,11 @@
             "log_flatness": 1,
             "pause_after_s": 1
           }
-        }
+        },
+        "severity_levels": [
+          "noticeable",
+          "noticeable"
+        ]
       },
       {
         "case": "speech_02/good_03",
@@ -159,7 +187,10 @@
           "feature": {
             "f0_range_st": 1
           }
-        }
+        },
+        "severity_levels": [
+          "severe"
+        ]
       }
     ]
   },
@@ -221,6 +252,191 @@
         "n_unscorable": 3
       }
     },
+    "boundaries": {
+      "fast": {
+        "n": 18,
+        "raw": {
+          "mean_start_err_s": 0.112,
+          "median_start_err_s": 0.0,
+          "mean_end_err_s": 0.0,
+          "median_end_err_s": 0.0,
+          "mean_iou": 0.954,
+          "median_iou": 1.0,
+          "mean_word_iou": 0.965,
+          "median_word_iou": 1.0
+        },
+        "refined": {
+          "mean_start_err_s": 0.112,
+          "median_start_err_s": 0.0,
+          "mean_end_err_s": 0.0,
+          "median_end_err_s": 0.0,
+          "mean_iou": 0.954,
+          "median_iou": 1.0,
+          "mean_word_iou": 0.965,
+          "median_word_iou": 1.0
+        }
+      },
+      "slow": {
+        "n": 16,
+        "raw": {
+          "mean_start_err_s": 0.233,
+          "median_start_err_s": 0.0,
+          "mean_end_err_s": 0.177,
+          "median_end_err_s": 0.0,
+          "mean_iou": 0.83,
+          "median_iou": 1.0,
+          "mean_word_iou": 0.835,
+          "median_word_iou": 1.0
+        },
+        "refined": {
+          "mean_start_err_s": 0.233,
+          "median_start_err_s": 0.0,
+          "mean_end_err_s": 0.175,
+          "median_end_err_s": 0.0,
+          "mean_iou": 0.83,
+          "median_iou": 1.0,
+          "mean_word_iou": 0.84,
+          "median_word_iou": 1.0
+        }
+      },
+      "quiet": {
+        "n": 14,
+        "raw": {
+          "mean_start_err_s": 0.207,
+          "median_start_err_s": 0.0,
+          "mean_end_err_s": 0.0,
+          "median_end_err_s": 0.0,
+          "mean_iou": 0.935,
+          "median_iou": 1.0,
+          "mean_word_iou": 0.946,
+          "median_word_iou": 1.0
+        },
+        "refined": {
+          "mean_start_err_s": 0.151,
+          "median_start_err_s": 0.0,
+          "mean_end_err_s": 0.0,
+          "median_end_err_s": 0.0,
+          "mean_iou": 0.954,
+          "median_iou": 1.0,
+          "mean_word_iou": 0.962,
+          "median_word_iou": 1.0
+        }
+      },
+      "monotone": {
+        "n": 15,
+        "raw": {
+          "mean_start_err_s": 0.333,
+          "median_start_err_s": 0.0,
+          "mean_end_err_s": 0.317,
+          "median_end_err_s": 0.28,
+          "mean_iou": 0.778,
+          "median_iou": 0.849,
+          "mean_word_iou": 0.781,
+          "median_word_iou": 0.75
+        },
+        "refined": {
+          "mean_start_err_s": 0.333,
+          "median_start_err_s": 0.0,
+          "mean_end_err_s": 0.304,
+          "median_end_err_s": 0.24,
+          "mean_iou": 0.785,
+          "median_iou": 0.849,
+          "mean_word_iou": 0.789,
+          "median_word_iou": 0.75
+        }
+      },
+      "monotone_mild": {
+        "n": 7,
+        "raw": {
+          "mean_start_err_s": 0.586,
+          "median_start_err_s": 0.64,
+          "mean_end_err_s": 0.515,
+          "median_end_err_s": 0.54,
+          "mean_iou": 0.602,
+          "median_iou": 0.544,
+          "mean_word_iou": 0.565,
+          "median_word_iou": 0.625
+        },
+        "refined": {
+          "mean_start_err_s": 0.586,
+          "median_start_err_s": 0.64,
+          "mean_end_err_s": 0.515,
+          "median_end_err_s": 0.54,
+          "mean_iou": 0.602,
+          "median_iou": 0.544,
+          "mean_word_iou": 0.565,
+          "median_word_iou": 0.625
+        }
+      },
+      "long_pause": {
+        "n": 18,
+        "raw": {
+          "mean_start_err_s": 0.269,
+          "median_start_err_s": 0.26,
+          "mean_end_err_s": 0.0,
+          "median_end_err_s": 0.0,
+          "mean_iou": 0.195,
+          "median_iou": 0.176,
+          "mean_word_iou": 1.0,
+          "median_word_iou": 1.0
+        },
+        "refined": {
+          "mean_start_err_s": 0.0,
+          "median_start_err_s": 0.0,
+          "mean_end_err_s": 0.0,
+          "median_end_err_s": 0.0,
+          "mean_iou": 1.0,
+          "median_iou": 1.0,
+          "mean_word_iou": 1.0,
+          "median_word_iou": 1.0
+        }
+      },
+      "missing_pause": {
+        "n": 15,
+        "raw": {
+          "mean_start_err_s": 0.275,
+          "median_start_err_s": 0.3,
+          "mean_end_err_s": 0.0,
+          "median_end_err_s": 0.0,
+          "mean_iou": 0.687,
+          "median_iou": 0.706,
+          "mean_word_iou": 1.0,
+          "median_word_iou": 1.0
+        },
+        "refined": {
+          "mean_start_err_s": 0.0,
+          "median_start_err_s": 0.0,
+          "mean_end_err_s": 0.0,
+          "median_end_err_s": 0.0,
+          "mean_iou": 1.0,
+          "median_iou": 1.0,
+          "mean_word_iou": 1.0,
+          "median_word_iou": 1.0
+        }
+      }
+    },
+    "boundaries_all": {
+      "raw": {
+        "mean_start_err_s": 0.259,
+        "median_start_err_s": 0.1,
+        "mean_end_err_s": 0.109,
+        "median_end_err_s": 0.0,
+        "mean_iou": 0.711,
+        "median_iou": 0.769,
+        "mean_word_iou": 0.9,
+        "median_word_iou": 1.0
+      },
+      "refined": {
+        "mean_start_err_s": 0.165,
+        "median_start_err_s": 0.0,
+        "mean_end_err_s": 0.106,
+        "median_end_err_s": 0.0,
+        "mean_iou": 0.901,
+        "median_iou": 1.0,
+        "mean_word_iou": 0.904,
+        "median_word_iou": 1.0
+      }
+    },
     "items": [
       {
         "case": "speech_01/good_01",
@@ -233,7 +449,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.925,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_01",
@@ -246,7 +476,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.905,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_01",
@@ -259,7 +503,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.964,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_01",
@@ -272,7 +530,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_01",
@@ -285,7 +557,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.58,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_01",
@@ -298,7 +584,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_01",
@@ -311,7 +611,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.566,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_01",
@@ -324,7 +638,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.504,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_01",
@@ -337,7 +665,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.7,
+          "end_err_s": 0.0,
+          "iou": 0.755,
+          "word_iou": 0.889
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.543,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_01",
@@ -350,7 +692,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.14,
+          "end_err_s": 0.0,
+          "iou": 0.961,
+          "word_iou": 0.889
+        },
+        "refined": {
+          "start_err_s": 0.14,
+          "end_err_s": 0.0,
+          "iou": 0.961,
+          "word_iou": 0.889
+        },
+        "severity": 0.912,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_01",
@@ -363,7 +719,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_01",
@@ -376,7 +746,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.7,
+          "end_err_s": 0.24,
+          "iou": 0.671,
+          "word_iou": 0.778
+        },
+        "refined": {
+          "start_err_s": 0.7,
+          "end_err_s": 0.24,
+          "iou": 0.671,
+          "word_iou": 0.778
+        },
+        "severity": 0.575,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_01",
@@ -389,7 +773,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 1.681,
+          "end_err_s": 0.0,
+          "iou": 0.511,
+          "word_iou": 0.375
+        },
+        "refined": {
+          "start_err_s": 1.681,
+          "end_err_s": 0.0,
+          "iou": 0.511,
+          "word_iou": 0.375
+        },
+        "severity": 0.566,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_01",
@@ -402,7 +800,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 1.08,
+          "end_err_s": 0.26,
+          "iou": 0.544,
+          "word_iou": 0.625
+        },
+        "refined": {
+          "start_err_s": 1.08,
+          "end_err_s": 0.26,
+          "iou": 0.544,
+          "word_iou": 0.625
+        },
+        "severity": 0.821,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_01",
@@ -415,7 +827,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.7,
+          "end_err_s": 0.981,
+          "iou": 0.412,
+          "word_iou": 0.333
+        },
+        "refined": {
+          "start_err_s": 0.7,
+          "end_err_s": 0.981,
+          "iou": 0.412,
+          "word_iou": 0.333
+        },
+        "severity": 0.349,
+        "level": "noticeable"
       },
       {
         "case": "speech_01/good_01",
@@ -428,7 +854,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.54,
+          "end_err_s": 0.0,
+          "iou": 0.069,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_01",
@@ -441,7 +881,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.28,
+          "end_err_s": 0.0,
+          "iou": 0.176,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_01",
@@ -454,7 +908,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.1,
+          "end_err_s": 0.0,
+          "iou": 0.583,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_01",
@@ -467,7 +935,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.3,
+          "end_err_s": 0.0,
+          "iou": 0.706,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.484,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_01",
@@ -480,7 +962,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.24,
+          "end_err_s": 0.0,
+          "iou": 0.739,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.5,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_01",
@@ -493,7 +989,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.18,
+          "end_err_s": 0.0,
+          "iou": 0.769,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.383,
+        "level": "noticeable"
       },
       {
         "case": "speech_01/good_02",
@@ -506,7 +1016,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_02",
@@ -519,7 +1043,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.574,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_02",
@@ -532,7 +1070,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_02",
@@ -545,7 +1097,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.92,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_02",
@@ -558,7 +1124,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.9,
+          "iou": 0.769,
+          "word_iou": 0.727
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.86,
+          "iou": 0.777,
+          "word_iou": 0.8
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_02",
@@ -571,7 +1151,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.82,
+          "iou": 0.701,
+          "word_iou": 0.889
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.82,
+          "iou": 0.701,
+          "word_iou": 0.889
+        },
+        "severity": 0.906,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_02",
@@ -584,7 +1178,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.12,
+          "end_err_s": 0.0,
+          "iou": 0.965,
+          "word_iou": 0.889
+        },
+        "refined": {
+          "start_err_s": 0.12,
+          "end_err_s": 0.0,
+          "iou": 0.965,
+          "word_iou": 0.889
+        },
+        "severity": 0.29,
+        "level": "noticeable"
       },
       {
         "case": "speech_01/good_02",
@@ -597,7 +1205,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.08,
+          "end_err_s": 0.0,
+          "iou": 0.974,
+          "word_iou": 0.889
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.388,
+        "level": "noticeable"
       },
       {
         "case": "speech_01/good_02",
@@ -610,7 +1232,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.362,
+        "level": "noticeable"
       },
       {
         "case": "speech_01/good_02",
@@ -623,7 +1259,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 1.681,
+          "end_err_s": 0.9,
+          "iou": 0.482,
+          "word_iou": 0.5
+        },
+        "refined": {
+          "start_err_s": 1.681,
+          "end_err_s": 0.9,
+          "iou": 0.482,
+          "word_iou": 0.5
+        },
+        "severity": 0.666,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_02",
@@ -636,7 +1286,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.34,
+          "end_err_s": 0.28,
+          "iou": 0.793,
+          "word_iou": 0.75
+        },
+        "refined": {
+          "start_err_s": 0.34,
+          "end_err_s": 0.28,
+          "iou": 0.793,
+          "word_iou": 0.75
+        },
+        "severity": 0.805,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_02",
@@ -649,7 +1313,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.64,
+          "end_err_s": 0.62,
+          "iou": 0.344,
+          "word_iou": 0.375
+        },
+        "refined": {
+          "start_err_s": 0.64,
+          "end_err_s": 0.62,
+          "iou": 0.344,
+          "word_iou": 0.375
+        },
+        "severity": 0.69,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_02",
@@ -688,7 +1366,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.64,
+          "end_err_s": 0.62,
+          "iou": 0.344,
+          "word_iou": 0.375
+        },
+        "refined": {
+          "start_err_s": 0.64,
+          "end_err_s": 0.62,
+          "iou": 0.344,
+          "word_iou": 0.375
+        },
+        "severity": 0.597,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_02",
@@ -701,7 +1393,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.52,
+          "end_err_s": 0.0,
+          "iou": 0.133,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_02",
@@ -714,7 +1420,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.26,
+          "end_err_s": 0.0,
+          "iou": 0.235,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_02",
@@ -727,7 +1447,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.36,
+          "end_err_s": 0.0,
+          "iou": 0.28,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_02",
@@ -740,7 +1474,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.28,
+          "end_err_s": 0.0,
+          "iou": 0.72,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.484,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_02",
@@ -753,7 +1501,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.24,
+          "end_err_s": 0.0,
+          "iou": 0.739,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.5,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_02",
@@ -766,7 +1528,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.14,
+          "end_err_s": 0.0,
+          "iou": 0.821,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.35,
+        "level": "noticeable"
       },
       {
         "case": "speech_01/good_03",
@@ -779,7 +1555,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.74,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_03",
@@ -792,7 +1582,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_03",
@@ -805,7 +1609,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.811,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_03",
@@ -818,7 +1636,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.806,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_03",
@@ -831,7 +1663,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.404,
+        "level": "noticeable"
       },
       {
         "case": "speech_01/good_03",
@@ -844,7 +1690,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.881,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_03",
@@ -857,7 +1717,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.545,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_03",
@@ -870,7 +1744,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.541,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_03",
@@ -883,7 +1771,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.54,
+          "end_err_s": 0.0,
+          "iou": 0.78,
+          "word_iou": 0.889
+        },
+        "refined": {
+          "start_err_s": 0.54,
+          "end_err_s": 0.0,
+          "iou": 0.78,
+          "word_iou": 0.889
+        },
+        "severity": 0.437,
+        "level": "noticeable"
       },
       {
         "case": "speech_01/good_03",
@@ -896,7 +1798,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.512,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_03",
@@ -909,7 +1825,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.993,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_03",
@@ -922,7 +1852,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.6,
+          "end_err_s": 0.42,
+          "iou": 0.469,
+          "word_iou": 0.5
+        },
+        "refined": {
+          "start_err_s": 0.6,
+          "end_err_s": 0.22,
+          "iou": 0.573,
+          "word_iou": 0.625
+        },
+        "severity": 0.597,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_03",
@@ -948,7 +1892,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.24,
+          "iou": 0.912,
+          "word_iou": 0.875
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.24,
+          "iou": 0.912,
+          "word_iou": 0.875
+        },
+        "severity": 0.684,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_03",
@@ -974,7 +1932,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.54,
+          "end_err_s": 0.0,
+          "iou": 0.069,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_03",
@@ -987,7 +1959,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.24,
+          "end_err_s": 0.0,
+          "iou": 0.2,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_03",
@@ -1000,7 +1986,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.1,
+          "end_err_s": 0.0,
+          "iou": 0.167,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_01/good_03",
@@ -1013,7 +2013,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.3,
+          "end_err_s": 0.0,
+          "iou": 0.652,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.617,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_03",
@@ -1026,7 +2040,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.2,
+          "end_err_s": 0.0,
+          "iou": 0.756,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.55,
+        "level": "strong"
       },
       {
         "case": "speech_01/good_03",
@@ -1039,7 +2067,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.18,
+          "end_err_s": 0.0,
+          "iou": 0.743,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.45,
+        "level": "strong"
       },
       {
         "case": "speech_02/good_01",
@@ -1052,7 +2094,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_01",
@@ -1065,7 +2121,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 2.021,
+          "end_err_s": 0.0,
+          "iou": 0.179,
+          "word_iou": 0.375
+        },
+        "refined": {
+          "start_err_s": 2.021,
+          "end_err_s": 0.0,
+          "iou": 0.179,
+          "word_iou": 0.375
+        },
+        "severity": 0.535,
+        "level": "strong"
       },
       {
         "case": "speech_02/good_01",
@@ -1078,7 +2148,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.93,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_01",
@@ -1117,7 +2201,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_01",
@@ -1130,7 +2228,21 @@
         "detected": true,
         "dominant": false,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 1.001,
+          "end_err_s": 0.0,
+          "iou": 0.719,
+          "word_iou": 0.8
+        },
+        "refined": {
+          "start_err_s": 1.001,
+          "end_err_s": 0.0,
+          "iou": 0.719,
+          "word_iou": 0.8
+        },
+        "severity": 0.637,
+        "level": "strong"
       },
       {
         "case": "speech_02/good_01",
@@ -1156,7 +2268,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.46,
+          "end_err_s": 0.0,
+          "iou": 0.895,
+          "word_iou": 0.889
+        },
+        "refined": {
+          "start_err_s": 0.46,
+          "end_err_s": 0.0,
+          "iou": 0.895,
+          "word_iou": 0.889
+        },
+        "severity": 0.586,
+        "level": "strong"
       },
       {
         "case": "speech_02/good_01",
@@ -1195,7 +2321,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_01",
@@ -1247,7 +2387,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.12,
+          "end_err_s": 0.0,
+          "iou": 0.25,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_01",
@@ -1260,7 +2414,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.16,
+          "end_err_s": 0.0,
+          "iou": 0.111,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_01",
@@ -1273,7 +2441,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.42,
+          "end_err_s": 0.0,
+          "iou": 0.087,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_01",
@@ -1299,7 +2481,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.38,
+          "end_err_s": 0.0,
+          "iou": 0.558,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.31,
+        "level": "noticeable"
       },
       {
         "case": "speech_02/good_01",
@@ -1312,7 +2508,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.341,
+          "end_err_s": 0.0,
+          "iou": 0.604,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.301,
+        "level": "noticeable"
       },
       {
         "case": "speech_02/good_02",
@@ -1325,7 +2535,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.697,
+        "level": "strong"
       },
       {
         "case": "speech_02/good_02",
@@ -1338,7 +2562,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.373,
+        "level": "noticeable"
       },
       {
         "case": "speech_02/good_02",
@@ -1351,7 +2589,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.616,
+        "level": "strong"
       },
       {
         "case": "speech_02/good_02",
@@ -1364,7 +2616,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 1.061,
+          "end_err_s": 0.0,
+          "iou": 0.539,
+          "word_iou": 0.5
+        },
+        "refined": {
+          "start_err_s": 1.061,
+          "end_err_s": 0.0,
+          "iou": 0.539,
+          "word_iou": 0.5
+        },
+        "severity": 0.809,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_02",
@@ -1377,7 +2643,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 1.12,
+          "iou": 0.477,
+          "word_iou": 0.375
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 1.12,
+          "iou": 0.477,
+          "word_iou": 0.375
+        },
+        "severity": 0.244,
+        "level": "noticeable"
       },
       {
         "case": "speech_02/good_02",
@@ -1390,7 +2670,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.953,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_02",
@@ -1429,7 +2723,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.328,
+        "level": "noticeable"
       },
       {
         "case": "speech_02/good_02",
@@ -1455,7 +2763,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.3,
+          "iou": 0.86,
+          "word_iou": 0.75
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.3,
+          "iou": 0.86,
+          "word_iou": 0.75
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_02",
@@ -1468,7 +2790,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.961,
+          "iou": 0.746,
+          "word_iou": 0.75
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.961,
+          "iou": 0.746,
+          "word_iou": 0.75
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_02",
@@ -1494,7 +2830,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.54,
+          "iou": 0.748,
+          "word_iou": 0.625
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.54,
+          "iou": 0.748,
+          "word_iou": 0.625
+        },
+        "severity": 0.364,
+        "level": "noticeable"
       },
       {
         "case": "speech_02/good_02",
@@ -1507,7 +2857,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.961,
+          "iou": 0.746,
+          "word_iou": 0.75
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.961,
+          "iou": 0.746,
+          "word_iou": 0.75
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_02",
@@ -1520,7 +2884,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.12,
+          "end_err_s": 0.0,
+          "iou": 0.25,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_02",
@@ -1533,7 +2911,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.14,
+          "end_err_s": 0.0,
+          "iou": 0.222,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_02",
@@ -1546,7 +2938,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.38,
+          "end_err_s": 0.0,
+          "iou": 0.095,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_02",
@@ -1572,7 +2978,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.32,
+          "end_err_s": 0.0,
+          "iou": 0.6,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.31,
+        "level": "noticeable"
       },
       {
         "case": "speech_02/good_02",
@@ -1585,7 +3005,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.34,
+          "end_err_s": 0.0,
+          "iou": 0.605,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.301,
+        "level": "noticeable"
       },
       {
         "case": "speech_02/good_03",
@@ -1598,7 +3032,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.666,
+        "level": "strong"
       },
       {
         "case": "speech_02/good_03",
@@ -1611,7 +3059,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.37,
+        "level": "noticeable"
       },
       {
         "case": "speech_02/good_03",
@@ -1624,7 +3086,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_03",
@@ -1637,7 +3113,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 1.08,
+          "end_err_s": 0.0,
+          "iou": 0.534,
+          "word_iou": 0.5
+        },
+        "refined": {
+          "start_err_s": 1.08,
+          "end_err_s": 0.0,
+          "iou": 0.534,
+          "word_iou": 0.5
+        },
+        "severity": 0.904,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_03",
@@ -1650,7 +3140,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 1.581,
+          "end_err_s": 0.0,
+          "iou": 0.255,
+          "word_iou": 0.375
+        },
+        "refined": {
+          "start_err_s": 1.581,
+          "end_err_s": 0.0,
+          "iou": 0.255,
+          "word_iou": 0.375
+        },
+        "severity": 0.286,
+        "level": "noticeable"
       },
       {
         "case": "speech_02/good_03",
@@ -1663,7 +3167,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.67,
+        "level": "strong"
       },
       {
         "case": "speech_02/good_03",
@@ -1676,7 +3194,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.242,
+        "level": "noticeable"
       },
       {
         "case": "speech_02/good_03",
@@ -1702,7 +3234,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.151,
+        "level": "mild"
       },
       {
         "case": "speech_02/good_03",
@@ -1715,7 +3261,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.901,
+          "end_err_s": 0.72,
+          "iou": 0.497,
+          "word_iou": 0.667
+        },
+        "refined": {
+          "start_err_s": 0.901,
+          "end_err_s": 0.72,
+          "iou": 0.497,
+          "word_iou": 0.667
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_03",
@@ -1728,7 +3288,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.32,
+          "iou": 0.849,
+          "word_iou": 0.75
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.32,
+          "iou": 0.849,
+          "word_iou": 0.75
+        },
+        "severity": 0.964,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_03",
@@ -1741,7 +3315,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_03",
@@ -1793,7 +3381,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.12,
+          "end_err_s": 0.0,
+          "iou": 0.143,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_03",
@@ -1806,7 +3408,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.1,
+          "end_err_s": 0.0,
+          "iou": 0.375,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_03",
@@ -1819,7 +3435,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.34,
+          "end_err_s": 0.0,
+          "iou": 0.056,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 1.0,
+        "level": "severe"
       },
       {
         "case": "speech_02/good_03",
@@ -1845,7 +3475,21 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.32,
+          "end_err_s": 0.0,
+          "iou": 0.686,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.217,
+        "level": "noticeable"
       },
       {
         "case": "speech_02/good_03",
@@ -1858,8 +3502,238 @@
         "detected": true,
         "dominant": true,
         "confounded": false,
-        "attributable": true
+        "attributable": true,
+        "raw": {
+          "start_err_s": 0.36,
+          "end_err_s": 0.0,
+          "iou": 0.6,
+          "word_iou": 1.0
+        },
+        "refined": {
+          "start_err_s": 0.0,
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "word_iou": 1.0
+        },
+        "severity": 0.283,
+        "level": "noticeable"
       }
     ]
+  },
+  "severity_ladder": {
+    "fast": {
+      "strengths": [
+        0.5,
+        1.0,
+        1.5,
+        2.0
+      ],
+      "mean_score": [
+        0.245,
+        0.784,
+        0.974,
+        1.0
+      ],
+      "mean_level": [
+        1.5,
+        3.5,
+        4.0,
+        4.0
+      ],
+      "level_counts": [
+        {
+          "0": 7,
+          "1": 1,
+          "2": 5,
+          "3": 4,
+          "4": 1
+        },
+        {
+          "2": 2,
+          "3": 5,
+          "4": 11
+        },
+        {
+          "4": 18
+        },
+        {
+          "4": 18
+        }
+      ],
+      "n_sites": 18,
+      "monotone_sites": 18
+    },
+    "slow": {
+      "strengths": [
+        0.5,
+        1.0,
+        1.5,
+        2.0
+      ],
+      "mean_score": [
+        0.344,
+        0.798,
+        0.977,
+        1.0
+      ],
+      "mean_level": [
+        1.89,
+        3.56,
+        4.0,
+        4.0
+      ],
+      "level_counts": [
+        {
+          "0": 5,
+          "2": 7,
+          "3": 4,
+          "4": 2
+        },
+        {
+          "2": 3,
+          "3": 2,
+          "4": 13
+        },
+        {
+          "4": 18
+        },
+        {
+          "4": 18
+        }
+      ],
+      "n_sites": 18,
+      "monotone_sites": 18
+    },
+    "quiet": {
+      "strengths": [
+        0.5,
+        1.0,
+        1.5,
+        2.0
+      ],
+      "mean_score": [
+        0.097,
+        0.396,
+        0.674,
+        0.853
+      ],
+      "mean_level": [
+        0.5,
+        2.11,
+        3.06,
+        3.61
+      ],
+      "level_counts": [
+        {
+          "0": 14,
+          "1": 1,
+          "2": 2,
+          "4": 1
+        },
+        {
+          "0": 3,
+          "1": 1,
+          "2": 6,
+          "3": 7,
+          "4": 1
+        },
+        {
+          "0": 2,
+          "2": 2,
+          "3": 5,
+          "4": 9
+        },
+        {
+          "2": 2,
+          "3": 3,
+          "4": 13
+        }
+      ],
+      "n_sites": 18,
+      "monotone_sites": 18
+    },
+    "monotone": {
+      "strengths": [
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "mean_score": [
+        0.18,
+        0.325,
+        0.634,
+        0.817
+      ],
+      "mean_level": [
+        0.83,
+        1.56,
+        2.89,
+        3.5
+      ],
+      "level_counts": [
+        {
+          "0": 13,
+          "2": 2,
+          "3": 1,
+          "4": 2
+        },
+        {
+          "0": 9,
+          "2": 2,
+          "3": 4,
+          "4": 3
+        },
+        {
+          "0": 2,
+          "2": 3,
+          "3": 6,
+          "4": 7
+        },
+        {
+          "0": 1,
+          "3": 5,
+          "4": 12
+        }
+      ],
+      "n_sites": 18,
+      "monotone_sites": 18
+    },
+    "long_pause": {
+      "strengths": [
+        0.5,
+        1.0,
+        1.5,
+        2.0
+      ],
+      "mean_score": [
+        0.537,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean_level": [
+        3.0,
+        4.0,
+        4.0,
+        4.0
+      ],
+      "level_counts": [
+        {
+          "3": 18
+        },
+        {
+          "4": 18
+        },
+        {
+          "4": 18
+        },
+        {
+          "4": 18
+        }
+      ],
+      "n_sites": 18,
+      "monotone_sites": 18
+    }
   }
 }

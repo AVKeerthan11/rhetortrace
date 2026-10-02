@@ -1,0 +1,425 @@
+{
+  "schema_version": 1,
+  "speech_id": "speech_01",
+  "take_id": "good_02",
+  "audio_sha256": "028e9bfe34ba857638a5ecd3af3c933a5d312e8ddfadfc8a3f0ccf3061ea9d67",
+  "alignment_cache_key": "26fb6d1968d7734407409ed26852466b5029bd83fe1fb5e2720e1874f2f3d1fc",
+  "baseline": {
+    "path": "leave-one-out:good_02",
+    "references": [
+      "good_01",
+      "good_03"
+    ],
+    "in_sample": false
+  },
+  "detection_settings": {
+    "z_open": 3.0,
+    "z_close": 2.0,
+    "min_consecutive_words": 3,
+    "min_words": {
+      "pause": 1
+    },
+    "smooth_words": 3,
+    "smooth_override": {
+      "pause": 1
+    },
+    "merge_gap_seconds": 0.5,
+    "min_scale": {
+      "pause_after_s": 0.1
+    },
+    "max_evidence": 5,
+    "duration_frame_s": 0.02,
+    "pitch_directional": true,
+    "min_clarity_active_frames": 0,
+    "min_alignment_score": 0.0,
+    "monotone_min_ref_std_st": 0.75
+  },
+  "settings": {
+    "trim_z": {
+      "default": 2.0,
+      "pitch": 0.0
+    },
+    "extend_z": 3.0,
+    "boundary_refinement_ms": 150,
+    "top_fraction": 0.5,
+    "min_evidence_words": {
+      "default": 3,
+      "pause": 1
+    },
+    "z_min": 2.0,
+    "z_max": {
+      "default": 8.0,
+      "pitch/flatter": 5.0
+    },
+    "level_thresholds": [
+      0.05,
+      0.2,
+      0.45,
+      0.7
+    ],
+    "labels": [
+      "negligible",
+      "mild",
+      "noticeable",
+      "strong",
+      "severe"
+    ],
+    "low_coverage": 0.5
+  },
+  "summary": {
+    "n_flaws": 2,
+    "by_level": {
+      "negligible": 0,
+      "mild": 0,
+      "noticeable": 1,
+      "strong": 1,
+      "severe": 0
+    },
+    "by_category": {
+      "pacing": 1,
+      "pitch": 1
+    },
+    "max_score": 0.512
+  },
+  "flaws": [
+    {
+      "flaw_id": 0,
+      "region_id": 0,
+      "category": "pitch",
+      "direction": "flatter",
+      "start_idx": 17,
+      "end_idx": 21,
+      "start": 6.961,
+      "end": 8.502,
+      "duration_s": 1.541,
+      "start_uncertainty_s": 0.03,
+      "end_uncertainty_s": 0.01,
+      "words": [
+        "in",
+        "Liberty,",
+        "and",
+        "dedicated",
+        "to"
+      ],
+      "n_words": 5,
+      "word_coverage": 1.0,
+      "severity": {
+        "score": 0.512,
+        "level": 3,
+        "label": "strong",
+        "evidence_z": 3.536,
+        "effective_z": 3.536,
+        "median_z": 3.316,
+        "peak_z": 4.386,
+        "n_evidence_words": 5,
+        "n_top": 3,
+        "support": 1.0
+      },
+      "confidence": 1.0,
+      "flags": [],
+      "strongest_evidence": {
+        "idx": 19,
+        "text": "and",
+        "feature": "log_f0_span_std",
+        "value": -1.3863,
+        "median": 0.2627,
+        "scale": 0.376,
+        "z": -4.386
+      },
+      "boundary": {
+        "detected_start_idx": 17,
+        "detected_end_idx": 21,
+        "detected_start": 6.961,
+        "detected_end": 8.502,
+        "trimmed_words": 0,
+        "extended_words": 0
+      },
+      "secondary": [],
+      "explanation": {
+        "summary": "Flatter, reduced pitch variation compared with the references (6.96-8.50 s, \"in Liberty, and dedicated to\"): pitch variation over the span, \"and\": 0.25 st (std) vs reference 1.3 st (std) (0.19x the reference; z = -4.39). Severity: strong (0.51).",
+        "headline": "Flatter, reduced pitch variation compared with the references",
+        "category": "pitch",
+        "direction": "flatter",
+        "severity": {
+          "level": 3,
+          "label": "strong",
+          "score": 0.512
+        },
+        "time": {
+          "start": 6.961,
+          "end": 8.502,
+          "duration_s": 1.541
+        },
+        "word_range": [
+          17,
+          21
+        ],
+        "words": [
+          "in",
+          "Liberty,",
+          "and",
+          "dedicated",
+          "to"
+        ],
+        "strongest_evidence": {
+          "idx": 19,
+          "word": "and",
+          "feature": "log_f0_span_std",
+          "label": "pitch variation over the span",
+          "unit": "st (std)",
+          "observed": 0.25,
+          "reference": 1.3,
+          "comparison": "ratio",
+          "change": 0.19,
+          "z": -4.386,
+          "stored": {
+            "value": -1.3863,
+            "median": 0.2627,
+            "scale": 0.376
+          },
+          "statement": "pitch variation over the span, \"and\": 0.25 st (std) vs reference 1.3 st (std) (0.19x the reference; z = -4.39)"
+        },
+        "supporting_evidence": [
+          {
+            "idx": 20,
+            "word": "dedicated",
+            "feature": "log_f0_span_std",
+            "label": "pitch variation over the span",
+            "unit": "st (std)",
+            "observed": 0.25,
+            "reference": 1.23,
+            "comparison": "ratio",
+            "change": 0.2,
+            "z": -3.536,
+            "stored": {
+              "value": -1.3863,
+              "median": 0.207,
+              "scale": 0.451
+            },
+            "statement": "pitch variation over the span, \"dedicated\": 0.25 st (std) vs reference 1.23 st (std) (0.20x the reference; z = -3.54)"
+          },
+          {
+            "idx": 21,
+            "word": "to",
+            "feature": "log_f0_span_std",
+            "label": "pitch variation over the span",
+            "unit": "st (std)",
+            "observed": 0.262,
+            "reference": 1.221,
+            "comparison": "ratio",
+            "change": 0.21,
+            "z": -3.316,
+            "stored": {
+              "value": -1.3376,
+              "median": 0.1997,
+              "scale": 0.464
+            },
+            "statement": "pitch variation over the span, \"to\": 0.262 st (std) vs reference 1.221 st (std) (0.21x the reference; z = -3.32)"
+          },
+          {
+            "idx": 18,
+            "word": "Liberty,",
+            "feature": "log_f0_span_std",
+            "label": "pitch variation over the span",
+            "unit": "st (std)",
+            "observed": 0.38,
+            "reference": 1.457,
+            "comparison": "ratio",
+            "change": 0.26,
+            "z": -3.084,
+            "stored": {
+              "value": -0.9685,
+              "median": 0.3761,
+              "scale": 0.436
+            },
+            "statement": "pitch variation over the span, \"Liberty,\": 0.38 st (std) vs reference 1.457 st (std) (0.26x the reference; z = -3.08)"
+          }
+        ],
+        "unavailable_evidence": [
+          {
+            "feature": "f0_median_st",
+            "label": "word pitch",
+            "n_words": 1,
+            "reasons": {
+              "no_baseline": 1
+            }
+          },
+          {
+            "feature": "f0_range_st",
+            "label": "word pitch range",
+            "n_words": 1,
+            "reasons": {
+              "no_baseline": 1
+            }
+          }
+        ],
+        "confidence": {
+          "value": 1.0,
+          "label": "high"
+        },
+        "quality_flags": [],
+        "co_occurring": []
+      }
+    },
+    {
+      "flaw_id": 1,
+      "region_id": 1,
+      "category": "pacing",
+      "direction": "slow",
+      "start_idx": 76,
+      "end_idx": 79,
+      "start": 27.645,
+      "end": 29.285,
+      "duration_s": 1.64,
+      "start_uncertainty_s": 0.03,
+      "end_uncertainty_s": 0.02,
+      "words": [
+        "final",
+        "resting",
+        "place",
+        "for"
+      ],
+      "n_words": 4,
+      "word_coverage": 1.0,
+      "severity": {
+        "score": 0.206,
+        "level": 2,
+        "label": "noticeable",
+        "evidence_z": 3.238,
+        "effective_z": 3.238,
+        "median_z": 3.204,
+        "peak_z": 3.649,
+        "n_evidence_words": 4,
+        "n_top": 3,
+        "support": 1.0
+      },
+      "confidence": 1.0,
+      "flags": [],
+      "strongest_evidence": {
+        "idx": 77,
+        "text": "resting",
+        "feature": "log_local_articulation_rate",
+        "value": 1.3783,
+        "median": 1.5607,
+        "scale": 0.05,
+        "z": -3.649
+      },
+      "boundary": {
+        "detected_start_idx": 76,
+        "detected_end_idx": 79,
+        "detected_start": 27.645,
+        "detected_end": 29.285,
+        "trimmed_words": 0,
+        "extended_words": 0
+      },
+      "secondary": [],
+      "explanation": {
+        "summary": "Slower speech rate than the reference deliveries (27.64-29.29 s, \"final resting place for\"): local articulation rate, \"resting\": 3.968 words/s vs reference 4.762 words/s (0.83x the reference; z = -3.65). Severity: noticeable (0.21).",
+        "headline": "Slower speech rate than the reference deliveries",
+        "category": "pacing",
+        "direction": "slow",
+        "severity": {
+          "level": 2,
+          "label": "noticeable",
+          "score": 0.206
+        },
+        "time": {
+          "start": 27.645,
+          "end": 29.285,
+          "duration_s": 1.64
+        },
+        "word_range": [
+          76,
+          79
+        ],
+        "words": [
+          "final",
+          "resting",
+          "place",
+          "for"
+        ],
+        "strongest_evidence": {
+          "idx": 77,
+          "word": "resting",
+          "feature": "log_local_articulation_rate",
+          "label": "local articulation rate",
+          "unit": "words/s",
+          "observed": 3.968,
+          "reference": 4.762,
+          "comparison": "ratio",
+          "change": 0.83,
+          "z": -3.649,
+          "stored": {
+            "value": 1.3783,
+            "median": 1.5607,
+            "scale": 0.05
+          },
+          "statement": "local articulation rate, \"resting\": 3.968 words/s vs reference 4.762 words/s (0.83x the reference; z = -3.65)"
+        },
+        "supporting_evidence": [
+          {
+            "idx": 76,
+            "word": "final",
+            "feature": "log_local_articulation_rate",
+            "label": "local articulation rate",
+            "unit": "words/s",
+            "observed": 4.167,
+            "reference": 4.899,
+            "comparison": "ratio",
+            "change": 0.85,
+            "z": -3.238,
+            "stored": {
+              "value": 1.4272,
+              "median": 1.5891,
+              "scale": 0.05
+            },
+            "statement": "local articulation rate, \"final\": 4.167 words/s vs reference 4.899 words/s (0.85x the reference; z = -3.24)"
+          },
+          {
+            "idx": 78,
+            "word": "place",
+            "feature": "log_local_articulation_rate",
+            "label": "local articulation rate",
+            "unit": "words/s",
+            "observed": 3.333,
+            "reference": 3.905,
+            "comparison": "ratio",
+            "change": 0.85,
+            "z": -3.169,
+            "stored": {
+              "value": 1.2039,
+              "median": 1.3623,
+              "scale": 0.05
+            },
+            "statement": "local articulation rate, \"place\": 3.333 words/s vs reference 3.905 words/s (0.85x the reference; z = -3.17)"
+          },
+          {
+            "idx": 79,
+            "word": "for",
+            "feature": "log_local_articulation_rate",
+            "label": "local articulation rate",
+            "unit": "words/s",
+            "observed": 3.846,
+            "reference": 4.346,
+            "comparison": "ratio",
+            "change": 0.88,
+            "z": -2.443,
+            "stored": {
+              "value": 1.347,
+              "median": 1.4692,
+              "scale": 0.05
+            },
+            "statement": "local articulation rate, \"for\": 3.846 words/s vs reference 4.346 words/s (0.88x the reference; z = -2.44)"
+          }
+        ],
+        "unavailable_evidence": [],
+        "confidence": {
+          "value": 1.0,
+          "label": "high"
+        },
+        "quality_flags": [],
+        "co_occurring": []
+      }
+    }
+  ]
+}
