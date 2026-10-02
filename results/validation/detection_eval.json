@@ -1,0 +1,1865 @@
+{
+  "settings": {
+    "z_open": 3.0,
+    "z_close": 2.0,
+    "min_consecutive_words": 3,
+    "min_words": {
+      "pause": 1
+    },
+    "smooth_words": 3,
+    "smooth_override": {
+      "pause": 1
+    },
+    "merge_gap_seconds": 0.5,
+    "min_scale": {
+      "pause_after_s": 0.1
+    },
+    "max_evidence": 5,
+    "duration_frame_s": 0.02,
+    "pitch_directional": true,
+    "min_clarity_active_frames": 0,
+    "min_alignment_score": 0.0,
+    "monotone_min_ref_std_st": 0.75
+  },
+  "controls": {
+    "words_flagged": 95,
+    "n_words": 720,
+    "fp_word_rate": 0.1319,
+    "n_regions": 19,
+    "per_take": [
+      {
+        "case": "speech_01/good_01",
+        "n_regions": 2,
+        "regions_per_min": 2.8,
+        "words_flagged": 2,
+        "n_words": 118,
+        "attribution": {
+          "dominant": {
+            "pause/long": 2
+          },
+          "track": {
+            "pause/long": 2
+          },
+          "feature": {
+            "pause_after_s": 2
+          }
+        }
+      },
+      {
+        "case": "speech_01/good_02",
+        "n_regions": 2,
+        "regions_per_min": 2.89,
+        "words_flagged": 9,
+        "n_words": 118,
+        "attribution": {
+          "dominant": {
+            "pacing/slow": 1,
+            "pitch/flatter": 1
+          },
+          "track": {
+            "pacing/slow": 4,
+            "pitch/flatter": 5
+          },
+          "feature": {
+            "log_f0_span_std": 1,
+            "log_local_articulation_rate": 1
+          }
+        }
+      },
+      {
+        "case": "speech_01/good_03",
+        "n_regions": 3,
+        "regions_per_min": 4.67,
+        "words_flagged": 11,
+        "n_words": 118,
+        "attribution": {
+          "dominant": {
+            "energy/loud": 1,
+            "pause/short": 2
+          },
+          "track": {
+            "energy/loud": 3,
+            "pacing/slow": 5,
+            "pause/short": 2,
+            "pitch/livelier": 3
+          },
+          "feature": {
+            "energy_rel_db": 1,
+            "log_duration": 1,
+            "pause_after_s": 1
+          }
+        }
+      },
+      {
+        "case": "speech_02/good_01",
+        "n_regions": 9,
+        "regions_per_min": 11.11,
+        "words_flagged": 58,
+        "n_words": 122,
+        "attribution": {
+          "dominant": {
+            "energy/quiet": 2,
+            "pacing/fast": 1,
+            "pacing/slow": 3,
+            "pause/long": 1,
+            "pitch/flatter": 1,
+            "pitch/livelier": 1
+          },
+          "track": {
+            "clarity/None": 3,
+            "energy/quiet": 22,
+            "pacing/fast": 4,
+            "pacing/slow": 24,
+            "pause/long": 1,
+            "pitch/flatter": 8,
+            "pitch/livelier": 18
+          },
+          "feature": {
+            "energy_peak_rel_db": 3,
+            "f0_median_st": 4,
+            "log_duration": 1,
+            "pause_after_s": 1
+          }
+        }
+      },
+      {
+        "case": "speech_02/good_02",
+        "n_regions": 2,
+        "regions_per_min": 2.62,
+        "words_flagged": 6,
+        "n_words": 122,
+        "attribution": {
+          "dominant": {
+            "clarity/None": 1,
+            "pause/short": 1
+          },
+          "track": {
+            "clarity/None": 5,
+            "pause/short": 1
+          },
+          "feature": {
+            "log_flatness": 1,
+            "pause_after_s": 1
+          }
+        }
+      },
+      {
+        "case": "speech_02/good_03",
+        "n_regions": 1,
+        "regions_per_min": 1.32,
+        "words_flagged": 9,
+        "n_words": 122,
+        "attribution": {
+          "dominant": {
+            "pitch/flatter": 1
+          },
+          "track": {
+            "pitch/flatter": 9
+          },
+          "feature": {
+            "f0_range_st": 1
+          }
+        }
+      }
+    ]
+  },
+  "injections": {
+    "n": 126,
+    "detected": 109,
+    "dominant": 106,
+    "n_unscorable": 3,
+    "clean_recall": 0.8879,
+    "n_clean": 116,
+    "by_kind": {
+      "fast": {
+        "n": 18,
+        "detected": 18,
+        "attributable": 18,
+        "n_clean": 18,
+        "n_unscorable": 0
+      },
+      "slow": {
+        "n": 18,
+        "detected": 18,
+        "attributable": 16,
+        "n_clean": 16,
+        "n_unscorable": 0
+      },
+      "quiet": {
+        "n": 18,
+        "detected": 15,
+        "attributable": 14,
+        "n_clean": 17,
+        "n_unscorable": 0
+      },
+      "monotone": {
+        "n": 18,
+        "detected": 17,
+        "attributable": 15,
+        "n_clean": 16,
+        "n_unscorable": 0
+      },
+      "monotone_mild": {
+        "n": 18,
+        "detected": 8,
+        "attributable": 7,
+        "n_clean": 16,
+        "n_unscorable": 0
+      },
+      "long_pause": {
+        "n": 18,
+        "detected": 18,
+        "attributable": 18,
+        "n_clean": 18,
+        "n_unscorable": 0
+      },
+      "missing_pause": {
+        "n": 18,
+        "detected": 15,
+        "attributable": 15,
+        "n_clean": 15,
+        "n_unscorable": 3
+      }
+    },
+    "items": [
+      {
+        "case": "speech_01/good_01",
+        "kind": "fast",
+        "span": [
+          23,
+          30
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "fast",
+        "span": [
+          59,
+          66
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "fast",
+        "span": [
+          94,
+          101
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "slow",
+        "span": [
+          23,
+          30
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "slow",
+        "span": [
+          59,
+          66
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "slow",
+        "span": [
+          94,
+          101
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "quiet",
+        "span": [
+          23,
+          30
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "quiet",
+        "span": [
+          59,
+          66
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "quiet",
+        "span": [
+          94,
+          101
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "monotone",
+        "span": [
+          23,
+          30
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "monotone",
+        "span": [
+          59,
+          66
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "monotone",
+        "span": [
+          94,
+          101
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "monotone_mild",
+        "span": [
+          23,
+          30
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "monotone_mild",
+        "span": [
+          59,
+          66
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "monotone_mild",
+        "span": [
+          94,
+          101
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "long_pause",
+        "span": [
+          23,
+          23
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "long_pause",
+        "span": [
+          59,
+          59
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "long_pause",
+        "span": [
+          95,
+          95
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "missing_pause",
+        "span": [
+          29,
+          29
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "missing_pause",
+        "span": [
+          63,
+          63
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_01",
+        "kind": "missing_pause",
+        "span": [
+          90,
+          90
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "fast",
+        "span": [
+          23,
+          30
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "fast",
+        "span": [
+          59,
+          66
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "fast",
+        "span": [
+          94,
+          101
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "slow",
+        "span": [
+          23,
+          30
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "slow",
+        "span": [
+          59,
+          66
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "slow",
+        "span": [
+          94,
+          101
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "quiet",
+        "span": [
+          23,
+          30
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "quiet",
+        "span": [
+          59,
+          66
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "quiet",
+        "span": [
+          94,
+          101
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "monotone",
+        "span": [
+          23,
+          30
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "monotone",
+        "span": [
+          59,
+          66
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "monotone",
+        "span": [
+          94,
+          101
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "monotone_mild",
+        "span": [
+          23,
+          30
+        ],
+        "scorable": true,
+        "detected": false,
+        "dominant": false,
+        "confounded": false,
+        "attributable": false
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "monotone_mild",
+        "span": [
+          59,
+          66
+        ],
+        "scorable": true,
+        "detected": false,
+        "dominant": false,
+        "confounded": false,
+        "attributable": false
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "monotone_mild",
+        "span": [
+          94,
+          101
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "long_pause",
+        "span": [
+          23,
+          23
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "long_pause",
+        "span": [
+          59,
+          59
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "long_pause",
+        "span": [
+          94,
+          94
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "missing_pause",
+        "span": [
+          29,
+          29
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "missing_pause",
+        "span": [
+          63,
+          63
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_02",
+        "kind": "missing_pause",
+        "span": [
+          90,
+          90
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "fast",
+        "span": [
+          23,
+          30
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "fast",
+        "span": [
+          59,
+          66
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "fast",
+        "span": [
+          94,
+          101
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "slow",
+        "span": [
+          23,
+          30
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "slow",
+        "span": [
+          59,
+          66
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "slow",
+        "span": [
+          94,
+          101
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "quiet",
+        "span": [
+          23,
+          30
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "quiet",
+        "span": [
+          59,
+          66
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "quiet",
+        "span": [
+          94,
+          101
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "monotone",
+        "span": [
+          23,
+          30
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "monotone",
+        "span": [
+          59,
+          66
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "monotone",
+        "span": [
+          94,
+          101
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "monotone_mild",
+        "span": [
+          23,
+          30
+        ],
+        "scorable": true,
+        "detected": false,
+        "dominant": false,
+        "confounded": false,
+        "attributable": false
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "monotone_mild",
+        "span": [
+          59,
+          66
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "monotone_mild",
+        "span": [
+          94,
+          101
+        ],
+        "scorable": true,
+        "detected": false,
+        "dominant": false,
+        "confounded": false,
+        "attributable": false
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "long_pause",
+        "span": [
+          23,
+          23
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "long_pause",
+        "span": [
+          59,
+          59
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "long_pause",
+        "span": [
+          95,
+          95
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "missing_pause",
+        "span": [
+          29,
+          29
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "missing_pause",
+        "span": [
+          63,
+          63
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_01/good_03",
+        "kind": "missing_pause",
+        "span": [
+          90,
+          90
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "fast",
+        "span": [
+          24,
+          31
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "fast",
+        "span": [
+          61,
+          68
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "fast",
+        "span": [
+          97,
+          104
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "slow",
+        "span": [
+          24,
+          31
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": true,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "slow",
+        "span": [
+          61,
+          68
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": true,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "slow",
+        "span": [
+          97,
+          104
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "quiet",
+        "span": [
+          24,
+          31
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": false,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "quiet",
+        "span": [
+          61,
+          68
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": true,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "quiet",
+        "span": [
+          97,
+          104
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "monotone",
+        "span": [
+          24,
+          31
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": true,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "monotone",
+        "span": [
+          61,
+          68
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": false,
+        "confounded": true,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "monotone",
+        "span": [
+          97,
+          104
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "monotone_mild",
+        "span": [
+          24,
+          31
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": false,
+        "confounded": true,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "monotone_mild",
+        "span": [
+          61,
+          68
+        ],
+        "scorable": true,
+        "detected": false,
+        "dominant": false,
+        "confounded": true,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "monotone_mild",
+        "span": [
+          97,
+          104
+        ],
+        "scorable": true,
+        "detected": false,
+        "dominant": false,
+        "confounded": false,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "long_pause",
+        "span": [
+          24,
+          24
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "long_pause",
+        "span": [
+          60,
+          60
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "long_pause",
+        "span": [
+          98,
+          98
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "missing_pause",
+        "span": [
+          43,
+          43
+        ],
+        "scorable": false,
+        "detected": false,
+        "dominant": false,
+        "confounded": false,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "missing_pause",
+        "span": [
+          53,
+          53
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_01",
+        "kind": "missing_pause",
+        "span": [
+          81,
+          81
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "fast",
+        "span": [
+          24,
+          31
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "fast",
+        "span": [
+          61,
+          68
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "fast",
+        "span": [
+          97,
+          104
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "slow",
+        "span": [
+          24,
+          31
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "slow",
+        "span": [
+          61,
+          68
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "slow",
+        "span": [
+          97,
+          104
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "quiet",
+        "span": [
+          24,
+          31
+        ],
+        "scorable": true,
+        "detected": false,
+        "dominant": false,
+        "confounded": false,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "quiet",
+        "span": [
+          61,
+          68
+        ],
+        "scorable": true,
+        "detected": false,
+        "dominant": false,
+        "confounded": false,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "quiet",
+        "span": [
+          97,
+          104
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "monotone",
+        "span": [
+          24,
+          31
+        ],
+        "scorable": true,
+        "detected": false,
+        "dominant": false,
+        "confounded": false,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "monotone",
+        "span": [
+          61,
+          68
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "monotone",
+        "span": [
+          97,
+          104
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "monotone_mild",
+        "span": [
+          24,
+          31
+        ],
+        "scorable": true,
+        "detected": false,
+        "dominant": false,
+        "confounded": false,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "monotone_mild",
+        "span": [
+          61,
+          68
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "monotone_mild",
+        "span": [
+          97,
+          104
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "long_pause",
+        "span": [
+          24,
+          24
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "long_pause",
+        "span": [
+          60,
+          60
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "long_pause",
+        "span": [
+          98,
+          98
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "missing_pause",
+        "span": [
+          43,
+          43
+        ],
+        "scorable": false,
+        "detected": false,
+        "dominant": false,
+        "confounded": false,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "missing_pause",
+        "span": [
+          53,
+          53
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_02",
+        "kind": "missing_pause",
+        "span": [
+          81,
+          81
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "fast",
+        "span": [
+          24,
+          31
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "fast",
+        "span": [
+          61,
+          68
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "fast",
+        "span": [
+          97,
+          104
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "slow",
+        "span": [
+          24,
+          31
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "slow",
+        "span": [
+          61,
+          68
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "slow",
+        "span": [
+          97,
+          104
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "quiet",
+        "span": [
+          24,
+          31
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "quiet",
+        "span": [
+          61,
+          68
+        ],
+        "scorable": true,
+        "detected": false,
+        "dominant": false,
+        "confounded": false,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "quiet",
+        "span": [
+          97,
+          104
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "monotone",
+        "span": [
+          24,
+          31
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "monotone",
+        "span": [
+          61,
+          68
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "monotone",
+        "span": [
+          97,
+          104
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "monotone_mild",
+        "span": [
+          24,
+          31
+        ],
+        "scorable": true,
+        "detected": false,
+        "dominant": false,
+        "confounded": false,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "monotone_mild",
+        "span": [
+          61,
+          68
+        ],
+        "scorable": true,
+        "detected": false,
+        "dominant": false,
+        "confounded": false,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "monotone_mild",
+        "span": [
+          97,
+          104
+        ],
+        "scorable": true,
+        "detected": false,
+        "dominant": false,
+        "confounded": false,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "long_pause",
+        "span": [
+          24,
+          24
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "long_pause",
+        "span": [
+          60,
+          60
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "long_pause",
+        "span": [
+          98,
+          98
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "missing_pause",
+        "span": [
+          43,
+          43
+        ],
+        "scorable": false,
+        "detected": false,
+        "dominant": false,
+        "confounded": false,
+        "attributable": false
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "missing_pause",
+        "span": [
+          53,
+          53
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      },
+      {
+        "case": "speech_02/good_03",
+        "kind": "missing_pause",
+        "span": [
+          81,
+          81
+        ],
+        "scorable": true,
+        "detected": true,
+        "dominant": true,
+        "confounded": false,
+        "attributable": true
+      }
+    ]
+  }
+}

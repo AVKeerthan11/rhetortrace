@@ -18,11 +18,23 @@ scoring:
   clarity: 0.15
 
 detection:
-  z_open: 2.0
-  z_close: 1.0
-  min_consecutive_words: 3
-  merge_gap_seconds: 0.5
-  boundary_refinement_ms: 150
+  z_open: 3.0                   # smoothed |robust z| that opens a candidate region (sweep: scripts/eval_detection.py --grid)
+  z_close: 2.0                  # neighbours extend the region down to this |z|
+  min_consecutive_words: 3      # default minimum region length (words)
+  min_words: {pause: 1}         # per-category override: a pause is one boundary
+  smooth_words: 3               # running median over each category track (single-word spikes are heavy-tailed)
+  smooth_override: {pause: 1}   # pauses are single boundaries: not smoothed
+  merge_gap_seconds: 0.5        # same-category/direction regions closer than this merge
+  min_scale: {pause_after_s: 0.1}  # detection-side scale floors (s); gaps differ by tens of ms
+  max_evidence: 5               # strongest feature deviations listed per region
+  # safeguards (0 / false disables), justified by the leave-one-out controls
+  duration_frame_s: 0.02        # alignment frame: ln-duration error ~ frame/duration, added to the scale
+  pitch_directional: true       # pitch tracks split into flatter / livelier (monotone = flatter)
+  min_clarity_active_frames: 0  # tested: 15 removed clarity on ~half the words for -1.5 pt FP; off
+  min_alignment_score: 0.0      # tested: 0.6 cut FP 5 pt but lost pause recall (gaps of flawed speech); off
+  monotone_min_ref_std_st: 0.75 # span pitch flattening only counts where the reference span varies at least this much (st)
+  output_dir: results/detections
+  boundary_refinement_ms: 150   # reserved for boundary refinement (not used yet)
 
 reproducibility:
   seed: 1337
@@ -75,3 +87,13 @@ features:
   pause:
     min_pause_s: 0.15           # inter-word gaps shorter than this are not pauses
     sentence_end: ".?!"         # sentence-boundary vs within-sentence pauses
+
+baseline:
+  reference_prefix: good_       # takes whose id starts with this are references
+  min_refs: 2                   # fewer usable reference values -> no statistics
+  prior_df: 2                   # weight of the feature's pooled MAD in each moderated scale (3 refs: per-word MAD is noisy)
+  outlier_z: 3.5                # reference values beyond this robust z are listed as outliers
+  pitch_span_words: 5           # centred window for span pitch variation (std of word median F0, sentence-clipped)
+  pitch_span_min_words: 3       # fewer voiced words in the window -> no span value
+  pitch_span_floor_st: 0.25     # std floor (pitch resolution) so a flat span cannot get flatter
+  output_dir: results/baselines
