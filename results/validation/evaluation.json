@@ -1,0 +1,4028 @@
+{
+  "metadata": {
+    "audio_sha256": {
+      "speech_01/good_01": "fc664a8ab8d6cf7f22feba4134b4b3b676e75d3369e432c01a7e2d8af13fa01b",
+      "speech_01/good_02": "028e9bfe34ba857638a5ecd3af3c933a5d312e8ddfadfc8a3f0ccf3061ea9d67",
+      "speech_01/good_03": "f76d391d1e71f6314abcaac09f9ddeb20664e5d62c95bfbdaaed7deab04f73a3",
+      "speech_02/good_01": "aa3b5c759f521a02aa70b39066d3bfe8c85527073c9860c0b2020704e878da34",
+      "speech_02/good_02": "ba0dcdd8c63f93e29ae073f414aec9a75c4e8f4584799115e2f495853e372a79",
+      "speech_02/good_03": "31d3f93f3cfb69775f891a773527cbc975e3028c0abf0fab7c33a9be7c9c74b3"
+    },
+    "code": {
+      "scripts/eval_detection.py": "1fc288928c2199147e84e7ba2903693888a86d3e282e8ef5ba554955b76557c3",
+      "scripts/evaluate.py": "06e7b158111d180a9c74cf980b883daf34ab654beaab3f7efeb2fe83a664e0da",
+      "src/alignment.py": "8d7d621b53ae945636b8c84235ccb9afe07bdc892a9a2704937da97343f51aca",
+      "src/baseline.py": "d2d987e2e3e336800be4084743d21129f6373219d98874bf2ad735bde2cbb7e7",
+      "src/detection.py": "65a9b68cdd147a79cefa4655f788a84db1dfff556e2f4a4cbbcf8995e92f6659",
+      "src/evaluation.py": "c7ffd4d19d39e821ba2d7cb790d600b67398309572aa3600dbfb33d552133fcc",
+      "src/explain.py": "bbc531d36f72d89b80c3e9e8e4f0175d2ed86b31d500102d282063c982b9a7cd",
+      "src/features/energy.py": "2c17dce057db4fd2ba68606bf3da3f63ef68c8b284f7ae280fcb6e7768390e70",
+      "src/features/pause.py": "3940ec89ec3eae17b66f9782795af7d05bd21a6a7c240689c0c4cf6baf5bea1c",
+      "src/features/pitch.py": "8e8ff2d7ef5165124c39d54f8aa6271a3b27d9b848468cdfa6cd09dd8190312a",
+      "src/features/rate.py": "98de441864112f850b1ee124f031159f0bc2fd043095192a0de8affc32b88f66",
+      "src/features/spectral.py": "19938af03882c3396311b9eb46ceb5df75a3de275a20d0b6ece5945b1da002ca",
+      "src/flaws.py": "9a77574b88e8afaec0deb90bfe2de03e22e553ccad4c6e9e454b84142263cf52",
+      "src/transcript.py": "7b8dffc5b25df21d11ba74e892b4cad36b00f88b7dfa7aaadcab23567bde2e44"
+    },
+    "config": {
+      "config.yaml": "0c99ec7a56d2e61b85c7e5d9c52db2c295c7f0b7485a761e888101983f7f12e1"
+    },
+    "inputs": {
+      "dataset/speech_01/transcript.txt": "701d21b52d1ad2da935f014b94cfac4b17f757f1c5d2dc21249eded8f7b029a5",
+      "dataset/speech_02/transcript.txt": "abd820211ac81cb0395b003d0b572e37e848325f02bd4a15b03c57ffa3aea1a4",
+      "results/alignments/speech_01/good_01.json": "5169d4628d7aba57df2f2c90aa3e3e24631a2bf9a21f5eff878208aef3012f71",
+      "results/alignments/speech_01/good_02.json": "7ed9774a0cce69f685c4aebd91ba20b440c6067ad9ae24e92f8c8c2c79cb1bf1",
+      "results/alignments/speech_01/good_03.json": "fad4deb73975057c1ce9a95cfb9c2e7a8fec058ad793ff5942f6eb7845f9de9a",
+      "results/alignments/speech_02/good_01.json": "1c886121462170ddac9da734158e272e0d2caaaf46719547e18f0c43cb531900",
+      "results/alignments/speech_02/good_02.json": "80888a0826d322f73b75f9a39e76c439b1f592ff07afd1aa65f617b07db52326",
+      "results/alignments/speech_02/good_03.json": "49aba6164dde93f945642760aaaca130838c9292c81192c69b7fcdaa695182e3",
+      "results/baselines/speech_01.baseline.json": "0f585325e6ec92a7af99830165087d54446c1ae10b9ad3fe87ca96475193f582",
+      "results/baselines/speech_02.baseline.json": "a5307aad5905f3030387cf301b51fcb552affc570b5abfe419342391a07f24e2",
+      "results/features/speech_01/good_01.energy.json": "615c928b1e793928b882b99cf990f8135051dfd2f5920444985cf6c13f0773a4",
+      "results/features/speech_01/good_01.pause.json": "7181dc1d0878a3aad716cff11b677c996c8c0762776753e8703595b369ba2fa9",
+      "results/features/speech_01/good_01.pitch.json": "afdce42bae68a92a7afc01495a44e6476bb431779502a2ce27131e7e4d519513",
+      "results/features/speech_01/good_01.rate.json": "a120d5fe94b2bc0feab7e0920c32f7643b2fb2a9192183701be30a25333907db",
+      "results/features/speech_01/good_01.spectral.json": "56c8699146b422c463b3c874d7d96f9b485bbf0f253ff79dcc74c1a0c9e3f2bc",
+      "results/features/speech_01/good_02.energy.json": "2d05cbf6b2a7b7c11e9cecfab4b496b1fff745bc97ea2d4e7d0741d4915de04d",
+      "results/features/speech_01/good_02.pause.json": "6e5f6799ab4151933f0765fbf77a7ac2e2bcc0dc3e450dcab70c7dbcde7b7d1b",
+      "results/features/speech_01/good_02.pitch.json": "0d949e155e99b0b43b803e8d9f839cec499796806a5fbacb3170fb9c17bd6ea5",
+      "results/features/speech_01/good_02.rate.json": "baa809c1f8cd16d646a4271d2f6a670f9679111419ba42ba660705810f893f7c",
+      "results/features/speech_01/good_02.spectral.json": "6b6c45cbb585c93069e09f15516b589c11fc2d43120d23f782148bac44fa8546",
+      "results/features/speech_01/good_03.energy.json": "af1e3a65c4973b58f8c7692e944e63128a6609dba651a9873ec494b4b416beba",
+      "results/features/speech_01/good_03.pause.json": "5f32bfd6f9c83c27d3c2965e67d17d2e7afd45eeef8e97bef1caa19027dc9574",
+      "results/features/speech_01/good_03.pitch.json": "948bf42f58e9696b77f553fe60fdc8ac8a7601ef0ed398e9ee74a8be6f580a95",
+      "results/features/speech_01/good_03.rate.json": "7552df9c626ba4901e06b6406ecc12beef57ceae6964cc543b3064f7b5a28948",
+      "results/features/speech_01/good_03.spectral.json": "192b4feb64481b0c9b52e246dcfc6b2b46a270afca700a96dec2b8c62d06710b",
+      "results/features/speech_02/good_01.energy.json": "a7a814e110b4deba8a85bd26e0dd2733980d83227438ae225ef96c3e232e4c0b",
+      "results/features/speech_02/good_01.pause.json": "f6751781e0915f2c2ab25843d89ed10d14f6eef93ed4a6877d3c36b70b07a90d",
+      "results/features/speech_02/good_01.pitch.json": "59f6a0200dcb46bf7ba56a97844220d05fb4202f9dfccf83d206227dbed7e534",
+      "results/features/speech_02/good_01.rate.json": "cb68d90e143b455572724511e1ac4f84ac223a1c5c08c24338357d91f7d7d6c5",
+      "results/features/speech_02/good_01.spectral.json": "dff3650c8ee005c77406fccf6fa127ac33a16ab67f64ecea5c56a6108f4cfaf8",
+      "results/features/speech_02/good_02.energy.json": "ded784519e2ec1f1c1c5f160bba19c0327a97f770b27d4d4f03da791d401c23e",
+      "results/features/speech_02/good_02.pause.json": "cec7a7d9b8f3a40ec56bce7729658f6ba1b7120a74b5a8ff6d9cbd493635494a",
+      "results/features/speech_02/good_02.pitch.json": "276ea9f2d2516e79689b520e8fc0b3a99a12bd6ac73808546055eeb45773aff6",
+      "results/features/speech_02/good_02.rate.json": "cbb5ac6ea80a46ea4c11be71c5375e051a0ae67f880e3c01b10d35e3710a8230",
+      "results/features/speech_02/good_02.spectral.json": "7e751ae1f2e37be9cbb5465a3a5fcd631bf678453bad68856ed5f5d6055a1240",
+      "results/features/speech_02/good_03.energy.json": "6db2da839b928227830215851a40fafb719335a9aa302dfc791e0129f84856c8",
+      "results/features/speech_02/good_03.pause.json": "cacf279833d0fd463bd3099d5bea6569e968ddad4bf72a593a1cf7072acdd68e",
+      "results/features/speech_02/good_03.pitch.json": "5e55b40e3f14ceb5cae4c48406924af77d1b8e68c1fb168afd62e87dcde04019",
+      "results/features/speech_02/good_03.rate.json": "2cd81630a562a2a13bd54f1b84af087fe4c79941b704ef2c10ceddc698c9de85",
+      "results/features/speech_02/good_03.spectral.json": "ae46592b2a40f5ca90f4dfb346129a8085345eac5695164039dedcd408601263"
+    },
+    "libraries": {
+      "PyYAML": "6.0.3",
+      "librosa": "1.0.0",
+      "numpy": "2.5.3",
+      "praat-parselmouth": "0.4.7",
+      "scipy": "1.18.1",
+      "soundfile": "0.14.0",
+      "whisperx": "3.8.6"
+    },
+    "python": "3.13.1"
+  },
+  "reference": {
+    "in_sample_vs_loo": {
+      "speech_01/good_01": {
+        "in_sample": {
+          "clean_recall": 0.9048,
+          "control_tracks": 2,
+          "n_clean": 21,
+          "words_flagged": 2
+        },
+        "leave_one_out": {
+          "clean_recall": 1.0,
+          "control_tracks": 2,
+          "n_clean": 21,
+          "words_flagged": 2
+        }
+      },
+      "speech_01/good_02": {
+        "in_sample": {
+          "clean_recall": 0.9048,
+          "control_tracks": 1,
+          "n_clean": 21,
+          "words_flagged": 4
+        },
+        "leave_one_out": {
+          "clean_recall": 0.9048,
+          "control_tracks": 2,
+          "n_clean": 21,
+          "words_flagged": 9
+        }
+      },
+      "speech_01/good_03": {
+        "in_sample": {
+          "clean_recall": 0.9,
+          "control_tracks": 2,
+          "n_clean": 20,
+          "words_flagged": 6
+        },
+        "leave_one_out": {
+          "clean_recall": 0.9048,
+          "control_tracks": 5,
+          "n_clean": 21,
+          "words_flagged": 10
+        }
+      },
+      "speech_02/good_01": {
+        "in_sample": {
+          "clean_recall": 0.9375,
+          "control_tracks": 9,
+          "n_clean": 16,
+          "words_flagged": 26
+        },
+        "leave_one_out": {
+          "clean_recall": 0.9231,
+          "control_tracks": 16,
+          "n_clean": 13,
+          "words_flagged": 55
+        }
+      },
+      "speech_02/good_02": {
+        "in_sample": {
+          "clean_recall": 0.85,
+          "control_tracks": 0,
+          "n_clean": 20,
+          "words_flagged": 0
+        },
+        "leave_one_out": {
+          "clean_recall": 0.8,
+          "control_tracks": 2,
+          "n_clean": 20,
+          "words_flagged": 4
+        }
+      },
+      "speech_02/good_03": {
+        "in_sample": {
+          "clean_recall": 0.9048,
+          "control_tracks": 0,
+          "n_clean": 21,
+          "words_flagged": 0
+        },
+        "leave_one_out": {
+          "clean_recall": 0.8,
+          "control_tracks": 1,
+          "n_clean": 20,
+          "words_flagged": 10
+        }
+      }
+    },
+    "influence": {
+      "speech_01": {
+        "good_01": {
+          "clarity": {
+            "cells_lost": 8,
+            "max": 3.1283,
+            "mean": 0.4008,
+            "median": 0.2688,
+            "n": 218,
+            "p90": 0.9805
+          },
+          "energy": {
+            "cells_lost": 0,
+            "max": 1.9437,
+            "mean": 0.4143,
+            "median": 0.2925,
+            "n": 226,
+            "p90": 0.8874
+          },
+          "pacing": {
+            "cells_lost": 0,
+            "max": 2.5967,
+            "mean": 0.4791,
+            "median": 0.2857,
+            "n": 226,
+            "p90": 1.2555
+          },
+          "pause": {
+            "cells_lost": 0,
+            "max": 3.975,
+            "mean": 0.5248,
+            "median": 0.317,
+            "n": 107,
+            "p90": 1.2457
+          },
+          "pitch": {
+            "cells_lost": 14,
+            "max": 3.3111,
+            "mean": 0.4073,
+            "median": 0.2686,
+            "n": 311,
+            "p90": 0.9045
+          }
+        },
+        "good_02": {
+          "clarity": {
+            "cells_lost": 12,
+            "max": 3.1022,
+            "mean": 0.4567,
+            "median": 0.2977,
+            "n": 214,
+            "p90": 1.0446
+          },
+          "energy": {
+            "cells_lost": 4,
+            "max": 2.9119,
+            "mean": 0.4185,
+            "median": 0.2878,
+            "n": 222,
+            "p90": 0.925
+          },
+          "pacing": {
+            "cells_lost": 2,
+            "max": 2.551,
+            "mean": 0.4592,
+            "median": 0.2985,
+            "n": 224,
+            "p90": 1.1677
+          },
+          "pause": {
+            "cells_lost": 2,
+            "max": 3.975,
+            "mean": 0.4595,
+            "median": 0.2882,
+            "n": 105,
+            "p90": 1.0565
+          },
+          "pitch": {
+            "cells_lost": 24,
+            "max": 2.9972,
+            "mean": 0.4483,
+            "median": 0.2944,
+            "n": 301,
+            "p90": 1.0373
+          }
+        },
+        "good_03": {
+          "clarity": {
+            "cells_lost": 16,
+            "max": 2.592,
+            "mean": 0.3514,
+            "median": 0.2655,
+            "n": 210,
+            "p90": 0.7216
+          },
+          "energy": {
+            "cells_lost": 4,
+            "max": 3.0819,
+            "mean": 0.3881,
+            "median": 0.2732,
+            "n": 222,
+            "p90": 0.8058
+          },
+          "pacing": {
+            "cells_lost": 2,
+            "max": 2.5967,
+            "mean": 0.4807,
+            "median": 0.2842,
+            "n": 224,
+            "p90": 1.2018
+          },
+          "pause": {
+            "cells_lost": 2,
+            "max": 3.7287,
+            "mean": 0.5025,
+            "median": 0.5,
+            "n": 105,
+            "p90": 0.9458
+          },
+          "pitch": {
+            "cells_lost": 26,
+            "max": 2.7493,
+            "mean": 0.4178,
+            "median": 0.296,
+            "n": 299,
+            "p90": 0.8951
+          }
+        }
+      },
+      "speech_02": {
+        "good_01": {
+          "clarity": {
+            "cells_lost": 2,
+            "max": 2.2626,
+            "mean": 0.3502,
+            "median": 0.244,
+            "n": 238,
+            "p90": 0.7949
+          },
+          "energy": {
+            "cells_lost": 2,
+            "max": 1.7588,
+            "mean": 0.3087,
+            "median": 0.2419,
+            "n": 240,
+            "p90": 0.6678
+          },
+          "pacing": {
+            "cells_lost": 4,
+            "max": 2.8383,
+            "mean": 0.3488,
+            "median": 0.2214,
+            "n": 240,
+            "p90": 0.9715
+          },
+          "pause": {
+            "cells_lost": 4,
+            "max": 9.0,
+            "mean": 0.4242,
+            "median": 0.2882,
+            "n": 117,
+            "p90": 0.5455
+          },
+          "pitch": {
+            "cells_lost": 9,
+            "max": 3.2608,
+            "mean": 0.3531,
+            "median": 0.2516,
+            "n": 350,
+            "p90": 0.8405
+          }
+        },
+        "good_02": {
+          "clarity": {
+            "cells_lost": 10,
+            "max": 3.7232,
+            "mean": 0.4819,
+            "median": 0.2896,
+            "n": 230,
+            "p90": 1.031
+          },
+          "energy": {
+            "cells_lost": 6,
+            "max": 2.773,
+            "mean": 0.5231,
+            "median": 0.3269,
+            "n": 236,
+            "p90": 1.1308
+          },
+          "pacing": {
+            "cells_lost": 4,
+            "max": 6.8343,
+            "mean": 0.7056,
+            "median": 0.3332,
+            "n": 240,
+            "p90": 2.1891
+          },
+          "pause": {
+            "cells_lost": 4,
+            "max": 9.0,
+            "mean": 0.5948,
+            "median": 0.2882,
+            "n": 117,
+            "p90": 1.5
+          },
+          "pitch": {
+            "cells_lost": 25,
+            "max": 6.3329,
+            "mean": 0.5785,
+            "median": 0.319,
+            "n": 334,
+            "p90": 1.2169
+          }
+        },
+        "good_03": {
+          "clarity": {
+            "cells_lost": 12,
+            "max": 3.8694,
+            "mean": 0.5214,
+            "median": 0.3179,
+            "n": 228,
+            "p90": 1.0633
+          },
+          "energy": {
+            "cells_lost": 8,
+            "max": 2.8854,
+            "mean": 0.5127,
+            "median": 0.3143,
+            "n": 234,
+            "p90": 1.068
+          },
+          "pacing": {
+            "cells_lost": 8,
+            "max": 6.8343,
+            "mean": 0.7208,
+            "median": 0.3633,
+            "n": 236,
+            "p90": 2.1906
+          },
+          "pause": {
+            "cells_lost": 8,
+            "max": 5.5,
+            "mean": 0.4623,
+            "median": 0.2882,
+            "n": 113,
+            "p90": 1.0
+          },
+          "pitch": {
+            "cells_lost": 34,
+            "max": 6.3547,
+            "mean": 0.6003,
+            "median": 0.3085,
+            "n": 325,
+            "p90": 1.3426
+          }
+        }
+      }
+    }
+  },
+  "settings": {
+    "baseline": {
+      "min_refs": 2,
+      "outlier_z": 3.5,
+      "pitch_span_floor_st": 0.25,
+      "pitch_span_min_words": 3,
+      "pitch_span_words": 5,
+      "prior_df": 2,
+      "reference_prefix": "good_"
+    },
+    "detection": {
+      "duration_frame_s": 0.02,
+      "max_evidence": 5,
+      "merge_gap_seconds": 0.5,
+      "min_alignment_score": 0.0,
+      "min_clarity_active_frames": 0,
+      "min_consecutive_words": 3,
+      "min_scale": {
+        "pause_after_s": 0.1
+      },
+      "min_words": {
+        "pause": 1
+      },
+      "monotone_min_ref_std_st": 0.75,
+      "pitch_directional": true,
+      "smooth_override": {
+        "pause": 1
+      },
+      "smooth_words": 3,
+      "z_close": 2.0,
+      "z_open": 3.0
+    },
+    "flaws": {
+      "boundary_refinement_ms": 150,
+      "extend_z": 3.0,
+      "labels": [
+        "negligible",
+        "mild",
+        "noticeable",
+        "strong",
+        "severe"
+      ],
+      "level_thresholds": [
+        0.05,
+        0.2,
+        0.45,
+        0.7
+      ],
+      "low_coverage": 0.5,
+      "min_evidence_words": {
+        "default": 3,
+        "pause": 1
+      },
+      "top_fraction": 0.5,
+      "trim_z": {
+        "default": 2.0,
+        "pitch": 0.0
+      },
+      "z_max": {
+        "default": 8.0,
+        "pitch/flatter": 5.0
+      },
+      "z_min": 2.0
+    }
+  },
+  "synthetic": {
+    "controls": {
+      "fp_word_rate": 0.125,
+      "n_tracks": 28,
+      "n_words": 720,
+      "per_take": [
+        {
+          "case": "speech_01/good_01",
+          "n_tracks": 2,
+          "n_words": 118,
+          "tracks": {
+            "pause/long": 2
+          },
+          "tracks_per_min": 2.799,
+          "words_flagged": 2
+        },
+        {
+          "case": "speech_01/good_02",
+          "n_tracks": 2,
+          "n_words": 118,
+          "tracks": {
+            "pacing/slow": 1,
+            "pitch/flatter": 1
+          },
+          "tracks_per_min": 2.891,
+          "words_flagged": 9
+        },
+        {
+          "case": "speech_01/good_03",
+          "n_tracks": 5,
+          "n_words": 118,
+          "tracks": {
+            "energy/loud": 1,
+            "pacing/slow": 1,
+            "pause/short": 2,
+            "pitch/livelier": 1
+          },
+          "tracks_per_min": 7.783,
+          "words_flagged": 10
+        },
+        {
+          "case": "speech_02/good_01",
+          "n_tracks": 16,
+          "n_words": 122,
+          "tracks": {
+            "clarity/None": 1,
+            "energy/quiet": 3,
+            "pacing/fast": 1,
+            "pacing/slow": 4,
+            "pause/long": 1,
+            "pitch/flatter": 2,
+            "pitch/livelier": 4
+          },
+          "tracks_per_min": 19.755,
+          "words_flagged": 55
+        },
+        {
+          "case": "speech_02/good_02",
+          "n_tracks": 2,
+          "n_words": 122,
+          "tracks": {
+            "clarity/None": 1,
+            "pause/short": 1
+          },
+          "tracks_per_min": 2.618,
+          "words_flagged": 4
+        },
+        {
+          "case": "speech_02/good_03",
+          "n_tracks": 1,
+          "n_words": 122,
+          "tracks": {
+            "pitch/flatter": 1
+          },
+          "tracks_per_min": 1.323,
+          "words_flagged": 10
+        }
+      ],
+      "tracks_per_min": 6.195,
+      "words_flagged": 90
+    },
+    "detection": {
+      "excluded": {
+        "confounded": 7,
+        "unscorable": 3
+      },
+      "overall": {
+        "collateral_fp": 2,
+        "control_fp": 28,
+        "f1": 0.8273,
+        "fn": 13,
+        "fp": 30,
+        "precision": 0.7744,
+        "recall": 0.8879,
+        "tp": 103
+      },
+      "per_category": {
+        "clarity": {
+          "collateral_fp": 0,
+          "control_fp": 2,
+          "f1": null,
+          "fn": 0,
+          "fp": 2,
+          "precision": 0.0,
+          "recall": null,
+          "tp": 0
+        },
+        "energy": {
+          "collateral_fp": 0,
+          "control_fp": 4,
+          "f1": 0.8,
+          "fn": 3,
+          "fp": 4,
+          "precision": 0.7778,
+          "recall": 0.8235,
+          "tp": 14
+        },
+        "pacing": {
+          "collateral_fp": 1,
+          "control_fp": 7,
+          "f1": 0.8947,
+          "fn": 0,
+          "fp": 8,
+          "precision": 0.8095,
+          "recall": 1.0,
+          "tp": 34
+        },
+        "pause": {
+          "collateral_fp": 0,
+          "control_fp": 6,
+          "f1": 0.9167,
+          "fn": 0,
+          "fp": 6,
+          "precision": 0.8462,
+          "recall": 1.0,
+          "tp": 33
+        },
+        "pitch": {
+          "collateral_fp": 1,
+          "control_fp": 9,
+          "f1": 0.6875,
+          "fn": 10,
+          "fp": 10,
+          "precision": 0.6875,
+          "recall": 0.6875,
+          "tp": 22
+        }
+      }
+    },
+    "injections": [
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.925,
+        "span": [
+          23,
+          30
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.905,
+        "span": [
+          59,
+          66
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.964,
+        "span": [
+          94,
+          101
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "slow",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          23,
+          30
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "slow",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.58,
+        "span": [
+          59,
+          66
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "slow",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          94,
+          101
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "quiet",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.566,
+        "span": [
+          23,
+          30
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "quiet",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.504,
+        "span": [
+          59,
+          66
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "quiet",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.543,
+        "span": [
+          94,
+          101
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 0.961,
+          "start_err_s": 0.14,
+          "word_iou": 0.889
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.912,
+        "span": [
+          23,
+          30
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          59,
+          66
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.24,
+          "iou": 0.671,
+          "start_err_s": 0.7,
+          "word_iou": 0.778
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.575,
+        "span": [
+          94,
+          101
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 0.511,
+          "start_err_s": 1.681,
+          "word_iou": 0.375
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone_mild",
+        "level": 3,
+        "n_collateral": 1,
+        "scorable": true,
+        "severity": 0.566,
+        "span": [
+          23,
+          30
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.26,
+          "iou": 0.544,
+          "start_err_s": 1.08,
+          "word_iou": 0.625
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone_mild",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.821,
+        "span": [
+          59,
+          66
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.981,
+          "iou": 0.412,
+          "start_err_s": 0.7,
+          "word_iou": 0.333
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone_mild",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.349,
+        "span": [
+          94,
+          101
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          23,
+          23
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          59,
+          59
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          95,
+          95
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "missing_pause",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.484,
+        "span": [
+          29,
+          29
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "missing_pause",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.5,
+        "span": [
+          63,
+          63
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "missing_pause",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.383,
+        "span": [
+          90,
+          90
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          23,
+          30
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.574,
+        "span": [
+          59,
+          66
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          94,
+          101
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "slow",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.92,
+        "span": [
+          23,
+          30
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.86,
+          "iou": 0.777,
+          "start_err_s": 0.0,
+          "word_iou": 0.8
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "slow",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          59,
+          66
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.82,
+          "iou": 0.701,
+          "start_err_s": 0.0,
+          "word_iou": 0.889
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "slow",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.906,
+        "span": [
+          94,
+          101
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 0.965,
+          "start_err_s": 0.12,
+          "word_iou": 0.889
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "quiet",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.29,
+        "span": [
+          23,
+          30
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "quiet",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.388,
+        "span": [
+          59,
+          66
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "quiet",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.362,
+        "span": [
+          94,
+          101
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.9,
+          "iou": 0.482,
+          "start_err_s": 1.681,
+          "word_iou": 0.5
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.666,
+        "span": [
+          23,
+          30
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.28,
+          "iou": 0.793,
+          "start_err_s": 0.34,
+          "word_iou": 0.75
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.805,
+        "span": [
+          59,
+          66
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.62,
+          "iou": 0.344,
+          "start_err_s": 0.64,
+          "word_iou": 0.375
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.69,
+        "span": [
+          94,
+          101
+        ]
+      },
+      {
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": false,
+        "kind": "monotone_mild",
+        "n_collateral": 0,
+        "scorable": true,
+        "span": [
+          23,
+          30
+        ]
+      },
+      {
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": false,
+        "kind": "monotone_mild",
+        "n_collateral": 0,
+        "scorable": true,
+        "span": [
+          59,
+          66
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.62,
+          "iou": 0.344,
+          "start_err_s": 0.64,
+          "word_iou": 0.375
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone_mild",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.597,
+        "span": [
+          94,
+          101
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          23,
+          23
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          59,
+          59
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          94,
+          94
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "missing_pause",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.484,
+        "span": [
+          29,
+          29
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "missing_pause",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.5,
+        "span": [
+          63,
+          63
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "missing_pause",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.35,
+        "span": [
+          90,
+          90
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.74,
+        "span": [
+          23,
+          30
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          59,
+          66
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.811,
+        "span": [
+          94,
+          101
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "slow",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.806,
+        "span": [
+          23,
+          30
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "slow",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.404,
+        "span": [
+          59,
+          66
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "slow",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.881,
+        "span": [
+          94,
+          101
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "quiet",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.545,
+        "span": [
+          23,
+          30
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "quiet",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.541,
+        "span": [
+          59,
+          66
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 0.78,
+          "start_err_s": 0.54,
+          "word_iou": 0.889
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "quiet",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.437,
+        "span": [
+          94,
+          101
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.512,
+        "span": [
+          23,
+          30
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.993,
+        "span": [
+          59,
+          66
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.22,
+          "iou": 0.573,
+          "start_err_s": 0.6,
+          "word_iou": 0.625
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.597,
+        "span": [
+          94,
+          101
+        ]
+      },
+      {
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": false,
+        "kind": "monotone_mild",
+        "n_collateral": 0,
+        "scorable": true,
+        "span": [
+          23,
+          30
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.24,
+          "iou": 0.912,
+          "start_err_s": 0.0,
+          "word_iou": 0.875
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone_mild",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.684,
+        "span": [
+          59,
+          66
+        ]
+      },
+      {
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": false,
+        "kind": "monotone_mild",
+        "n_collateral": 0,
+        "scorable": true,
+        "span": [
+          94,
+          101
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          23,
+          23
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          59,
+          59
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          95,
+          95
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "missing_pause",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.617,
+        "span": [
+          29,
+          29
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "missing_pause",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.55,
+        "span": [
+          63,
+          63
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_01/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "missing_pause",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.45,
+        "span": [
+          90,
+          90
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          24,
+          31
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 0.179,
+          "start_err_s": 2.021,
+          "word_iou": 0.375
+        },
+        "case": "speech_02/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.535,
+        "span": [
+          61,
+          68
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.93,
+        "span": [
+          97,
+          104
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 0.748,
+          "start_err_s": 0.861,
+          "word_iou": 0.889
+        },
+        "case": "speech_02/good_01",
+        "confounded": true,
+        "detected": true,
+        "kind": "slow",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          24,
+          31
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_01",
+        "confounded": true,
+        "detected": true,
+        "kind": "slow",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          61,
+          68
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "slow",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          97,
+          104
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 0.719,
+          "start_err_s": 1.001,
+          "word_iou": 0.8
+        },
+        "case": "speech_02/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "quiet",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.637,
+        "span": [
+          24,
+          31
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.2,
+          "iou": 0.925,
+          "start_err_s": 0.0,
+          "word_iou": 0.889
+        },
+        "case": "speech_02/good_01",
+        "confounded": true,
+        "detected": true,
+        "kind": "quiet",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          61,
+          68
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 0.895,
+          "start_err_s": 0.46,
+          "word_iou": 0.889
+        },
+        "case": "speech_02/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "quiet",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.586,
+        "span": [
+          97,
+          104
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.88,
+          "iou": 0.447,
+          "start_err_s": 1.201,
+          "word_iou": 0.455
+        },
+        "case": "speech_02/good_01",
+        "confounded": true,
+        "detected": true,
+        "kind": "monotone",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          24,
+          31
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.24,
+          "iou": 0.74,
+          "start_err_s": 0.401,
+          "word_iou": 0.625
+        },
+        "case": "speech_02/good_01",
+        "confounded": true,
+        "detected": true,
+        "kind": "monotone",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          61,
+          68
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          97,
+          104
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 1.18,
+          "iou": 0.367,
+          "start_err_s": 1.201,
+          "word_iou": 0.364
+        },
+        "case": "speech_02/good_01",
+        "confounded": true,
+        "detected": true,
+        "kind": "monotone_mild",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          24,
+          31
+        ]
+      },
+      {
+        "case": "speech_02/good_01",
+        "confounded": true,
+        "detected": false,
+        "kind": "monotone_mild",
+        "n_collateral": 0,
+        "scorable": true,
+        "span": [
+          61,
+          68
+        ]
+      },
+      {
+        "case": "speech_02/good_01",
+        "confounded": false,
+        "detected": false,
+        "kind": "monotone_mild",
+        "n_collateral": 0,
+        "scorable": true,
+        "span": [
+          97,
+          104
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          24,
+          24
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          60,
+          60
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          98,
+          98
+        ]
+      },
+      {
+        "case": "speech_02/good_01",
+        "confounded": false,
+        "detected": false,
+        "kind": "missing_pause",
+        "n_collateral": 0,
+        "scorable": false,
+        "span": [
+          43,
+          43
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "missing_pause",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.31,
+        "span": [
+          53,
+          53
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_01",
+        "confounded": false,
+        "detected": true,
+        "kind": "missing_pause",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.301,
+        "span": [
+          81,
+          81
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.697,
+        "span": [
+          24,
+          31
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.373,
+        "span": [
+          61,
+          68
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.616,
+        "span": [
+          97,
+          104
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 0.539,
+          "start_err_s": 1.061,
+          "word_iou": 0.5
+        },
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "slow",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.809,
+        "span": [
+          24,
+          31
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 1.12,
+          "iou": 0.477,
+          "start_err_s": 0.0,
+          "word_iou": 0.375
+        },
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "slow",
+        "level": 2,
+        "n_collateral": 1,
+        "scorable": true,
+        "severity": 0.244,
+        "span": [
+          61,
+          68
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "slow",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.953,
+        "span": [
+          97,
+          104
+        ]
+      },
+      {
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": false,
+        "kind": "quiet",
+        "n_collateral": 0,
+        "scorable": true,
+        "span": [
+          24,
+          31
+        ]
+      },
+      {
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": false,
+        "kind": "quiet",
+        "n_collateral": 0,
+        "scorable": true,
+        "span": [
+          61,
+          68
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "quiet",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.328,
+        "span": [
+          97,
+          104
+        ]
+      },
+      {
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": false,
+        "kind": "monotone",
+        "n_collateral": 0,
+        "scorable": true,
+        "span": [
+          24,
+          31
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.3,
+          "iou": 0.86,
+          "start_err_s": 0.0,
+          "word_iou": 0.75
+        },
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          61,
+          68
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.961,
+          "iou": 0.746,
+          "start_err_s": 0.0,
+          "word_iou": 0.75
+        },
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          97,
+          104
+        ]
+      },
+      {
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": false,
+        "kind": "monotone_mild",
+        "n_collateral": 0,
+        "scorable": true,
+        "span": [
+          24,
+          31
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.54,
+          "iou": 0.748,
+          "start_err_s": 0.0,
+          "word_iou": 0.625
+        },
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone_mild",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.364,
+        "span": [
+          61,
+          68
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.961,
+          "iou": 0.746,
+          "start_err_s": 0.0,
+          "word_iou": 0.75
+        },
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone_mild",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          97,
+          104
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          24,
+          24
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          60,
+          60
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          98,
+          98
+        ]
+      },
+      {
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": false,
+        "kind": "missing_pause",
+        "n_collateral": 0,
+        "scorable": false,
+        "span": [
+          43,
+          43
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "missing_pause",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.31,
+        "span": [
+          53,
+          53
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_02",
+        "confounded": false,
+        "detected": true,
+        "kind": "missing_pause",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.301,
+        "span": [
+          81,
+          81
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.666,
+        "span": [
+          24,
+          31
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.37,
+        "span": [
+          61,
+          68
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "fast",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          97,
+          104
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 0.534,
+          "start_err_s": 1.08,
+          "word_iou": 0.5
+        },
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "slow",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.904,
+        "span": [
+          24,
+          31
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 0.255,
+          "start_err_s": 1.581,
+          "word_iou": 0.375
+        },
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "slow",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.286,
+        "span": [
+          61,
+          68
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "slow",
+        "level": 3,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.67,
+        "span": [
+          97,
+          104
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "quiet",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.242,
+        "span": [
+          24,
+          31
+        ]
+      },
+      {
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": false,
+        "kind": "quiet",
+        "n_collateral": 0,
+        "scorable": true,
+        "span": [
+          61,
+          68
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "quiet",
+        "level": 1,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.151,
+        "span": [
+          97,
+          104
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.72,
+          "iou": 0.497,
+          "start_err_s": 0.901,
+          "word_iou": 0.667
+        },
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          24,
+          31
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.32,
+          "iou": 0.849,
+          "start_err_s": 0.0,
+          "word_iou": 0.75
+        },
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.964,
+        "span": [
+          61,
+          68
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "monotone",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          97,
+          104
+        ]
+      },
+      {
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": false,
+        "kind": "monotone_mild",
+        "n_collateral": 0,
+        "scorable": true,
+        "span": [
+          24,
+          31
+        ]
+      },
+      {
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": false,
+        "kind": "monotone_mild",
+        "n_collateral": 0,
+        "scorable": true,
+        "span": [
+          61,
+          68
+        ]
+      },
+      {
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": false,
+        "kind": "monotone_mild",
+        "n_collateral": 0,
+        "scorable": true,
+        "span": [
+          97,
+          104
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          24,
+          24
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          60,
+          60
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "long_pause",
+        "level": 4,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 1.0,
+        "span": [
+          98,
+          98
+        ]
+      },
+      {
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": false,
+        "kind": "missing_pause",
+        "n_collateral": 0,
+        "scorable": false,
+        "span": [
+          43,
+          43
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "missing_pause",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.217,
+        "span": [
+          53,
+          53
+        ]
+      },
+      {
+        "boundary": {
+          "end_err_s": 0.0,
+          "iou": 1.0,
+          "start_err_s": 0.0,
+          "word_iou": 1.0
+        },
+        "case": "speech_02/good_03",
+        "confounded": false,
+        "detected": true,
+        "kind": "missing_pause",
+        "level": 2,
+        "n_collateral": 0,
+        "scorable": true,
+        "severity": 0.283,
+        "span": [
+          81,
+          81
+        ]
+      }
+    ],
+    "overall": {
+      "boundary": {
+        "end_err_s": {
+          "max": 1.18,
+          "mean": 0.1235,
+          "median": 0.0,
+          "n": 109,
+          "p90": 0.62
+        },
+        "iou": {
+          "max": 1.0,
+          "mean": 0.8903,
+          "median": 1.0,
+          "n": 109,
+          "p90": 1.0
+        },
+        "start_err_s": {
+          "max": 2.021,
+          "mean": 0.1893,
+          "median": 0.0,
+          "n": 109,
+          "p90": 0.869
+        },
+        "word_iou": {
+          "max": 1.0,
+          "mean": 0.8926,
+          "median": 1.0,
+          "n": 109,
+          "p90": 1.0
+        }
+      },
+      "collateral_fp": 2,
+      "detected_clean": 103,
+      "n": 126,
+      "n_clean": 116,
+      "n_confounded": 7,
+      "n_unscorable": 3,
+      "recall": 0.8879,
+      "severity_at_strength_1": {
+        "max": 1.0,
+        "mean": 0.7314,
+        "median": 0.809,
+        "n": 109,
+        "p90": 1.0
+      }
+    },
+    "per_category": {
+      "clarity": {
+        "boundary": {
+          "end_err_s": {
+            "n": 0
+          },
+          "iou": {
+            "n": 0
+          },
+          "start_err_s": {
+            "n": 0
+          },
+          "word_iou": {
+            "n": 0
+          }
+        },
+        "collateral_fp": 0,
+        "detected_clean": 0,
+        "n": 0,
+        "n_clean": 0,
+        "n_confounded": 0,
+        "n_unscorable": 0,
+        "recall": null,
+        "severity_at_strength_1": {
+          "n": 0
+        }
+      },
+      "energy": {
+        "boundary": {
+          "end_err_s": {
+            "max": 0.2,
+            "mean": 0.0133,
+            "median": 0.0,
+            "n": 15,
+            "p90": 0.0
+          },
+          "iou": {
+            "max": 1.0,
+            "mean": 0.9523,
+            "median": 1.0,
+            "n": 15,
+            "p90": 1.0
+          },
+          "start_err_s": {
+            "max": 1.001,
+            "mean": 0.1414,
+            "median": 0.0,
+            "n": 15,
+            "p90": 0.508
+          },
+          "word_iou": {
+            "max": 1.0,
+            "mean": 0.9571,
+            "median": 1.0,
+            "n": 15,
+            "p90": 1.0
+          }
+        },
+        "collateral_fp": 0,
+        "detected_clean": 14,
+        "n": 18,
+        "n_clean": 17,
+        "n_confounded": 1,
+        "n_unscorable": 0,
+        "recall": 0.8235,
+        "severity_at_strength_1": {
+          "max": 1.0,
+          "mean": 0.4747,
+          "median": 0.504,
+          "n": 15,
+          "p90": 0.6166
+        }
+      },
+      "pacing": {
+        "boundary": {
+          "end_err_s": {
+            "max": 1.12,
+            "mean": 0.0778,
+            "median": 0.0,
+            "n": 36,
+            "p90": 0.0
+          },
+          "iou": {
+            "max": 1.0,
+            "mean": 0.8947,
+            "median": 1.0,
+            "n": 36,
+            "p90": 1.0
+          },
+          "start_err_s": {
+            "max": 2.021,
+            "mean": 0.1834,
+            "median": 0.0,
+            "n": 36,
+            "p90": 0.961
+          },
+          "word_iou": {
+            "max": 1.0,
+            "mean": 0.9084,
+            "median": 1.0,
+            "n": 36,
+            "p90": 1.0
+          }
+        },
+        "collateral_fp": 1,
+        "detected_clean": 34,
+        "n": 36,
+        "n_clean": 34,
+        "n_confounded": 2,
+        "n_unscorable": 0,
+        "recall": 1.0,
+        "severity_at_strength_1": {
+          "max": 1.0,
+          "mean": 0.7908,
+          "median": 0.9045,
+          "n": 36,
+          "p90": 1.0
+        }
+      },
+      "pause": {
+        "boundary": {
+          "end_err_s": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "n": 33,
+            "p90": 0.0
+          },
+          "iou": {
+            "max": 1.0,
+            "mean": 1.0,
+            "median": 1.0,
+            "n": 33,
+            "p90": 1.0
+          },
+          "start_err_s": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "n": 33,
+            "p90": 0.0
+          },
+          "word_iou": {
+            "max": 1.0,
+            "mean": 1.0,
+            "median": 1.0,
+            "n": 33,
+            "p90": 1.0
+          }
+        },
+        "collateral_fp": 0,
+        "detected_clean": 33,
+        "n": 36,
+        "n_clean": 33,
+        "n_confounded": 0,
+        "n_unscorable": 3,
+        "recall": 1.0,
+        "severity_at_strength_1": {
+          "max": 1.0,
+          "mean": 0.7285,
+          "median": 1.0,
+          "n": 33,
+          "p90": 1.0
+        }
+      },
+      "pitch": {
+        "boundary": {
+          "end_err_s": {
+            "max": 1.18,
+            "mean": 0.4185,
+            "median": 0.28,
+            "n": 25,
+            "p90": 0.961
+          },
+          "iou": {
+            "max": 1.0,
+            "mean": 0.7019,
+            "median": 0.746,
+            "n": 25,
+            "p90": 1.0
+          },
+          "start_err_s": {
+            "max": 1.681,
+            "mean": 0.4762,
+            "median": 0.34,
+            "n": 25,
+            "p90": 1.201
+          },
+          "word_iou": {
+            "max": 1.0,
+            "mean": 0.6894,
+            "median": 0.75,
+            "n": 25,
+            "p90": 1.0
+          }
+        },
+        "collateral_fp": 1,
+        "detected_clean": 22,
+        "n": 36,
+        "n_clean": 32,
+        "n_confounded": 4,
+        "n_unscorable": 0,
+        "recall": 0.6875,
+        "severity_at_strength_1": {
+          "max": 1.0,
+          "mean": 0.8038,
+          "median": 0.912,
+          "n": 25,
+          "p90": 1.0
+        }
+      }
+    },
+    "per_kind": {
+      "fast": {
+        "boundary": {
+          "end_err_s": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "n": 18,
+            "p90": 0.0
+          },
+          "iou": {
+            "max": 1.0,
+            "mean": 0.9544,
+            "median": 1.0,
+            "n": 18,
+            "p90": 1.0
+          },
+          "start_err_s": {
+            "max": 2.021,
+            "mean": 0.1123,
+            "median": 0.0,
+            "n": 18,
+            "p90": 0.0
+          },
+          "word_iou": {
+            "max": 1.0,
+            "mean": 0.9653,
+            "median": 1.0,
+            "n": 18,
+            "p90": 1.0
+          }
+        },
+        "collateral_fp": 0,
+        "detected_clean": 18,
+        "n": 18,
+        "n_clean": 18,
+        "n_confounded": 0,
+        "n_unscorable": 0,
+        "recall": 1.0,
+        "severity_at_strength_1": {
+          "max": 1.0,
+          "mean": 0.7837,
+          "median": 0.858,
+          "n": 18,
+          "p90": 1.0
+        }
+      },
+      "long_pause": {
+        "boundary": {
+          "end_err_s": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "n": 18,
+            "p90": 0.0
+          },
+          "iou": {
+            "max": 1.0,
+            "mean": 1.0,
+            "median": 1.0,
+            "n": 18,
+            "p90": 1.0
+          },
+          "start_err_s": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "n": 18,
+            "p90": 0.0
+          },
+          "word_iou": {
+            "max": 1.0,
+            "mean": 1.0,
+            "median": 1.0,
+            "n": 18,
+            "p90": 1.0
+          }
+        },
+        "collateral_fp": 0,
+        "detected_clean": 18,
+        "n": 18,
+        "n_clean": 18,
+        "n_confounded": 0,
+        "n_unscorable": 0,
+        "recall": 1.0,
+        "severity_at_strength_1": {
+          "max": 1.0,
+          "mean": 1.0,
+          "median": 1.0,
+          "n": 18,
+          "p90": 1.0
+        }
+      },
+      "missing_pause": {
+        "boundary": {
+          "end_err_s": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "n": 15,
+            "p90": 0.0
+          },
+          "iou": {
+            "max": 1.0,
+            "mean": 1.0,
+            "median": 1.0,
+            "n": 15,
+            "p90": 1.0
+          },
+          "start_err_s": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "n": 15,
+            "p90": 0.0
+          },
+          "word_iou": {
+            "max": 1.0,
+            "mean": 1.0,
+            "median": 1.0,
+            "n": 15,
+            "p90": 1.0
+          }
+        },
+        "collateral_fp": 0,
+        "detected_clean": 15,
+        "n": 18,
+        "n_clean": 15,
+        "n_confounded": 0,
+        "n_unscorable": 3,
+        "recall": 1.0,
+        "severity_at_strength_1": {
+          "max": 0.617,
+          "mean": 0.4027,
+          "median": 0.383,
+          "n": 15,
+          "p90": 0.53
+        }
+      },
+      "monotone": {
+        "boundary": {
+          "end_err_s": {
+            "max": 0.961,
+            "mean": 0.3342,
+            "median": 0.24,
+            "n": 17,
+            "p90": 0.888
+          },
+          "iou": {
+            "max": 1.0,
+            "mean": 0.7625,
+            "median": 0.793,
+            "n": 17,
+            "p90": 1.0
+          },
+          "start_err_s": {
+            "max": 1.681,
+            "mean": 0.3885,
+            "median": 0.14,
+            "n": 17,
+            "p90": 1.021
+          },
+          "word_iou": {
+            "max": 1.0,
+            "mean": 0.7596,
+            "median": 0.75,
+            "n": 17,
+            "p90": 1.0
+          }
+        },
+        "collateral_fp": 0,
+        "detected_clean": 15,
+        "n": 18,
+        "n_clean": 16,
+        "n_confounded": 2,
+        "n_unscorable": 0,
+        "recall": 0.9375,
+        "severity_at_strength_1": {
+          "max": 1.0,
+          "mean": 0.8655,
+          "median": 0.993,
+          "n": 17,
+          "p90": 1.0
+        }
+      },
+      "monotone_mild": {
+        "boundary": {
+          "end_err_s": {
+            "max": 1.18,
+            "mean": 0.5978,
+            "median": 0.58,
+            "n": 8,
+            "p90": 1.0407
+          },
+          "iou": {
+            "max": 0.912,
+            "mean": 0.573,
+            "median": 0.5275,
+            "n": 8,
+            "p90": 0.7972
+          },
+          "start_err_s": {
+            "max": 1.681,
+            "mean": 0.6627,
+            "median": 0.67,
+            "n": 8,
+            "p90": 1.345
+          },
+          "word_iou": {
+            "max": 0.875,
+            "mean": 0.5403,
+            "median": 0.5,
+            "n": 8,
+            "p90": 0.7875
+          }
+        },
+        "collateral_fp": 1,
+        "detected_clean": 7,
+        "n": 18,
+        "n_clean": 16,
+        "n_confounded": 2,
+        "n_unscorable": 0,
+        "recall": 0.4375,
+        "severity_at_strength_1": {
+          "max": 1.0,
+          "mean": 0.6726,
+          "median": 0.6405,
+          "n": 8,
+          "p90": 1.0
+        }
+      },
+      "quiet": {
+        "boundary": {
+          "end_err_s": {
+            "max": 0.2,
+            "mean": 0.0133,
+            "median": 0.0,
+            "n": 15,
+            "p90": 0.0
+          },
+          "iou": {
+            "max": 1.0,
+            "mean": 0.9523,
+            "median": 1.0,
+            "n": 15,
+            "p90": 1.0
+          },
+          "start_err_s": {
+            "max": 1.001,
+            "mean": 0.1414,
+            "median": 0.0,
+            "n": 15,
+            "p90": 0.508
+          },
+          "word_iou": {
+            "max": 1.0,
+            "mean": 0.9571,
+            "median": 1.0,
+            "n": 15,
+            "p90": 1.0
+          }
+        },
+        "collateral_fp": 0,
+        "detected_clean": 14,
+        "n": 18,
+        "n_clean": 17,
+        "n_confounded": 1,
+        "n_unscorable": 0,
+        "recall": 0.8235,
+        "severity_at_strength_1": {
+          "max": 1.0,
+          "mean": 0.4747,
+          "median": 0.504,
+          "n": 15,
+          "p90": 0.6166
+        }
+      },
+      "slow": {
+        "boundary": {
+          "end_err_s": {
+            "max": 1.12,
+            "mean": 0.1556,
+            "median": 0.0,
+            "n": 18,
+            "p90": 0.832
+          },
+          "iou": {
+            "max": 1.0,
+            "mean": 0.8351,
+            "median": 1.0,
+            "n": 18,
+            "p90": 1.0
+          },
+          "start_err_s": {
+            "max": 1.581,
+            "mean": 0.2546,
+            "median": 0.0,
+            "n": 18,
+            "p90": 1.0667
+          },
+          "word_iou": {
+            "max": 1.0,
+            "mean": 0.8516,
+            "median": 1.0,
+            "n": 18,
+            "p90": 1.0
+          }
+        },
+        "collateral_fp": 1,
+        "detected_clean": 16,
+        "n": 18,
+        "n_clean": 16,
+        "n_confounded": 2,
+        "n_unscorable": 0,
+        "recall": 1.0,
+        "severity_at_strength_1": {
+          "max": 1.0,
+          "mean": 0.7979,
+          "median": 0.905,
+          "n": 18,
+          "p90": 1.0
+        }
+      }
+    },
+    "severity": {
+      "per_kind": {
+        "fast": {
+          "calibration": [
+            {
+              "iqr": 0.2285,
+              "levels": {
+                "mild": 1,
+                "negligible": 0,
+                "noticeable": 5,
+                "severe": 1,
+                "strong": 4
+              },
+              "mean": 0.4002,
+              "modal_agreement": 0.4545,
+              "modal_level": "noticeable",
+              "n": 11,
+              "std": 0.1574
+            },
+            {
+              "iqr": 0.3625,
+              "levels": {
+                "mild": 0,
+                "negligible": 0,
+                "noticeable": 2,
+                "severe": 11,
+                "strong": 5
+              },
+              "mean": 0.7837,
+              "modal_agreement": 0.6111,
+              "modal_level": "severe",
+              "n": 18,
+              "std": 0.2135
+            },
+            {
+              "iqr": 0.0,
+              "levels": {
+                "mild": 0,
+                "negligible": 0,
+                "noticeable": 0,
+                "severe": 18,
+                "strong": 0
+              },
+              "mean": 0.9739,
+              "modal_agreement": 1.0,
+              "modal_level": "severe",
+              "n": 18,
+              "std": 0.0739
+            },
+            {
+              "iqr": 0.0,
+              "levels": {
+                "mild": 0,
+                "negligible": 0,
+                "noticeable": 0,
+                "severe": 18,
+                "strong": 0
+              },
+              "mean": 1.0,
+              "modal_agreement": 1.0,
+              "modal_level": "severe",
+              "n": 18,
+              "std": 0.0
+            }
+          ],
+          "detected": [
+            11,
+            18,
+            18,
+            18
+          ],
+          "monotonicity": {
+            "monotone_fraction": 1.0,
+            "monotone_sites": 18,
+            "n_sites": 18,
+            "spearman_rho": 0.8536
+          },
+          "strengths": [
+            0.5,
+            1.0,
+            1.5,
+            2.0
+          ]
+        },
+        "long_pause": {
+          "calibration": [
+            {
+              "iqr": 0.0,
+              "levels": {
+                "mild": 0,
+                "negligible": 0,
+                "noticeable": 0,
+                "severe": 0,
+                "strong": 18
+              },
+              "mean": 0.5373,
+              "modal_agreement": 1.0,
+              "modal_level": "strong",
+              "n": 18,
+              "std": 0.0192
+            },
+            {
+              "iqr": 0.0,
+              "levels": {
+                "mild": 0,
+                "negligible": 0,
+                "noticeable": 0,
+                "severe": 18,
+                "strong": 0
+              },
+              "mean": 1.0,
+              "modal_agreement": 1.0,
+              "modal_level": "severe",
+              "n": 18,
+              "std": 0.0
+            },
+            {
+              "iqr": 0.0,
+              "levels": {
+                "mild": 0,
+                "negligible": 0,
+                "noticeable": 0,
+                "severe": 18,
+                "strong": 0
+              },
+              "mean": 1.0,
+              "modal_agreement": 1.0,
+              "modal_level": "severe",
+              "n": 18,
+              "std": 0.0
+            },
+            {
+              "iqr": 0.0,
+              "levels": {
+                "mild": 0,
+                "negligible": 0,
+                "noticeable": 0,
+                "severe": 18,
+                "strong": 0
+              },
+              "mean": 1.0,
+              "modal_agreement": 1.0,
+              "modal_level": "severe",
+              "n": 18,
+              "std": 0.0
+            }
+          ],
+          "detected": [
+            18,
+            18,
+            18,
+            18
+          ],
+          "monotonicity": {
+            "monotone_fraction": 1.0,
+            "monotone_sites": 18,
+            "n_sites": 18,
+            "spearman_rho": 0.7729
+          },
+          "strengths": [
+            0.5,
+            1.0,
+            1.5,
+            2.0
+          ]
+        },
+        "monotone": {
+          "calibration": [
+            {
+              "iqr": 0.628,
+              "levels": {
+                "mild": 0,
+                "negligible": 0,
+                "noticeable": 2,
+                "severe": 2,
+                "strong": 1
+              },
+              "mean": 0.649,
+              "modal_agreement": 0.4,
+              "modal_level": "noticeable",
+              "n": 5,
+              "std": 0.2928
+            },
+            {
+              "iqr": 0.347,
+              "levels": {
+                "mild": 0,
+                "negligible": 0,
+                "noticeable": 2,
+                "severe": 3,
+                "strong": 4
+              },
+              "mean": 0.6506,
+              "modal_agreement": 0.4444,
+              "modal_level": "strong",
+              "n": 9,
+              "std": 0.233
+            },
+            {
+              "iqr": 0.4433,
+              "levels": {
+                "mild": 0,
+                "negligible": 0,
+                "noticeable": 3,
+                "severe": 7,
+                "strong": 6
+              },
+              "mean": 0.7127,
+              "modal_agreement": 0.4375,
+              "modal_level": "severe",
+              "n": 16,
+              "std": 0.2349
+            },
+            {
+              "iqr": 0.31,
+              "levels": {
+                "mild": 0,
+                "negligible": 0,
+                "noticeable": 0,
+                "severe": 12,
+                "strong": 5
+              },
+              "mean": 0.8655,
+              "modal_agreement": 0.7059,
+              "modal_level": "severe",
+              "n": 17,
+              "std": 0.1763
+            }
+          ],
+          "detected": [
+            5,
+            9,
+            16,
+            17
+          ],
+          "monotonicity": {
+            "monotone_fraction": 1.0,
+            "monotone_sites": 18,
+            "n_sites": 18,
+            "spearman_rho": 0.5939
+          },
+          "strengths": [
+            0.25,
+            0.5,
+            0.75,
+            1.0
+          ]
+        },
+        "quiet": {
+          "calibration": [
+            {
+              "iqr": 0.2762,
+              "levels": {
+                "mild": 1,
+                "negligible": 0,
+                "noticeable": 2,
+                "severe": 1,
+                "strong": 0
+              },
+              "mean": 0.4368,
+              "modal_agreement": 0.5,
+              "modal_level": "noticeable",
+              "n": 4,
+              "std": 0.3308
+            },
+            {
+              "iqr": 0.2105,
+              "levels": {
+                "mild": 1,
+                "negligible": 0,
+                "noticeable": 6,
+                "severe": 1,
+                "strong": 7
+              },
+              "mean": 0.4747,
+              "modal_agreement": 0.4667,
+              "modal_level": "strong",
+              "n": 15,
+              "std": 0.1956
+            },
+            {
+              "iqr": 0.3125,
+              "levels": {
+                "mild": 0,
+                "negligible": 0,
+                "noticeable": 2,
+                "severe": 9,
+                "strong": 5
+              },
+              "mean": 0.7584,
+              "modal_agreement": 0.5625,
+              "modal_level": "severe",
+              "n": 16,
+              "std": 0.2185
+            },
+            {
+              "iqr": 0.2762,
+              "levels": {
+                "mild": 0,
+                "negligible": 0,
+                "noticeable": 2,
+                "severe": 13,
+                "strong": 3
+              },
+              "mean": 0.8533,
+              "modal_agreement": 0.7222,
+              "modal_level": "severe",
+              "n": 18,
+              "std": 0.233
+            }
+          ],
+          "detected": [
+            4,
+            15,
+            16,
+            18
+          ],
+          "monotonicity": {
+            "monotone_fraction": 1.0,
+            "monotone_sites": 18,
+            "n_sites": 18,
+            "spearman_rho": 0.7328
+          },
+          "strengths": [
+            0.5,
+            1.0,
+            1.5,
+            2.0
+          ]
+        },
+        "slow": {
+          "calibration": [
+            {
+              "iqr": 0.246,
+              "levels": {
+                "mild": 0,
+                "negligible": 0,
+                "noticeable": 7,
+                "severe": 2,
+                "strong": 4
+              },
+              "mean": 0.4768,
+              "modal_agreement": 0.5385,
+              "modal_level": "noticeable",
+              "n": 13,
+              "std": 0.2526
+            },
+            {
+              "iqr": 0.296,
+              "levels": {
+                "mild": 0,
+                "negligible": 0,
+                "noticeable": 3,
+                "severe": 13,
+                "strong": 2
+              },
+              "mean": 0.7979,
+              "modal_agreement": 0.7222,
+              "modal_level": "severe",
+              "n": 18,
+              "std": 0.2474
+            },
+            {
+              "iqr": 0.0,
+              "levels": {
+                "mild": 0,
+                "negligible": 0,
+                "noticeable": 0,
+                "severe": 18,
+                "strong": 0
+              },
+              "mean": 0.9767,
+              "modal_agreement": 1.0,
+              "modal_level": "severe",
+              "n": 18,
+              "std": 0.065
+            },
+            {
+              "iqr": 0.0,
+              "levels": {
+                "mild": 0,
+                "negligible": 0,
+                "noticeable": 0,
+                "severe": 18,
+                "strong": 0
+              },
+              "mean": 1.0,
+              "modal_agreement": 1.0,
+              "modal_level": "severe",
+              "n": 18,
+              "std": 0.0
+            }
+          ],
+          "detected": [
+            13,
+            18,
+            18,
+            18
+          ],
+          "monotonicity": {
+            "monotone_fraction": 1.0,
+            "monotone_sites": 18,
+            "n_sites": 18,
+            "spearman_rho": 0.7654
+          },
+          "strengths": [
+            0.5,
+            1.0,
+            1.5,
+            2.0
+          ]
+        }
+      },
+      "pooled_monotone_sites": 90,
+      "pooled_sites": 90
+    }
+  }
+}
