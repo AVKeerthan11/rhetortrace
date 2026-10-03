@@ -22,12 +22,13 @@ severity:
   low_coverage: 0.5             # flag regions with less usable evidence than this fraction of words
   output_dir: results/flaws
 
-scoring:
+scoring:                        # weighted delivery score (src/scoring.py); a secondary summary, not the headline
   pacing: 0.25
   pitch: 0.25
   pauses: 0.20
   energy: 0.15
   clarity: 0.15
+  flaws_to_zero: 3.0            # summed severity (0..1 per flaw track) at which a category scores 0
 
 detection:
   z_open: 3.0                   # smoothed |robust z| that opens a candidate region (sweep: scripts/eval_detection.py --grid)

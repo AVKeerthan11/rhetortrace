@@ -80,6 +80,7 @@ import yaml
 from src.alignment import AlignmentConfig
 from src.baseline import (BaselineConfig, build_baseline, load_take, pitch_span_windows, reference_takes,
                           value_table)
+from src.demo import load_manifest
 
 SCHEMA_VERSION = 1
 CATEGORIES = ("pacing", "pitch", "pause", "energy", "clarity")
@@ -439,16 +440,24 @@ def save_detection(doc: dict, cfg: DetectionConfig) -> Path:
 
 
 def baseline_for(speech_id: str, take_id: str, base_cfg: BaselineConfig, align_cfg: AlignmentConfig):
-    """The cached baseline; for a reference take, a leave-one-out baseline of the others."""
+    """The cached baseline; for a reference take, a leave-one-out baseline of the others.
+
+    A synthetic demo take (manifest in results/demo/<speech>/<take>.json, see
+    scripts/build_demo.py) is an edited copy of a reference take, so its source
+    take is left out as well: otherwise its unedited parts would match a
+    reference exactly.
+    """
     path = Path(base_cfg.output_dir) / f"{speech_id}.baseline.json"
     if not path.exists():
         raise FileNotFoundError(f"{path} missing; run python -m src.baseline --all first")
     baseline = json.loads(path.read_text(encoding="utf-8"))
     refs = [r["take_id"] for r in baseline["references"]]
-    if take_id not in refs:
+    manifest = load_manifest(speech_id, take_id)
+    left_out = manifest["source_take"] if manifest else take_id
+    if left_out not in refs:
         return baseline, path.as_posix()
-    others = [load_take(speech_id, t, base_cfg, align_cfg) for t in refs if t != take_id]
-    return build_baseline(speech_id, others, base_cfg), f"leave-one-out:{take_id}"
+    others = [load_take(speech_id, t, base_cfg, align_cfg) for t in refs if t != left_out]
+    return build_baseline(speech_id, others, base_cfg), f"leave-one-out:{left_out}"
 
 
 def main(argv: list[str] | None = None) -> int:

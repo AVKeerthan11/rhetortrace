@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "speech_id": "speech_02",
+  "take_id": "synth_01",
+  "label": "synthetic audio injection",
+  "source_take": "good_03",
+  "source_audio_sha256": "31d3f93f3cfb69775f891a773527cbc975e3028c0abf0fab7c33a9be7c9c74b3",
+  "audio_sha256": "1c371651247bfbc27b7a5ba660de7548dec750103006b8953a59de513c91bebc",
+  "edits": [
+    {
+      "kind": "slow",
+      "word_range": [
+        6,
+        13
+      ],
+      "original": [
+        2.221,
+        4.661
+      ],
+      "params": {
+        "factor": 1.5
+      }
+    },
+    {
+      "kind": "fast",
+      "word_range": [
+        24,
+        31
+      ],
+      "original": [
+        8.383,
+        10.703
+      ],
+      "params": {
+        "factor": 0.67
+      }
+    },
+    {
+      "kind": "long_pause",
+      "word_range": [
+        50,
+        50
+      ],
+      "original": [
+        17.145,
+        17.205
+      ],
+      "params": {
+        "inserted_s": 1.0
+      }
+    },
+    {
+      "kind": "monotone",
+      "word_range": [
+        98,
+        107
+      ],
+      "original": [
+        34.571,
+        38.292
+      ],
+      "params": {
+        "pitch": "flat at span median"
+      }
+    }
+  ],
+  "ground_truth": [
+    {
+      "kind": "slow",
+      "category": "pacing",
+      "direction": "slow",
+      "start_idx": 6,
+      "end_idx": 13,
+      "start": 2.22,
+      "end": 5.841
+    },
+    {
+      "kind": "fast",
+      "category": "pacing",
+      "direction": "fast",
+      "start_idx": 24,
+      "end_idx": 31,
+      "start": 9.562,
+      "end": 11.162
+    },
+    {
+      "kind": "long_pause",
+      "category": "pause",
+      "direction": "long",
+      "start_idx": 50,
+      "end_idx": 50,
+      "start": 17.603,
+      "end": 18.623
+    },
+    {
+      "kind": "monotone",
+      "category": "pitch",
+      "direction": "flatter",
+      "start_idx": 98,
+      "end_idx": 107,
+      "start": 35.987,
+      "end": 39.707
+    }
+  ]
+}
