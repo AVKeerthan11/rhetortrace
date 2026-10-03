@@ -9,3 +9,7 @@ whisperx
 praat-parselmouth
 pytest
 pyyaml
+fastapi
+uvicorn
+python-multipart
+httpx

@@ -137,3 +137,7 @@ analysis:                       # orchestration (src/pipeline.py)
   fail_on_off_script: true      # ASR WER above alignment.qc.max_asr_wer stops the analysis (off-script reading)
   alignment_cache_dirs: [results/alignments]   # reuse alignments with an identical cache key (same audio, transcript, model)
   low_memory: true              # aligner and Whisper each in a short-lived process: fits small RAM; slower, same result
+
+server:                         # HTTP job server (python -m src.server); jobs run one at a time
+  max_upload_mb: 200            # per uploaded file
+  max_queued: 16                # waiting + running jobs; more -> 503
