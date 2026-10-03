@@ -32,6 +32,7 @@ import parselmouth
 import yaml
 
 from src.alignment import SAMPLE_RATE, AlignmentConfig, load_alignment, load_audio, sha256_file
+from src.errors import StaleArtifactError
 
 SCHEMA_VERSION = 1
 PITCH_WORD_FIELDS = (
@@ -250,7 +251,7 @@ def extract_take(speech_id: str, take_id: str, pitch_cfg: PitchConfig, align_cfg
     audio_path = Path(alignment["audio"]["path"])
     audio_sha = sha256_file(audio_path)
     if audio_sha != alignment["audio"]["sha256"]:
-        raise RuntimeError(f"{audio_path} changed since it was aligned; re-run alignment")
+        raise StaleArtifactError(f"{audio_path} changed since it was aligned; re-run alignment", stage="features")
 
     times, f0, f0_raw, energy_db, gate = extract_gated_f0(load_audio(audio_path), SAMPLE_RATE, pitch_cfg)
     words = alignment["words"]

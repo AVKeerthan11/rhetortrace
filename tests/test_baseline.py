@@ -35,11 +35,11 @@ def make_take(take_id, f0=(0.0, 1.0, -1.0, 0.5, 0.0), scale=1.0, low=(), silent=
     gaps = [(starts[i + 1] - ends[i]) * scale for i in range(4)]
     art = 5 / sum(durs)
     key = f"key-{take_id}"
-    common = {"alignment_cache_key": key, "audio_sha256": f"sha-{take_id}"}
+    common = {"schema_version": 1, "alignment_cache_key": key, "audio_sha256": f"sha-{take_id}"}
     w = lambda i: {"idx": i, "text": TEXTS[i], "aligned": True}  # noqa: E731
     return {
         "take_id": take_id,
-        "alignment": {"cache_key": key, "audio": {"sha256": f"sha-{take_id}"}, "words": words,
+        "alignment": {"schema_version": 1, "cache_key": key, "audio": {"sha256": f"sha-{take_id}"}, "words": words,
                       "quality": {"low_score_idx": list(low), "too_short_idx": []}},
         "pitch": {**common, "words": [
             {**w(i), "f0_median_st": None if i in pitch_fail else f0[i],

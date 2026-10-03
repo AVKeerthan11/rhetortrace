@@ -50,6 +50,7 @@ Output: results/baselines/<speech>.baseline.json
 from __future__ import annotations
 
 import argparse
+import importlib
 import json
 import math
 import sys
@@ -60,7 +61,9 @@ from pathlib import Path
 import numpy as np
 import yaml
 
+from src.alignment import SCHEMA_VERSION as ALIGNMENT_SCHEMA
 from src.alignment import AlignmentConfig, load_alignment
+from src.errors import ReferencesError, StaleArtifactError, require_schema
 from src.features.rate import sentence_ids
 
 SCHEMA_VERSION = 1
@@ -148,16 +151,21 @@ def _log(x, base=math.e):
 
 
 def load_take(speech_id: str, take_id: str, cfg: BaselineConfig, align_cfg: AlignmentConfig) -> dict:
-    """Alignment + all feature docs of a take, checked against the alignment."""
-    alignment = load_alignment(Path(align_cfg.output_dir) / speech_id / f"{take_id}.json")
+    """Alignment + all feature docs of a take, checked against the alignment and the
+    current schema versions (StaleArtifactError otherwise)."""
+    path = Path(align_cfg.output_dir) / speech_id / f"{take_id}.json"
+    alignment = require_schema(load_alignment(path), ALIGNMENT_SCHEMA, path.as_posix(), "baseline")
     take = {"take_id": take_id, "alignment": alignment}
     for source in SOURCES:
         path = Path(cfg.features_dir) / speech_id / f"{take_id}.{source}.json"
         if not path.exists():
             raise FileNotFoundError(f"{path} missing; run python -m src.features.{source} --all first")
         doc = json.loads(path.read_text(encoding="utf-8"))
+        require_schema(doc, importlib.import_module(f"src.features.{source}").SCHEMA_VERSION, path.as_posix(),
+                       "baseline")
         if doc["alignment_cache_key"] != alignment["cache_key"]:
-            raise RuntimeError(f"{path} is stale for the current alignment; re-run {source} extraction")
+            raise StaleArtifactError(f"{path} is stale for the current alignment; re-run {source} extraction",
+                                     stage="baseline", detail={"artifact": path.as_posix()})
         take[source] = doc
     return take
 
@@ -408,9 +416,38 @@ def profile_correlations(take_ids: list[str], tables: list[dict]) -> dict:
 # ----------------------------------------------------------------- pipeline
 
 
-def reference_takes(speech_id: str, cfg: BaselineConfig, align_cfg: AlignmentConfig) -> list[str]:
-    return sorted(p.stem for p in (Path(align_cfg.output_dir) / speech_id).glob("*.json")
-                  if p.stem.startswith(cfg.reference_prefix))
+def reference_takes(speech_id: str, cfg: BaselineConfig, align_cfg: AlignmentConfig,
+                    explicit: list[str] | None = None) -> list[str]:
+    """The script's reference takes: ``explicit`` ids when given (each must be aligned),
+    else every aligned take whose id starts with ``reference_prefix`` (dataset convention)."""
+    if explicit is None:
+        return sorted(p.stem for p in (Path(align_cfg.output_dir) / speech_id).glob("*.json")
+                      if p.stem.startswith(cfg.reference_prefix))
+    if len(set(explicit)) != len(explicit):
+        raise ReferencesError(f"{speech_id}: duplicate reference ids {sorted(explicit)}", stage="baseline")
+    missing = [t for t in explicit if not (Path(align_cfg.output_dir) / speech_id / f"{t}.json").exists()]
+    if missing:
+        raise ReferencesError(f"{speech_id}: reference take(s) {missing} have no alignment", stage="baseline",
+                              detail={"missing": missing})
+    return sorted(explicit)
+
+
+def check_baseline_fresh(baseline: dict, align_cfg: AlignmentConfig) -> dict:
+    """Raise StaleArtifactError if a cached baseline was built from reference alignments
+    that have since changed (re-aligned or new audio); returns the baseline otherwise."""
+    speech_id = baseline["speech_id"]
+    require_schema(baseline, SCHEMA_VERSION, f"{speech_id} baseline", "baseline")
+    for ref in baseline["references"]:
+        path = Path(align_cfg.output_dir) / speech_id / f"{ref['take_id']}.json"
+        if not path.exists():
+            raise StaleArtifactError(f"{speech_id} baseline: reference {ref['take_id']} has no alignment any more; "
+                                     "rebuild it with python -m src.baseline --all", stage="baseline")
+        current = load_alignment(path)
+        if (current["cache_key"], current["audio"]["sha256"]) != (ref["alignment_cache_key"], ref["audio_sha256"]):
+            raise StaleArtifactError(f"{speech_id} baseline is stale: reference {ref['take_id']} was re-aligned or its "
+                                     "audio changed; rebuild it with python -m src.baseline --all", stage="baseline",
+                                     detail={"reference": ref["take_id"]})
+    return baseline
 
 
 def build_baseline(speech_id: str, takes: list[dict], cfg: BaselineConfig, z_flag: float = 2.0) -> dict:

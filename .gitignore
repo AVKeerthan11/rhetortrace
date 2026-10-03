@@ -24,3 +24,5 @@ results/tmp/
 # OS
 .DS_Store
 Thumbs.db
+# New-recording analyses (src.pipeline)
+runs/

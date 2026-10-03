@@ -35,6 +35,7 @@ import numpy as np
 import yaml
 
 from src.alignment import SAMPLE_RATE, AlignmentConfig, load_alignment, load_audio, sha256_file
+from src.errors import StaleArtifactError
 from src.features.pitch import frame_energy_db, in_word_mask, word_frame_mask
 from src.features.rate import sentence_ids
 
@@ -196,7 +197,7 @@ def extract_take(speech_id: str, take_id: str, spectral_cfg: SpectralConfig, ali
     audio_path = Path(alignment["audio"]["path"])
     audio_sha = sha256_file(audio_path)
     if audio_sha != alignment["audio"]["sha256"]:
-        raise RuntimeError(f"{audio_path} changed since it was aligned; re-run alignment")
+        raise StaleArtifactError(f"{audio_path} changed since it was aligned; re-run alignment", stage="features")
 
     times, frames = extract_spectral(load_audio(audio_path), SAMPLE_RATE, spectral_cfg)
     words = alignment["words"]

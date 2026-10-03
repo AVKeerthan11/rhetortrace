@@ -78,9 +78,10 @@ import numpy as np
 import yaml
 
 from src.alignment import AlignmentConfig
-from src.baseline import (BaselineConfig, build_baseline, load_take, pitch_span_windows, reference_takes,
-                          value_table)
+from src.baseline import (BaselineConfig, build_baseline, check_baseline_fresh, load_take, pitch_span_windows,
+                          reference_takes, value_table)
 from src.demo import load_manifest
+from src.errors import ReferencesError
 
 SCHEMA_VERSION = 1
 CATEGORIES = ("pacing", "pitch", "pause", "energy", "clarity")
@@ -439,18 +440,37 @@ def save_detection(doc: dict, cfg: DetectionConfig) -> Path:
     return path
 
 
-def baseline_for(speech_id: str, take_id: str, base_cfg: BaselineConfig, align_cfg: AlignmentConfig):
-    """The cached baseline; for a reference take, a leave-one-out baseline of the others.
+def baseline_for(speech_id: str, take_id: str, base_cfg: BaselineConfig, align_cfg: AlignmentConfig,
+                 references: list[str] | None = None, exclude: tuple[str, ...] = ()):
+    """The baseline a take is scored against, and a provenance label.
 
-    A synthetic demo take (manifest in results/demo/<speech>/<take>.json, see
-    scripts/build_demo.py) is an edited copy of a reference take, so its source
-    take is left out as well: otherwise its unedited parts would match a
-    reference exactly.
+    Explicit ``references`` (new recordings, src.pipeline): a baseline built from
+    exactly those takes, minus ``exclude``; the take itself may not be one of them.
+    Label ``references:<ids>``.
+
+    Default (dataset workflow): the cached baseline; for a reference take, a
+    leave-one-out baseline of the others. A synthetic demo take (manifest in
+    results/demo/<speech>/<take>.json, see scripts/build_demo.py) is an edited
+    copy of a reference take, so its source take is left out as well: otherwise
+    its unedited parts would match a reference exactly. The cached baseline must
+    match the current reference alignments (else StaleArtifactError).
     """
+    if references is not None:
+        refs = [t for t in reference_takes(speech_id, base_cfg, align_cfg, explicit=list(references))
+                if t not in exclude]
+        if take_id in refs:
+            raise ReferencesError(f"{speech_id}/{take_id} cannot be its own reference", stage="baseline")
+        if len(refs) < base_cfg.min_refs:
+            raise ReferencesError(f"{speech_id}: {len(refs)} usable reference recording(s), need at least "
+                                  f"{base_cfg.min_refs}", stage="baseline",
+                                  detail={"references": refs, "min_refs": base_cfg.min_refs})
+        takes = [load_take(speech_id, t, base_cfg, align_cfg) for t in refs]
+        return build_baseline(speech_id, takes, base_cfg), "references:" + ",".join(refs)
+
     path = Path(base_cfg.output_dir) / f"{speech_id}.baseline.json"
     if not path.exists():
         raise FileNotFoundError(f"{path} missing; run python -m src.baseline --all first")
-    baseline = json.loads(path.read_text(encoding="utf-8"))
+    baseline = check_baseline_fresh(json.loads(path.read_text(encoding="utf-8")), align_cfg)
     refs = [r["take_id"] for r in baseline["references"]]
     manifest = load_manifest(speech_id, take_id)
     left_out = manifest["source_take"] if manifest else take_id
@@ -467,6 +487,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--speech", default="speech_01")
     parser.add_argument("--take", default="good_01")
     parser.add_argument("--all", action="store_true", help="every take with a cached alignment")
+    parser.add_argument("--ref", action="append", default=None, metavar="TAKE",
+                        help="explicit reference take (repeat); default: the cached baseline (good_* takes)")
     parser.add_argument("--config", default="config.yaml")
     args = parser.parse_args(argv)
 
@@ -479,7 +501,7 @@ def main(argv: list[str] | None = None) -> int:
         jobs = [(args.speech, args.take)]
 
     for speech_id, take_id in jobs:
-        baseline, source = baseline_for(speech_id, take_id, base_cfg, align_cfg)
+        baseline, source = baseline_for(speech_id, take_id, base_cfg, align_cfg, references=args.ref)
         doc = detect_take(load_take(speech_id, take_id, base_cfg, align_cfg), baseline, cfg, source)
         save_detection(doc, cfg)
         s = doc["summary"]

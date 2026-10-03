@@ -123,3 +123,17 @@ baseline:
   pitch_span_min_words: 3       # fewer voiced words in the window -> no span value
   pitch_span_floor_st: 0.25     # std floor (pitch resolution) so a flat span cannot get flatter
   output_dir: results/baselines
+
+# ---- new-recording path (src.pipeline / python -m src.analyze); the dataset workflow does not read these
+ingest:                         # input validation, not analysis settings (src/ingest.py)
+  min_duration_s: 2.0
+  max_duration_s: 900.0
+  silence_peak_dbfs: -50.0      # peak below this -> rejected as silent
+  max_clipped_ratio: 0.01       # above -> warning
+  min_transcript_words: 5
+
+analysis:                       # orchestration (src/pipeline.py)
+  runs_dir: runs                # one self-contained folder per analysis
+  fail_on_off_script: true      # ASR WER above alignment.qc.max_asr_wer stops the analysis (off-script reading)
+  alignment_cache_dirs: [results/alignments]   # reuse alignments with an identical cache key (same audio, transcript, model)
+  low_memory: true              # aligner and Whisper each in a short-lived process: fits small RAM; slower, same result

@@ -32,6 +32,7 @@ import numpy as np
 import yaml
 
 from src.alignment import SAMPLE_RATE, AlignmentConfig, load_alignment, load_audio, sha256_file
+from src.errors import StaleArtifactError
 from src.features.pitch import frame_energy_db, in_word_mask, long_pause_mask, word_frame_mask
 
 SCHEMA_VERSION = 1
@@ -171,7 +172,8 @@ def load_voiced_frames(pitch_path: Path, alignment: dict) -> dict[int, int | Non
         raise FileNotFoundError(f"{pitch_path} missing; run python -m src.features.pitch first")
     pitch = json.loads(pitch_path.read_text(encoding="utf-8"))
     if pitch["alignment_cache_key"] != alignment["cache_key"] or pitch["audio_sha256"] != alignment["audio"]["sha256"]:
-        raise RuntimeError(f"{pitch_path} is stale for the current alignment; re-run pitch extraction")
+        raise StaleArtifactError(f"{pitch_path} is stale for the current alignment; re-run pitch extraction",
+                                 stage="features")
     return {r["idx"]: r["n_voiced"] for r in pitch["words"]}
 
 
@@ -184,7 +186,7 @@ def extract_take(speech_id: str, take_id: str, energy_cfg: EnergyConfig, align_c
     audio_path = Path(alignment["audio"]["path"])
     audio_sha = sha256_file(audio_path)
     if audio_sha != alignment["audio"]["sha256"]:
-        raise RuntimeError(f"{audio_path} changed since it was aligned; re-run alignment")
+        raise StaleArtifactError(f"{audio_path} changed since it was aligned; re-run alignment", stage="features")
 
     pitch_path = Path(energy_cfg.output_dir) / speech_id / f"{take_id}.pitch.json"
     voiced_frames = load_voiced_frames(pitch_path, alignment)

@@ -27,6 +27,7 @@ import numpy as np
 import soundfile as sf
 import yaml
 
+from src.errors import ModelWorkerError
 from src.transcript import Token, Transcript, load_transcript, match_reference_words, normalize_word, word_error_rate
 
 SCHEMA_VERSION = 1
@@ -341,20 +342,61 @@ def validate_alignment_doc(doc: dict, transcript: Transcript) -> list[str]:
 # ---------------------------------------------------------------- pipeline
 
 
-def build_alignment_doc(speech_id: str, take_id: str, cfg: AlignmentConfig, force: bool = False) -> dict:
-    """Align one take (or return the cached result if inputs are unchanged)."""
+def alignment_cache_key(audio_sha: str, transcript: Transcript, cfg: AlignmentConfig) -> str:
+    """Content key of an alignment: same audio bytes, transcript bytes, model settings and
+    WhisperX version give the same aligned words, wherever the files live."""
+    return hashlib.sha256(json.dumps({
+        "schema_version": SCHEMA_VERSION,
+        "audio_sha256": audio_sha,
+        "transcript_sha256": transcript.sha256,
+        "settings": cfg.model_settings(),
+        "whisperx": metadata.version("whisperx"),
+    }, sort_keys=True).encode()).hexdigest()
+
+
+def _isolated(task: str, audio_path: Path, transcript_path: Path, cfg: AlignmentConfig):
+    """Run one model step (``align`` / ``asr``) in a fresh, short-lived process
+    (python -m src.model_worker). Torch / MKL keep freed memory inside a process, so the
+    aligner and Whisper loaded one after the other can exhaust a small machine; a process
+    that exits returns everything to the OS. The worker loads the same audio and
+    transcript files with the same functions, so the result is the same."""
+    import subprocess
+    import tempfile
+
+    with tempfile.TemporaryDirectory(prefix="rt-model-") as tmp:
+        req, res = Path(tmp) / "request.json", Path(tmp) / "response.json"
+        req.write_text(json.dumps({"audio": str(audio_path), "transcript": str(transcript_path), "cfg": asdict(cfg)}),
+                       encoding="utf-8")
+        proc = subprocess.run([sys.executable, "-m", "src.model_worker", task, str(req), str(res)],
+                              capture_output=True, text=True, encoding="utf-8", errors="replace",
+                              cwd=Path(__file__).resolve().parents[1])
+        if proc.returncode != 0 or not res.exists():
+            tail = proc.stderr.strip().splitlines()[-3:]
+            # MemoryError / torch "out of memory" / "bad allocation"; killed by the OOM killer (-9);
+            # Windows STATUS_NO_MEMORY / STATUS_COMMITMENT_LIMIT
+            oom = (proc.returncode in (-9, 137, 0xC0000017, 0xC000012D)
+                   or any(m in proc.stderr for m in ("MemoryError", "out of memory", "bad allocation")))
+            raise ModelWorkerError(
+                f"the {'ASR' if task == 'asr' else 'alignment'} model process failed (exit {proc.returncode})"
+                + ("; it most likely ran out of memory" if oom else "") + (f": {tail[-1]}" if tail else ""),
+                stage="align", detail={"task": task, "exit_code": proc.returncode, "out_of_memory": oom,
+                                       "stderr_tail": tail})
+        return json.loads(res.read_text(encoding="utf-8"))
+
+
+def build_alignment_doc(speech_id: str, take_id: str, cfg: AlignmentConfig, force: bool = False,
+                        isolate_models: bool = False) -> dict:
+    """Align one take (or return the cached result if inputs are unchanged).
+
+    ``isolate_models`` runs the aligner and Whisper each in its own short-lived process
+    (low-RAM machines; slower, models load per take). Same functions on the same
+    inputs: it changes memory use, not the result."""
     audio_path, transcript_path, out_path = take_paths(cfg, speech_id, take_id)
     transcript = load_transcript(transcript_path)
     audio_sha = sha256_file(audio_path)
 
     whisperx_version = metadata.version("whisperx")
-    cache_key = hashlib.sha256(json.dumps({
-        "schema_version": SCHEMA_VERSION,
-        "audio_sha256": audio_sha,
-        "transcript_sha256": transcript.sha256,
-        "settings": cfg.model_settings(),
-        "whisperx": whisperx_version,
-    }, sort_keys=True).encode()).hexdigest()
+    cache_key = alignment_cache_key(audio_sha, transcript, cfg)
 
     cached = load_alignment(out_path) if out_path.exists() and not force else None
     if cached is not None and cached.get("cache_key") == cache_key:
@@ -365,8 +407,13 @@ def build_alignment_doc(speech_id: str, take_id: str, cfg: AlignmentConfig, forc
     else:
         audio = load_audio(audio_path)
         duration = round(len(audio) / SAMPLE_RATE, 3)
-        words = build_word_records(transcript.tokens, run_forced_alignment(audio, transcript, cfg))
-        asr_text = run_asr(audio, cfg) if cfg.asr_qc else None
+        if isolate_models:
+            raw_words = _isolated("align", audio_path, transcript_path, cfg)
+            asr_text = _isolated("asr", audio_path, transcript_path, cfg) if cfg.asr_qc else None
+        else:
+            raw_words = run_forced_alignment(audio, transcript, cfg)
+            asr_text = run_asr(audio, cfg) if cfg.asr_qc else None
+        words = build_word_records(transcript.tokens, raw_words)
     quality = quality_checks(words, transcript, duration, cfg.qc, asr_text)
 
     doc = {
