@@ -291,3 +291,29 @@ def test_cli_reports_errors_as_json_with_exit_codes(inputs, capsys):
     code = cli(["--audio", str(inputs["rec"]), "--transcript", str(inputs["text"]), "--ref", str(inputs["rec"]),
                 "--ref", str(inputs["refs"][0]), "--runs-dir", str(inputs["runs"])])
     assert code == 2 and "same audio" in capsys.readouterr().err
+
+
+# ------------------------------------------------------------ atomic status writes
+
+
+def test_status_replace_retries_while_a_reader_holds_the_file(tmp_path, monkeypatch):
+    import os
+
+    from src import pipeline
+
+    real, calls = os.replace, []
+
+    def flaky(src, dst):  # Windows: replacing a file another thread has open is denied for a moment
+        calls.append(dst)
+        if len(calls) < 3:
+            raise PermissionError(13, "Access is denied")
+        real(src, dst)
+
+    monkeypatch.setattr(pipeline.os, "replace", flaky)
+    monkeypatch.setattr(pipeline.time, "sleep", lambda s: None)
+    status = pipeline.RunStatus(tmp_path / "run" / "status.json")
+    assert len(calls) == 3 and json.loads(status.path.read_text(encoding="utf-8"))["state"] == "running"
+
+    monkeypatch.setattr(pipeline.os, "replace", lambda s, d: (_ for _ in ()).throw(PermissionError(13, "denied")))
+    with pytest.raises(PermissionError):  # a lasting failure still surfaces
+        pipeline.replace_file(tmp_path / "x", tmp_path / "y", attempts=3)

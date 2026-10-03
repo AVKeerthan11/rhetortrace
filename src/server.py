@@ -58,7 +58,7 @@ from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
 
 from src.errors import InputError, PipelineError, RhetorTraceError
-from src.pipeline import AnalysisConfig, analyze, check_id
+from src.pipeline import AnalysisConfig, analyze, check_id, replace_file
 
 SCHEMA_VERSION = 1
 HTTP_FOR_KIND = {"input": 422, "refused": 422, "stale": 500, "config": 500, "internal": 500}
@@ -96,7 +96,7 @@ def read_json(path: Path) -> dict | None:
 def write_json_atomic(path: Path, doc: dict) -> None:
     tmp = path.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    os.replace(tmp, path)
+    replace_file(tmp, path)
 
 
 def error_body(err: RhetorTraceError) -> dict:

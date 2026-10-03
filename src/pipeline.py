@@ -99,6 +99,19 @@ class Recording:
 # ------------------------------------------------------------------- status
 
 
+def replace_file(src: Path, dst: Path, attempts: int = 50) -> None:
+    """os.replace, retried briefly: on Windows it fails (PermissionError) while another thread or
+    process has ``dst`` open, e.g. the job server reading status.json as the pipeline rewrites it."""
+    for i in range(attempts):
+        try:
+            os.replace(src, dst)
+            return
+        except PermissionError:
+            if i == attempts - 1:
+                raise
+            time.sleep(0.01 * (i + 1) if i < 10 else 0.1)
+
+
 @dataclass
 class RunStatus:
     """status.json, rewritten atomically after every change (a reader never sees half a file)."""
@@ -117,7 +130,7 @@ class RunStatus:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         tmp = self.path.with_suffix(".json.tmp")
         tmp.write_text(json.dumps(self.doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-        os.replace(tmp, self.path)
+        replace_file(tmp, self.path)
 
     def _stage(self, name):
         return next(s for s in self.doc["stages"] if s["name"] == name)
