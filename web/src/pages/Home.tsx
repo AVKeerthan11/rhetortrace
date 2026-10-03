@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import { ArrowRight, AudioLines, BookOpen, FileText, FlaskConical, Headphones, ShieldCheck } from "lucide-react";
+import { ArrowRight, AudioLines, BookOpen, FileText, FlaskConical, Headphones, ShieldCheck, Upload } from "lucide-react";
 import { useIndex } from "@/lib/data";
 import { fmtShort } from "@/lib/format";
 import { ease } from "@/lib/motion";
-import { evaluationPath, groupBySpeech, methodPath, overviewPath, robustnessPath, speechName } from "@/lib/takes";
+import { analyzePath, evaluationPath, groupBySpeech, methodPath, overviewPath, robustnessPath, speechName } from "@/lib/takes";
 import type { TakeSummary } from "@/lib/types";
 import { pct } from "@/lib/validation";
 import { PageState } from "@/components/PageState";
@@ -47,6 +47,18 @@ export function Home() {
             </li>
           ))}
         </motion.ol>
+
+        <motion.div {...rise(3)} className="mt-10">
+          <Link to={analyzePath}
+            className="group flex items-center gap-4 rounded-2xl border border-hairline bg-surface px-5 py-4 transition-[box-shadow,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-transparent hover:shadow-float">
+            <Upload className="size-5 text-ink/60" strokeWidth={1.75} />
+            <span className="min-w-0 flex-1">
+              <span className="block text-[15px] font-medium">Analyse your own recording</span>
+              <span className="block text-[13px] text-muted-foreground">Upload a delivery, its transcript and good deliveries of the same text.</span>
+            </span>
+            <ArrowRight className="size-4 text-faint transition-transform group-hover:translate-x-0.5 group-hover:text-ink" />
+          </Link>
+        </motion.div>
 
         <motion.section {...rise(3)} className="mt-14">
           <h2 className="text-[11px] font-medium tracking-[0.14em] text-faint uppercase">Try it on a demo recording</h2>

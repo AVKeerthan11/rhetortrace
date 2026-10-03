@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import { CATEGORY } from "@/lib/categories";
 import { fmt } from "@/lib/format";
 import { ease } from "@/lib/motion";
+import { referenceName } from "@/lib/takes";
 import type { Flaw, Take } from "@/lib/types";
 
 const PAD_WORDS = 2;
@@ -18,7 +19,7 @@ export function WordTiming({ take, f }: { take: Take; f: Flaw }) {
 
   const rows = [
     { label: "This recording", own: true, times: idx.map((i) => [take.words[i].start, take.words[i].end] as const) },
-    ...take.references.map((r) => ({ label: `Reference ${r.take_id.replace("_", " ")}`, own: false, times: idx.map((i) => r.words[i] ?? [null, null]) })),
+    ...take.references.map((r) => ({ label: `Reference ${referenceName(take, r.take_id)}`, own: false, times: idx.map((i) => r.words[i] ?? [null, null]) })),
   ].map((row) => {
     const t0 = row.times.find(([s]) => s !== null)?.[0] ?? 0;
     const words = row.times.map(([s, e], k) => (s === null || e === null ? null : { i: idx[k], s: s - t0, e: e - t0 }));

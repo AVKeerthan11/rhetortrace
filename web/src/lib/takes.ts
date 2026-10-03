@@ -1,4 +1,4 @@
-import type { TakeSummary } from "./types";
+import type { Take, TakeSummary } from "./types";
 
 // Display names and URLs for takes. Ids look like "speech_01__synth_01".
 
@@ -6,10 +6,13 @@ export const speechName = (speechId: string) => `Speech ${speechId.split("_")[1]
 
 export function takeName(t: Pick<TakeSummary, "kind" | "take_id">): string {
   const n = t.take_id.split("_")[1] ?? "";
-  return t.kind === "demo" ? "Demo recording" : `Clean recording ${n}`;
+  return t.kind === "demo" ? "Demo recording" : t.kind === "user" ? "Your recording" : `Clean recording ${n}`;
 }
 
-export const takeKindLabel = (kind: TakeSummary["kind"]) => (kind === "demo" ? "Synthetic demo" : "Control");
+export const takeKindLabel = (kind: TakeSummary["kind"]) => (kind === "demo" ? "Synthetic demo" : kind === "user" ? "Uploaded" : "Control");
+
+/** A reference delivery's name: the uploaded file name, else "good 01". */
+export const referenceName = (take: Pick<Take, "display">, takeId: string) => take.display?.references[takeId] ?? takeId.replace("_", " ");
 
 /** Routes. Findings are addressed by their importance rank (1 = most important). */
 export const overviewPath = (id: string) => `/take/${id}`;
@@ -18,6 +21,8 @@ export const explorePath = (id: string, rank?: number) => `/take/${id}/explore${
 export const evaluationPath = "/evaluation";
 export const robustnessPath = "/evaluation/robustness";
 export const methodPath = "/method";
+export const analyzePath = "/analyze";
+export const runPath = (runId: string) => `/analyze/${runId}`;
 
 /** "speech_01/good_01" (validation reports) -> "speech_01__good_01" (take id). */
 export const caseToId = (c: string) => c.replace("/", "__");

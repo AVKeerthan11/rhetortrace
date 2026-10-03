@@ -1,6 +1,7 @@
 import { ArrowLeftRight, Check, ChevronDown, Ear, Pause, Play } from "lucide-react";
 import { listenFor, referenceRange, takeRange } from "@/lib/findings";
 import { player, usePlayerState } from "@/lib/player";
+import { referenceName } from "@/lib/takes";
 import type { Flaw, Take } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -13,7 +14,7 @@ export function HearIt({ take, f, rank, refIdx, setRefIdx, onListened }: {
   const ref = take.references[refIdx];
   const mine = takeRange(take, f);
   const theirs = referenceRange(take, f, refIdx);
-  const refName = ref ? ref.take_id.replace("_", " ") : "";
+  const refName = ref ? referenceName(take, ref.take_id) : "";
   const L = { mine: `Finding ${rank} · this recording`, ref: `Finding ${rank} · reference ${refName}` };
   const active = playing || refPlaying ? label : null;
 
@@ -55,7 +56,7 @@ export function HearIt({ take, f, rank, refIdx, setRefIdx, onListened }: {
                   <DropdownMenuLabel>Compare with</DropdownMenuLabel>
                   {take.references.map((r, i) => (
                     <DropdownMenuItem key={r.take_id} onClick={() => setRefIdx(i)}>
-                      Reference {r.take_id.replace("_", " ")}
+                      Reference {referenceName(take, r.take_id)}
                       {i === refIdx && <Check className="ml-auto size-3.5" />}
                     </DropdownMenuItem>
                   ))}

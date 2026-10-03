@@ -2,10 +2,11 @@ import { useState } from "react";
 import { Link, NavLink, useMatch, useNavigate } from "react-router-dom";
 import { ChevronDown, ChevronRight, FileJson, Keyboard, Link2, MoreHorizontal, Music, ScanLine, Search } from "lucide-react";
 import { copyLink, downloadAnalysis, downloadAudio } from "@/lib/actions";
+import { isRunId } from "@/lib/api";
 import { useIndex, useTake } from "@/lib/data";
 import { MOD } from "@/lib/keys";
 import { useUi } from "@/lib/store";
-import { evaluationPath, explorePath, groupBySpeech, methodPath, overviewPath, robustnessPath, speechName, takeName } from "@/lib/takes";
+import { analyzePath, evaluationPath, explorePath, groupBySpeech, methodPath, overviewPath, robustnessPath, speechName, takeName } from "@/lib/takes";
 import { cn } from "@/lib/utils";
 import { LogoMark, Wordmark } from "@/components/Logo";
 import { TakeMarks } from "@/components/TakeMarks";
@@ -20,11 +21,14 @@ import { useCurrentTake } from "./useCurrentTake";
 export function TopBar() {
   const { id, view, rank } = useCurrentTake();
   const { data: index } = useIndex();
-  const summary = id ? index?.takes.find((t) => t.id === id) ?? null : null;
-  const total = summary?.n_flaws ?? 0;
+  const run = isRunId(id);
+  const { data: runTake } = useTake(run ? id : undefined); // uploaded analyses are not in index.json
+  const summary = id && !run ? index?.takes.find((t) => t.id === id) ?? null : null;
+  const total = summary?.n_flaws ?? runTake?.flaws.length ?? 0;
   const evaluation = useMatch(evaluationPath);
   const robustness = useMatch(robustnessPath);
   const method = useMatch(methodPath);
+  const analyze = useMatch(`${analyzePath}/*`);
 
   return (
     <header className="flex h-14 shrink-0 items-center gap-4 border-b border-hairline bg-background/85 px-5 backdrop-blur">
@@ -39,7 +43,13 @@ export function TopBar() {
             <Crumb sep />
             <Link to="/" className="rounded-md px-1.5 py-1 text-muted-foreground transition-colors hover:text-ink">All recordings</Link>
             <Crumb sep />
-            {summary ? <TakeCrumb currentId={summary.id} current={view === "overview"} /> : <span className="shimmer h-4 w-32 rounded" />}
+            {run ? (
+              runTake ? (
+                <Link to={overviewPath(runTake.id)} className={cn("rounded-md px-1.5 py-1 transition-colors hover:text-ink", view === "overview" ? "font-medium" : "text-muted-foreground")}>
+                  Your recording · {runTake.display?.recording ?? runTake.take_id}
+                </Link>
+              ) : <span className="shimmer h-4 w-32 rounded" />
+            ) : summary ? <TakeCrumb currentId={summary.id} current={view === "overview"} /> : <span className="shimmer h-4 w-32 rounded" />}
             {view === "finding" && rank && (
               <>
                 <Crumb sep />
@@ -72,9 +82,22 @@ export function TopBar() {
             <span className="px-1.5 font-medium">Method</span>
           </>
         )}
+        {analyze && (
+          <>
+            <Crumb sep />
+            {analyze.params["*"] ? (
+              <>
+                <Link to={analyzePath} className="rounded-md px-1.5 py-1 text-muted-foreground transition-colors hover:text-ink">New analysis</Link>
+                <Crumb sep />
+                <span className="px-1.5 font-medium">Processing</span>
+              </>
+            ) : <span className="px-1.5 font-medium">New analysis</span>}
+          </>
+        )}
       </nav>
 
       <nav aria-label="Project" className="ml-auto flex items-center gap-1 text-[13px]">
+        <TopLink to={analyzePath}>New analysis</TopLink>
         <TopLink to={evaluationPath}>Evaluation</TopLink>
         <TopLink to={methodPath}>How it works</TopLink>
       </nav>

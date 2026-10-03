@@ -8,7 +8,7 @@ import { CATEGORY_MEANING, plainTitle, rankFindings, takeRange } from "@/lib/fin
 import { fmt, fmtShort } from "@/lib/format";
 import { ease } from "@/lib/motion";
 import { player, usePlayerState, useTakeAudio } from "@/lib/player";
-import { explorePath, findingPath, overviewPath, speechName } from "@/lib/takes";
+import { explorePath, findingPath, overviewPath, referenceName, speechName } from "@/lib/takes";
 import type { Take } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { AnnotatedTranscript } from "@/components/AnnotatedTranscript";
@@ -38,6 +38,7 @@ function OverviewBody({ take }: { take: Take }) {
   const open = (rank: number) => navigate(findingPath(take.id, rank + 1));
   const top = ranking.length ? take.flaws[ranking[0]] : null;
   const demo = take.kind === "demo";
+  const user = take.kind === "user";
   const opening = take.transcript.split(" ").slice(0, 12).join(" ");
 
   return (
@@ -45,7 +46,8 @@ function OverviewBody({ take }: { take: Take }) {
       <div className="mx-auto max-w-3xl px-8 pt-12 pb-28">
         {/* what this is */}
         <motion.div {...rise(0)} className="text-[11px] font-medium tracking-[0.14em] text-faint uppercase">
-          {speechName(take.speech_id)} · {demo ? "demo recording" : `clean recording ${take.take_id.split("_")[1]}`}
+          {user ? `Your recording · ${take.display?.recording ?? take.take_id}`
+            : `${speechName(take.speech_id)} · ${demo ? "demo recording" : `clean recording ${take.take_id.split("_")[1]}`}`}
         </motion.div>
         <motion.h1 {...rise(1)} className="mt-2 font-display text-[38px] leading-[1.08] tracking-[-0.01em]">“{opening} …”</motion.h1>
         <motion.p {...rise(2)} className="mt-3 text-[14px] text-muted-foreground">
@@ -63,7 +65,18 @@ function OverviewBody({ take }: { take: Take }) {
           </motion.p>
         )}
 
-        {!demo && (
+        {user && (
+          <motion.p {...rise(2)} className="mt-3 flex items-start gap-2 rounded-xl bg-ink/[0.04] px-3.5 py-2.5 text-[13px] leading-snug text-ink/75">
+            <Info className="mt-0.5 size-4 shrink-0" />
+            <span>
+              Your recording, compared with the reference deliveries you chose (<RefLinks take={take} />). Each finding is a place where
+              your delivery differs from all of them{take.qc.asr_wer != null && <>; speech recognition matched {Math.round((1 - take.qc.asr_wer) * 100)}% of the
+              transcript's words</>}.
+            </span>
+          </motion.p>
+        )}
+
+        {!demo && !user && (
           <motion.p {...rise(2)} className="mt-3 flex items-start gap-2 rounded-xl bg-ink/[0.04] px-3.5 py-2.5 text-[13px] leading-snug text-ink/75">
             <Info className="mt-0.5 size-4 shrink-0" />
             <span>
@@ -164,7 +177,7 @@ function RefLinks({ take }: { take: Take }) {
       {take.baseline.references.map((r, i) => (
         <span key={r}>
           {i > 0 && (i === take.baseline.references.length - 1 ? " and " : ", ")}
-          <RecordingLink take={take} takeId={r} />
+          {take.kind === "user" ? <span className="text-ink">{referenceName(take, r)}</span> : <RecordingLink take={take} takeId={r} />}
         </span>
       ))}
     </>

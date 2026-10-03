@@ -3,9 +3,11 @@ import { AppShell } from "@/components/layout/AppShell";
 import { FindingPage } from "@/features/finding/FindingPage";
 import { Explorer } from "@/features/timeline/Explorer";
 import { explorePath, overviewPath } from "@/lib/takes";
+import { AnalysisStatus } from "@/pages/AnalysisStatus";
 import { Evaluation } from "@/pages/Evaluation";
 import { Home } from "@/pages/Home";
 import { Method } from "@/pages/Method";
+import { NewAnalysis } from "@/pages/NewAnalysis";
 import { Overview } from "@/pages/Overview";
 import { Robustness } from "@/pages/Robustness";
 
@@ -28,6 +30,8 @@ export default function App() {
         <Route path="evaluation/robustness" element={<Robustness />} />
         <Route path="robustness" element={<Navigate to="/evaluation/robustness" replace />} />
         <Route path="method" element={<Method />} />
+        <Route path="analyze" element={<NewAnalysis />} />
+        <Route path="analyze/:runId" element={<AnalysisStatus />} />
         <Route path="take/:id/studio" element={<LegacyRedirect to="explore" />} />
         <Route path="speech/:id/overview" element={<LegacyRedirect to="overview" />} />
         <Route path="speech/:id/studio" element={<LegacyRedirect to="explore" />} />

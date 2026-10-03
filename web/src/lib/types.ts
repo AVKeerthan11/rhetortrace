@@ -1,4 +1,5 @@
-// Types of the artifacts exported by scripts/build_dashboard.py (web/public/data/*.json).
+// Types of the artifacts exported by scripts/build_dashboard.py (web/public/data/*.json) and, for
+// uploaded recordings, served by the analysis server (src/server.py, GET /results/{run_id}).
 // They mirror the Python pipeline's outputs; the frontend never recomputes analysis values.
 
 export type Category = "pacing" | "pitch" | "pause" | "energy" | "clarity";
@@ -172,14 +173,19 @@ export interface Take {
   id: string;
   speech_id: string;
   take_id: string;
-  kind: "demo" | "control";
+  /** demo: synthetic injection; control: clean dataset take; user: an uploaded recording */
+  kind: TakeKind;
   label: string;
   source_take: string | null;
   duration: number;
   audio: string;
   audio_sha256: string;
   transcript: string;
-  qc: { status: string; warnings: string[]; low_score_idx: number[]; too_short_idx: number[]; aligned_ratio: number; mean_alignment_score: number };
+  qc: {
+    status: string; warnings: string[]; low_score_idx: number[]; too_short_idx: number[]; aligned_ratio: number; mean_alignment_score: number;
+    /** uploaded recordings only: ASR word error rate against the transcript */
+    asr_wer?: number | null;
+  };
   baseline: { source: string; references: string[]; in_sample: boolean };
   references: { take_id: string; audio: string; words: [number | null, number | null][] }[];
   severity_settings: { level_thresholds: number[]; labels: string[]; z_min: number; z_max: Record<string, number> };
@@ -193,13 +199,17 @@ export interface Take {
   peaks: { bins: number; min: number[]; max: number[] };
   ground_truth: GroundTruth[] | null;
   edits: { kind: string; word_range: [number, number]; original: [number, number]; params: Record<string, unknown> }[] | null;
+  /** uploaded recordings only: the names the files were uploaded under */
+  display?: { recording: string; references: Record<string, string> };
 }
+
+export type TakeKind = "demo" | "control" | "user";
 
 export interface TakeSummary {
   id: string;
   speech_id: string;
   take_id: string;
-  kind: "demo" | "control";
+  kind: TakeKind;
   label: string;
   source_take: string | null;
   duration: number;

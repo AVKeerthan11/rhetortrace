@@ -1,4 +1,5 @@
 import { toast } from "sonner";
+import { API, isRunId } from "./api";
 import { audioUrl } from "./data";
 import type { Take } from "./types";
 
@@ -10,7 +11,7 @@ function download(url: string, name: string) {
 }
 
 export function downloadAnalysis(take: Pick<Take, "id">) {
-  download(`/data/${take.id}.json`, `${take.id}.analysis.json`);
+  download(isRunId(take.id) ? `${API}/results/${take.id}` : `/data/${take.id}.json`, `${take.id}.analysis.json`);
   toast("Analysis JSON downloading", { description: `${take.id}.analysis.json` });
 }
 
