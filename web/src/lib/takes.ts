@@ -1,0 +1,39 @@
+import type { TakeSummary } from "./types";
+
+// Display names and URLs for takes. Ids look like "speech_01__synth_01".
+
+export const speechName = (speechId: string) => `Speech ${speechId.split("_")[1] ?? speechId}`;
+
+export function takeName(t: Pick<TakeSummary, "kind" | "take_id">): string {
+  const n = t.take_id.split("_")[1] ?? "";
+  return t.kind === "demo" ? "Demo recording" : `Clean recording ${n}`;
+}
+
+export const takeKindLabel = (kind: TakeSummary["kind"]) => (kind === "demo" ? "Synthetic demo" : "Control");
+
+/** Routes. Findings are addressed by their importance rank (1 = most important). */
+export const overviewPath = (id: string) => `/take/${id}`;
+export const findingPath = (id: string, rank: number) => `/take/${id}/finding/${rank}`;
+export const explorePath = (id: string, rank?: number) => `/take/${id}/explore${rank ? `?f=${rank}` : ""}`;
+export const evaluationPath = "/evaluation";
+export const robustnessPath = "/evaluation/robustness";
+export const methodPath = "/method";
+
+/** "speech_01/good_01" (validation reports) -> "speech_01__good_01" (take id). */
+export const caseToId = (c: string) => c.replace("/", "__");
+
+/** "good_01" -> "clean recording 01" */
+export const refName = (takeId: string) => (takeId.startsWith("good_") ? `clean recording ${takeId.split("_")[1]}` : takeId.replace("_", " "));
+
+/** Takes grouped by speech, demos first within each speech. */
+export function groupBySpeech(takes: TakeSummary[]): { speech: string; opening: string; takes: TakeSummary[] }[] {
+  const groups = new Map<string, TakeSummary[]>();
+  for (const t of takes) groups.set(t.speech_id, [...(groups.get(t.speech_id) ?? []), t]);
+  return [...groups.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([speech, ts]) => ({
+      speech,
+      opening: ts[0].opening.replace(/\s*\.\.\.$/, "…"),
+      takes: ts.sort((a, b) => (a.kind === b.kind ? a.take_id.localeCompare(b.take_id) : a.kind === "demo" ? -1 : 1)),
+    }));
+}

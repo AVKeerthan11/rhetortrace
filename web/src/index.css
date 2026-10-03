@@ -1,0 +1,193 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/instrument-sans";
+@import "@fontsource/instrument-serif/400.css";
+@import "@fontsource/instrument-serif/400-italic.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+
+/* RhetorTrace — "paper, ink & highlighter".
+   Warm paper surfaces, ink text, one highlighter-yellow accent for "here / now / selected".
+   Each finding category has one ink colour and a soft wash. Severity is carried by
+   typography and badge weight, never by a traffic-light colour. */
+@theme inline {
+  --font-sans: "Instrument Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* surfaces */
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-well: var(--well);
+  --color-ink: var(--ink);
+  --color-faint: var(--faint);
+  --color-hairline: var(--hairline);
+  --color-hover: var(--hover);
+  --color-selected: var(--selected);
+  --color-highlight: var(--highlight);
+  --color-highlight-soft: var(--highlight-soft);
+  --color-warn: var(--warn);
+
+  /* categories */
+  --color-pacing: var(--cat-pacing);
+  --color-pitch: var(--cat-pitch);
+  --color-pause: var(--cat-pause);
+  --color-energy: var(--cat-energy);
+  --color-clarity: var(--cat-clarity);
+  --color-truth: var(--truth);
+
+  /* legacy aliases used by the studio components */
+  --color-panel: var(--surface);
+  --color-panel-2: var(--well);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+
+  --shadow-float: 0 1px 0 rgba(27, 26, 23, 0.04), 0 8px 24px -6px rgba(27, 26, 23, 0.14), 0 0 0 1px rgba(27, 26, 23, 0.07);
+}
+
+:root {
+  --radius: 0.625rem;
+
+  --paper: #f7f5f0;
+  --surface: #ffffff;
+  --well: #efece5;
+  --ink: #1b1a17;
+  --faint: #a39e93;
+  --hairline: rgba(27, 26, 23, 0.09);
+  --hover: rgba(27, 26, 23, 0.04);
+  --selected: rgba(27, 26, 23, 0.07);
+  --highlight: #ffe066;
+  --highlight-soft: #fff3b8;
+  --warn: #a8661a;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: #fbfaf7;
+  --secondary: var(--well);
+  --secondary-foreground: var(--ink);
+  --muted: var(--well);
+  --muted-foreground: #6b675e;
+  --accent: var(--well);
+  --accent-foreground: var(--ink);
+  --destructive: #c4372c;
+  --border: var(--hairline);
+  --input: rgba(27, 26, 23, 0.14);
+  --ring: rgba(27, 26, 23, 0.35);
+  --sidebar: #f1eee8;
+  --sidebar-foreground: #4a473f;
+  --sidebar-border: var(--hairline);
+  --sidebar-accent: rgba(27, 26, 23, 0.06);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-primary: var(--ink);
+  --sidebar-primary-foreground: #fbfaf7;
+  --sidebar-ring: var(--ring);
+
+  --cat-pacing: #b5791a;
+  --cat-pitch: #6e56cf;
+  --cat-pause: #0e8a7e;
+  --cat-energy: #c93d6b;
+  --cat-clarity: #2f6fdb;
+  --truth: #2f8a4c;
+
+  color-scheme: light;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html,
+  body,
+  #root {
+    @apply h-full;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "ss01", "cv01";
+  }
+  ::selection {
+    background: var(--highlight);
+    color: var(--ink);
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(27, 26, 23, 0.16) transparent;
+  }
+  /* faint paper grain for large empty surfaces */
+  .paper-grain {
+    background-image: radial-gradient(rgba(27, 26, 23, 0.035) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+  /* loading placeholder: a soft sheen sweeping across a well-coloured block */
+  .shimmer {
+    background: linear-gradient(90deg, var(--well) 0%, #f6f3ed 45%, var(--well) 90%) 0 0 / 220% 100%;
+    animation: shimmer 1.4s ease-in-out infinite;
+  }
+  /* highlighter stroke: slightly uneven edges like a real marker */
+  .marker {
+    background-image: linear-gradient(104deg, transparent 0.4em, var(--highlight) 0.5em, var(--highlight) calc(100% - 0.5em), transparent calc(100% - 0.4em));
+    border-radius: 0.3em 0.15em;
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -120% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
