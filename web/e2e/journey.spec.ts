@@ -32,7 +32,7 @@ test('upload -> processing -> results in the existing overview, finding and expl
     ['ingest', 'align', 'features', 'baseline', 'detection', 'flaws', 'export'].map((n) => [n, 'done']))
 
   // overview, from /results
-  await expect(page.getByText('Your recording · synth_01.wav').first()).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'synth_01.wav' })).toBeVisible()
   await expect(page.getByText(/compared with the reference deliveries you chose/)).toBeVisible()
   await expect(page.getByText('6 moments differ from the reference deliveries.')).toBeVisible()
   const audioRes = await audioServed
@@ -44,8 +44,11 @@ test('upload -> processing -> results in the existing overview, finding and expl
   await expect(page.getByText(/same words · good_0[13]\.wav/)).toBeVisible()
 
   // the explorer
-  await page.goto(`/take/${run_id}/explore`)
-  await expect(page.getByText('Timeline explorer')).toBeVisible()
+  // the explorer: the same stage unfolds every lane
+  await page.getByRole('link', { name: /Timeline explorer/ }).click()
+  await expect(page).toHaveURL(new RegExp(`/take/${run_id}/explore$`))
+  await expect(page.getByRole('link', { name: /Timeline explorer/ })).toHaveAttribute('aria-current', 'page')
+  await expect(page.locator('[data-lane="pitch"]')).toBeVisible()
 })
 
 test('a transcript that does not match the built-in script is refused with the reason', async ({ page }) => {

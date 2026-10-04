@@ -9,7 +9,7 @@ import type { Category, TakeSummary, Validation } from "@/lib/types";
 import { KIND, kindLabel, pct, splitTrack } from "@/lib/validation";
 import { AnswerKey } from "@/components/AnswerKey";
 import { Disclosure } from "@/components/Disclosure";
-import { EvaluationTabs } from "@/components/EvaluationTabs";
+import { LabTabs } from "@/components/LabTabs";
 import { Note, PageHeader, ReadingPage, Section, Stat, Table, Td, Th } from "@/components/Page";
 import { PageState } from "@/components/PageState";
 
@@ -23,8 +23,8 @@ export function Evaluation() {
   const demos = index.takes.filter((t) => t.kind === "demo");
 
   return (
-    <ReadingPage wide>
-      <PageHeader eyebrow="Evaluation · performance" title="How often is RhetorTrace right?">
+    <ReadingPage toc>
+      <PageHeader eyebrow="Lab · performance" title="How often is RhetorTrace right?">
         <p>
           There are no real recordings with known mistakes yet, so RhetorTrace is tested on mistakes put there on purpose. Flaws
           were injected into the measurements of the six clean recordings (a phrase sped up, slowed down, made quieter or
@@ -32,9 +32,9 @@ export function Evaluation() {
           how often it raises a false alarm. Every recording is compared only with the <em>other</em> clean deliveries of its script.
         </p>
       </PageHeader>
-      <EvaluationTabs />
+      <LabTabs />
 
-      <section className="mt-10 grid grid-cols-3 gap-8">
+      <section className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
         <Stat value={pct(o.recall)} label="of injected flaws are found" sub={`${o.tp} of ${injected}`} />
         <Stat value={pct(o.precision)} label="of findings point at a real flaw" sub={`${o.tp} of ${o.tp + o.fp} findings; the rest are false alarms or side effects`} />
         <Stat value={fmt(v.controls.tracks_per_min, 1)} label="false alarms per minute on clean recordings"

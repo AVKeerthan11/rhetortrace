@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { REF, wash } from "@/lib/grammar";
 import { ease } from "@/lib/motion";
 import type { Measurement } from "@/lib/types";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -18,16 +19,27 @@ export function EvidencePlot({ m, color, showNote = true }: { m: Measurement; co
       <div className="relative h-[52px]">
         <div className="absolute inset-x-0 top-[28px] h-px bg-ink/10" />
         {m.reference_band && (
-          <div className="absolute top-[21px] h-[15px] rounded-[3px] bg-ink/[0.08]"
-            style={{ left: X(m.reference_band[0]), width: `calc(${X(m.reference_band[1])} - ${X(m.reference_band[0])})` }} />
+          <div className="absolute top-[21px] h-[15px] rounded-[3px]"
+            style={{ background: REF.band, left: X(m.reference_band[0]), width: `calc(${X(m.reference_band[1])} - ${X(m.reference_band[0])})` }} />
         )}
-        {m.reference !== null && <div className="absolute top-[17px] h-[23px] w-px bg-ink/45" style={{ left: X(m.reference) }} />}
+        {/* deviation: the filled distance from the reference to this recording, growing with the marker */}
+        {m.reference !== null && m.observed !== m.reference && (
+          <motion.div className="absolute top-[25px] h-[7px] rounded-[2px]"
+            initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.25, duration: 0.8, ease }}
+            style={{
+              left: X(Math.min(m.reference, m.observed!)),
+              width: `calc(${X(Math.max(m.reference, m.observed!))} - ${X(Math.min(m.reference, m.observed!))})`,
+              transformOrigin: m.observed! > m.reference ? "left" : "right",
+              background: wash(color, 0.32),
+            }} />
+        )}
+        {m.reference !== null && <div className="absolute top-[17px] h-[23px] w-px" style={{ left: X(m.reference), background: REF.line }} />}
         {pts.map((p) => (
           <Tooltip key={p.take}>
             <TooltipTrigger
               render={<span />}
-              className="absolute top-[23px] size-[11px] -translate-x-1/2 rounded-full border-[1.5px] border-ink/60 bg-surface"
-              style={{ left: X(p.value) }}
+              className="absolute top-[23px] size-[11px] -translate-x-1/2 rounded-full border-[1.5px] bg-surface"
+              style={{ left: X(p.value), borderColor: REF.ghost }}
             />
             <TooltipContent>{p.take}: {p.value} {m.unit}</TooltipContent>
           </Tooltip>
@@ -43,8 +55,9 @@ export function EvidencePlot({ m, color, showNote = true }: { m: Measurement; co
       </div>
       <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-muted-foreground">
         <span className="flex items-center gap-1.5"><span className="size-2 rounded-full" style={{ background: color }} />this recording</span>
-        <span className="flex items-center gap-1.5"><span className="size-2 rounded-full border border-ink/60" />each reference delivery</span>
-        <span className="flex items-center gap-1.5"><span className="h-2 w-3 rounded-[2px] bg-ink/[0.12]" />usual range</span>
+        <span className="flex items-center gap-1.5"><span className="size-2 rounded-full border" style={{ borderColor: REF.ghost }} />each reference delivery</span>
+        <span className="flex items-center gap-1.5"><span className="h-2 w-3 rounded-[2px]" style={{ background: REF.band }} />usual range</span>
+        <span className="flex items-center gap-1.5"><span className="h-1.5 w-3 rounded-[2px]" style={{ background: wash(color, 0.32) }} />difference</span>
         <span className="ml-auto font-mono">{m.unit}</span>
       </div>
       {showNote && m.note && <p className="mt-2 text-[11px] text-faint">{m.note}</p>}

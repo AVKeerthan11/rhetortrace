@@ -80,4 +80,4 @@ Baseline shift when one reference is left out (median |median shift| / full-base
 
 ## Reproducibility
 
-Config sha256 0c99ec7a56d2e61b..., 14 code files and 40 cached inputs hashed in `evaluation.json`. No timestamps: identical inputs and code give byte-identical reports.
+Config sha256 ab7d7954d1074b7b..., 14 code files and 40 cached inputs hashed in `evaluation.json`. No timestamps: identical inputs and code give byte-identical reports.

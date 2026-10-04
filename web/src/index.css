@@ -1,21 +1,26 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/instrument-sans";
-@import "@fontsource/instrument-serif/400.css";
-@import "@fontsource/instrument-serif/400-italic.css";
-@import "@fontsource/ibm-plex-mono/400.css";
-@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
+@import "@fontsource-variable/fraunces/opsz.css";
+@import "@fontsource-variable/fraunces/opsz-italic.css";
 
-/* RhetorTrace — "paper, ink & highlighter".
-   Warm paper surfaces, ink text, one highlighter-yellow accent for "here / now / selected".
-   Each finding category has one ink colour and a soft wash. Severity is carried by
-   typography and badge weight, never by a traffic-light colour. */
+/* RhetorTrace — "Studio Instrument".
+   Classical rhetoric meets signal processing, one job per typeface:
+     Fraunces (serif, optical sizes)  the words: headlines, quotes, the script
+     Geist (sans)                     the interface
+     Geist Mono                       the measurements: times, z, seconds, scores
+   Two themes from one set of roles: the light "report" (:root) for reading, and the dark
+   "studio" ([data-theme="studio"]) for the recording stage, an instrument panel set into the
+   page. Neutral roles (hairlines, ghosts, the waveform) are mixed from --ink, so they flip with
+   the theme. One signal-lime accent marks "here / now / selected". Each finding category has one
+   colour per theme; severity is opacity and typography, never a traffic light. */
 @theme inline {
-  --font-sans: "Instrument Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-sans);
-  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -55,6 +60,8 @@
   --color-selected: var(--selected);
   --color-highlight: var(--highlight);
   --color-highlight-soft: var(--highlight-soft);
+  --color-on-highlight: var(--on-highlight);
+  --color-signal: var(--signal);
   --color-warn: var(--warn);
 
   /* categories */
@@ -75,59 +82,127 @@
   --radius-xl: calc(var(--radius) * 1.4);
   --radius-2xl: calc(var(--radius) * 1.8);
 
-  --shadow-float: 0 1px 0 rgba(27, 26, 23, 0.04), 0 8px 24px -6px rgba(27, 26, 23, 0.14), 0 0 0 1px rgba(27, 26, 23, 0.07);
+  --shadow-float: 0 1px 0 color-mix(in oklab, var(--shadow) 4%, transparent), 0 10px 28px -8px color-mix(in oklab, var(--shadow) 18%, transparent),
+    0 0 0 1px color-mix(in oklab, var(--ink) 8%, transparent);
 }
 
+/* ------------------------------------------------------------------ the report (light) */
 :root {
   --radius: 0.625rem;
 
-  --paper: #f7f5f0;
+  --paper: #f5f6f8;
   --surface: #ffffff;
-  --well: #efece5;
-  --ink: #1b1a17;
-  --faint: #a39e93;
-  --hairline: rgba(27, 26, 23, 0.09);
-  --hover: rgba(27, 26, 23, 0.04);
-  --selected: rgba(27, 26, 23, 0.07);
-  --highlight: #ffe066;
-  --highlight-soft: #fff3b8;
-  --warn: #a8661a;
+  --well: #eceef2;
+  --ink: #12161c;
+  --muted-ink: #5a6371;
+  --faint: #7a8390;
+  --shadow: #0b0e13;
+  --stage: #fbfcfd;
+  --band: #eaedf1;
+
+  /* the signature: signal lime. Full strength marks the playing word and the marker stroke;
+     the soft tint is "selected"; text on it is always dark. */
+  --signal: #c6f36b;
+  --highlight: #d4f77f;
+  --highlight-soft: #eefad3;
+  --on-highlight: #12161c;
+  --on-category: #ffffff;
+  --warn: #9a5508;
+
+  --cat-pacing: #9e5f00;
+  --cat-pitch: #6a4fd6;
+  --cat-pause: #087a6d;
+  --cat-energy: #c22f60;
+  --cat-clarity: #2b6bdf;
+  --truth: #1f7a43;
+
+  color-scheme: light;
+}
+
+/* ------------------------------------------------------- the instrument (dark, scoped) */
+[data-theme="studio"] {
+  --paper: #0d1117;
+  --surface: #151b23;
+  --well: #1a212b;
+  --ink: #e6eaf0;
+  --muted-ink: #9aa4b2;
+  --faint: #7d8797;
+  --shadow: #000000;
+  --stage: #11161d;
+  --band: #0a0d12;
+
+  --signal: #c6f36b;
+  --highlight: #c6f36b;
+  --highlight-soft: color-mix(in oklab, #c6f36b 16%, #11161d);
+  --on-highlight: #0e1116;
+  --on-category: #0e1116;
+  --warn: #f0a54a;
+
+  --cat-pacing: #f2b24c;
+  --cat-pitch: #a88bff;
+  --cat-pause: #3fd0bc;
+  --cat-energy: #ff6f9c;
+  --cat-clarity: #5aa9ff;
+  --truth: #5ed08a;
+
+  /* the playhead is the signal colour on the instrument */
+  --now: var(--signal);
+  --popover: #1b2129;
+  --primary: var(--signal);
+  --primary-foreground: #0e1116;
+
+  color-scheme: dark;
+  color: var(--ink);
+}
+
+/* roles derived from the theme above (both themes) */
+:root,
+[data-theme="studio"] {
+  --hairline: color-mix(in oklab, var(--ink) 9%, transparent);
+  --hover: color-mix(in oklab, var(--ink) 5%, transparent);
+  --selected: color-mix(in oklab, var(--ink) 8%, transparent);
+
+  /* visual grammar of the recording (see src/lib/grammar.ts): references are ghosts of the ink,
+     "now" is ink (signal on the instrument), the pointer a faint ink line */
+  --ref-band: color-mix(in oklab, var(--ink) 11%, transparent);
+  --ref-line: color-mix(in oklab, var(--ink) 45%, transparent);
+  --ref-ghost: color-mix(in oklab, var(--ink) 62%, transparent);
+  --wave-idle: color-mix(in oklab, var(--ink) 26%, transparent);
+  --wave-played: color-mix(in oklab, var(--ink) 84%, transparent);
+  --axis: color-mix(in oklab, var(--ink) 12%, transparent);
+  --tick: color-mix(in oklab, var(--ink) 24%, transparent);
+  --pointer: color-mix(in oklab, var(--ink) 32%, transparent);
 
   --background: var(--paper);
   --foreground: var(--ink);
   --card: var(--surface);
   --card-foreground: var(--ink);
-  --popover: var(--surface);
   --popover-foreground: var(--ink);
-  --primary: var(--ink);
-  --primary-foreground: #fbfaf7;
   --secondary: var(--well);
   --secondary-foreground: var(--ink);
   --muted: var(--well);
-  --muted-foreground: #6b675e;
+  --muted-foreground: var(--muted-ink);
   --accent: var(--well);
   --accent-foreground: var(--ink);
-  --destructive: #c4372c;
+  --destructive: #d23b30;
   --border: var(--hairline);
-  --input: rgba(27, 26, 23, 0.14);
-  --ring: rgba(27, 26, 23, 0.35);
-  --sidebar: #f1eee8;
-  --sidebar-foreground: #4a473f;
+  --input: color-mix(in oklab, var(--ink) 15%, transparent);
+  --ring: color-mix(in oklab, var(--ink) 38%, transparent);
+  --sidebar: var(--well);
+  --sidebar-foreground: var(--muted-ink);
   --sidebar-border: var(--hairline);
-  --sidebar-accent: rgba(27, 26, 23, 0.06);
+  --sidebar-accent: var(--selected);
   --sidebar-accent-foreground: var(--ink);
   --sidebar-primary: var(--ink);
-  --sidebar-primary-foreground: #fbfaf7;
+  --sidebar-primary-foreground: var(--paper);
   --sidebar-ring: var(--ring);
+}
 
-  --cat-pacing: #b5791a;
-  --cat-pitch: #6e56cf;
-  --cat-pause: #0e8a7e;
-  --cat-energy: #c93d6b;
-  --cat-clarity: #2f6fdb;
-  --truth: #2f8a4c;
-
-  color-scheme: light;
+:root:not([data-theme="studio"]) {
+  --now: var(--ink);
+  --popover: var(--surface);
+  --primary: var(--ink);
+  --primary-foreground: #f7f8fa;
 }
 
 @layer base {
@@ -141,11 +216,10 @@
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-feature-settings: "ss01", "cv01";
   }
   ::selection {
     background: var(--highlight);
-    color: var(--ink);
+    color: var(--on-highlight);
   }
 }
 
@@ -155,20 +229,85 @@
   }
   .scrollbar-thin {
     scrollbar-width: thin;
-    scrollbar-color: rgba(27, 26, 23, 0.16) transparent;
+    scrollbar-color: color-mix(in oklab, var(--ink) 18%, transparent) transparent;
   }
   /* faint paper grain for large empty surfaces */
   .paper-grain {
-    background-image: radial-gradient(rgba(27, 26, 23, 0.035) 1px, transparent 1px);
+    background-image: radial-gradient(color-mix(in oklab, var(--ink) 4%, transparent) 1px, transparent 1px);
     background-size: 3px 3px;
   }
   /* loading placeholder: a soft sheen sweeping across a well-coloured block */
   .shimmer {
-    background: linear-gradient(90deg, var(--well) 0%, #f6f3ed 45%, var(--well) 90%) 0 0 / 220% 100%;
+    background: linear-gradient(90deg, var(--well) 0%, color-mix(in oklab, var(--well) 40%, var(--surface)) 45%, var(--well) 90%) 0 0 / 220% 100%;
     animation: shimmer 1.4s ease-in-out infinite;
+  }
+  /* page frame: fluid, capped for very wide screens, gutters that grow with the viewport */
+  .page {
+    width: 100%;
+    max-width: 1560px;
+    margin-inline: auto;
+    padding-inline: clamp(16px, 3.2vw, 48px);
+  }
+  /* editorial grid: 4 columns on phones, 8 on tablets, 12 on desktops */
+  .grid-page {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: clamp(16px, 2vw, 32px);
+  }
+  @media (min-width: 768px) {
+    .grid-page {
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1024px) {
+    .grid-page {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+  }
+  /* fluid display sizes (Fraunces: its optical sizes sharpen the contrast as it grows);
+     body sizes stay fixed */
+  .text-display-xl {
+    font-size: clamp(38px, 4.2vw, 66px);
+    line-height: 1.03;
+    letter-spacing: -0.028em;
+    font-weight: 380;
+  }
+  .text-display-l {
+    font-size: clamp(29px, 2.75vw, 44px);
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+    font-weight: 400;
+  }
+  .text-display-m {
+    font-size: clamp(22px, 1.9vw, 28px);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    font-weight: 420;
+  }
+  /* the instrument band: the dark studio section behind the recording stage, lit faintly from
+     above, and the stage panel inside it (a raised, hairline-edged screen) */
+  .studio-band {
+    background:
+      radial-gradient(120% 140% at 50% -40%, color-mix(in oklab, var(--signal) 6%, transparent), transparent 60%),
+      linear-gradient(to bottom, var(--band), var(--band) calc(100% - 36px), var(--paper));
+  }
+  .studio-panel {
+    background: var(--stage);
+    box-shadow:
+      inset 0 1px 0 color-mix(in oklab, var(--ink) 6%, transparent),
+      0 0 0 1px color-mix(in oklab, var(--ink) 9%, transparent),
+      0 18px 40px -24px #000;
+  }
+  /* small-caps style labels: the instrument's engraving */
+  .label-caps {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
   /* highlighter stroke: slightly uneven edges like a real marker */
   .marker {
+    color: var(--on-highlight);
     background-image: linear-gradient(104deg, transparent 0.4em, var(--highlight) 0.5em, var(--highlight) calc(100% - 0.5em), transparent calc(100% - 0.4em));
     border-radius: 0.3em 0.15em;
   }
@@ -191,3 +330,15 @@
     animation-duration: 0.01ms !important;
   }
 }
+
+/* the home hero's atmosphere: two faint glows drifting very slowly */
+@keyframes ambient-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(80px, 40px, 0) scale(1.12); }
+}
+@keyframes ambient-b {
+  from { transform: translate3d(0, 0, 0) scale(1.05); }
+  to { transform: translate3d(-90px, 50px, 0) scale(0.95); }
+}
+.ambient-a { animation: ambient-a 18s ease-in-out infinite alternate; }
+.ambient-b { animation: ambient-b 22s ease-in-out infinite alternate; }

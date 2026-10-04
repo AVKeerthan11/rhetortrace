@@ -57,8 +57,8 @@ export function AnalysisStatus() {
       </PageHeader>
 
       {lost && (
-        <motion.div {...rise(2)} role="status" className="mt-6 flex items-center gap-2.5 rounded-xl bg-highlight-soft/70 px-4 py-2.5 text-[13.5px] text-ink/85">
-          <WifiOff className="size-4" /> Lost contact with the analysis server. Retrying…
+        <motion.div {...rise(2)} role="status" className="mt-6 flex items-center gap-2.5 rounded-xl border border-warn/25 bg-warn/[0.07] px-4 py-2.5 text-[13.5px] text-ink/85">
+          <WifiOff className="size-4 text-warn" /> Lost contact with the analysis server. Retrying…
         </motion.div>
       )}
 

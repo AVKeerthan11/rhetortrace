@@ -39,9 +39,9 @@ export function HearIt({ take, f, rank, refIdx, setRefIdx, onListened }: {
   };
 
   return (
-    <section className="rounded-2xl border border-hairline bg-surface p-5 shadow-[0_1px_0_rgba(27,26,23,0.04)]">
+    <section className="rounded-2xl border border-hairline bg-surface p-5 shadow-[0_1px_0_color-mix(in_oklab,var(--shadow)_4%,transparent)]">
       <h2 className="text-[11px] font-medium tracking-[0.14em] text-faint uppercase">Hear the difference</h2>
-      <div className="mt-4 grid grid-cols-2 gap-3">
+      <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
         <PlayCard title="This recording" sub="the flagged moment" playing={active === L.mine} onClick={playMine} primary />
         <div className="relative">
           <PlayCard title="Reference delivery" sub={`same words · ${refName}`} playing={active === L.ref} onClick={playRef} disabled={!theirs} />

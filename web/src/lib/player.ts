@@ -24,6 +24,10 @@ export class Player {
   refPlaying = false;
   refLabel: string | null = null;
   rate = 1;
+  /** While the user holds "hear the reference": its label (the stage draws a ghost playhead). */
+  ghost: string | null = null;
+  private hold: { toTake: (rt: number) => number | null; resume: boolean; token: number } | null = null;
+  private holdToken = 0;
   loop: Range | null = null;
   /** What is audible right now, for the "now playing" pill. */
   label: string | null = null;
@@ -66,8 +70,15 @@ export class Player {
     this.emit();
   }
 
+  /** Playhead time: this recording's, or while holding the reference, where the reference is
+   *  in the script mapped onto this recording. */
+  private now() {
+    if (!this.hold) return this.main.currentTime;
+    return this.hold.toTake(this.ref.currentTime) ?? this.time;
+  }
+
   private sync() {
-    this.time = this.main.currentTime;
+    this.time = this.now();
     this.playing = !this.main.paused;
     this.refPlaying = !this.ref.paused;
     if (!this.refPlaying) this.refLabel = null;
@@ -92,7 +103,7 @@ export class Player {
       this.ref.pause();
     }
     if (this.loop && !this.main.paused && this.main.currentTime >= this.loop[1]) this.main.currentTime = this.loop[0];
-    this.time = this.main.currentTime;
+    this.time = this.now();
     this.emit();
     if (!this.main.paused || !this.ref.paused) this.raf = requestAnimationFrame(this.tick);
   };
@@ -109,6 +120,7 @@ export class Player {
   }
 
   seek(t: number) {
+    if (this.hold) this.endHold(false);
     this.main.currentTime = Math.max(0, t);
     this.time = this.main.currentTime;
     this.emit();
@@ -147,6 +159,7 @@ export class Player {
   }
 
   private clearQueue() {
+    if (this.hold) this.endHold(false);
     this.starting = false;
     this.queue = [];
     clearTimeout(this.gapTimer);
@@ -169,6 +182,55 @@ export class Player {
       this.ref.src = url;
       this.ref.addEventListener("loadedmetadata", start, { once: true });
     }
+  }
+
+  /** Start hearing a reference delivery from rt (the same point of the script as the playhead),
+   *  until releaseReference(). toTake maps the reference's time back onto this recording. */
+  holdReference(src: string, rt: number, toTake: (rt: number) => number | null, label: string) {
+    if (this.hold) return;
+    const resume = !this.main.paused;
+    this.clearQueue();
+    this.stopAt = null;
+    const token = ++this.holdToken;
+    this.hold = { toTake, resume, token };
+    this.ghost = label;
+    this.label = label;
+    this.main.pause();
+    const start = () => {
+      if (this.hold?.token !== token) return; // released before the audio was ready
+      this.ref.currentTime = Math.max(0, rt);
+      this.refLabel = label;
+      this.ref.volume = 0;
+      void this.ref.play().then(() => fade(this.ref, 1, 90), () => {});
+    };
+    const url = audioUrl(src);
+    if (this.ref.src.endsWith(url)) start();
+    else {
+      this.ref.src = url;
+      this.ref.addEventListener("loadedmetadata", start, { once: true });
+    }
+    this.emit();
+  }
+
+  /** Back to this recording at the point of the script the reference had reached. */
+  releaseReference() {
+    if (this.hold) this.endHold(true);
+  }
+
+  private endHold(resume: boolean) {
+    const h = this.hold!;
+    const t = this.ref.paused && this.ref.currentTime === 0 ? this.time : (h.toTake(this.ref.currentTime) ?? this.time);
+    this.hold = null;
+    this.ghost = null;
+    this.ref.pause();
+    this.ref.volume = 1;
+    this.main.currentTime = Math.max(0, t);
+    this.time = this.main.currentTime;
+    if (resume && h.resume) {
+      this.label = "This recording";
+      void this.main.play();
+    }
+    this.sync();
   }
 
   setRate(r: number) {
@@ -204,6 +266,15 @@ export function usePlayerTime(p: Player = player): number {
   return useSyncExternalStore(p.subscribe, () => p.time);
 }
 
+/** Label prefix of the evidence-chain clips ("play the proof"). */
+export const PROOF = "Proof ·";
+
+/** Which half of "play the proof" is audible: this recording, the reference, or neither. */
+export function useProofPhase(p: Player = player): "take" | "ref" | null {
+  return useSyncExternalStore(p.subscribe, () =>
+    (p.playing || p.refPlaying) && p.label?.startsWith(PROOF) ? (p.refPlaying ? "ref" : "take") : null);
+}
+
 export function usePlayerState(p: Player = player) {
   const playing = useSyncExternalStore(p.subscribe, () => p.playing);
   const refPlaying = useSyncExternalStore(p.subscribe, () => p.refPlaying);
@@ -212,5 +283,17 @@ export function usePlayerState(p: Player = player) {
   const loop = useSyncExternalStore(p.subscribe, () => p.loop);
   const src = useSyncExternalStore(p.subscribe, () => p.src);
   const label = useSyncExternalStore(p.subscribe, () => p.label);
-  return { playing, refPlaying, refLabel, rate, loop, src, label };
+  const ghost = useSyncExternalStore(p.subscribe, () => p.ghost);
+  return { playing, refPlaying, refLabel, rate, loop, src, label, ghost };
+}
+
+/** Ramp an element's volume (avoids a click when a held reference starts). */
+function fade(el: HTMLAudioElement, to: number, ms: number) {
+  const from = el.volume, t0 = performance.now();
+  const step = () => {
+    const k = Math.min(1, (performance.now() - t0) / ms);
+    el.volume = from + (to - from) * k;
+    if (k < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
 }

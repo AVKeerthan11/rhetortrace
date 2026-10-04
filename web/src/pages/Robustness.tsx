@@ -8,7 +8,7 @@ import type { RobustnessSummary } from "@/lib/types";
 import { CONDITIONS, FEATURE_LABEL, VERDICT_LABEL, pct, splitTrack, verdict, type Verdict } from "@/lib/validation";
 import { cn } from "@/lib/utils";
 import { Disclosure } from "@/components/Disclosure";
-import { EvaluationTabs } from "@/components/EvaluationTabs";
+import { LabTabs } from "@/components/LabTabs";
 import { Note, PageHeader, ReadingPage, Section, Table, Td, Th } from "@/components/Page";
 import { PageState } from "@/components/PageState";
 import { ReadingSkeleton } from "./Evaluation";
@@ -33,8 +33,8 @@ export function Robustness() {
   const totalClarity = rows.reduce((s, x) => s + (x.r.new_by_track["clarity/None"] ?? 0), 0);
 
   return (
-    <ReadingPage wide>
-      <PageHeader eyebrow="Evaluation · robustness" title="Does it hold up on worse audio?">
+    <ReadingPage toc>
+      <PageHeader eyebrow="Lab · robustness" title="Does it hold up on worse audio?">
         <p>
           Each of the six clean recordings was degraded (louder, quieter, compressed, resampled, or mixed with noise), then run
           again through the unchanged pipeline, from word timing to findings, and compared with its results on the original audio.
@@ -44,7 +44,7 @@ export function Robustness() {
           many new false alarms the degradation causes on recordings that had nothing wrong with them.
         </p>
       </PageHeader>
-      <EvaluationTabs />
+      <LabTabs />
 
       <Section i={3} title="Ten audio conditions" lead={
         <>

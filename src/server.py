@@ -2,6 +2,10 @@
 
     python -m src.server [--host 127.0.0.1] [--port 8000] [--config config.yaml]
 
+    # development, auto-reload on code changes (the app comes from a factory: there is
+    # no module-level ``app``; config and runs directory are config.yaml's)
+    python -m uvicorn src.server:create_app --factory --reload
+
     POST /analyze                 multipart upload -> 202 {"run_id", ...} immediately
          audio=<file>             the recording
          transcript=<file>        UTF-8 text it follows (optional with references_from)

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { BookOpen, Check, FileJson, FileText, FlaskConical, Gauge, Home, Keyboard, Link2, Music, Pause, Play, ScanLine, ShieldCheck, SlidersHorizontal } from "lucide-react";
+import { BookOpen, Check, FileJson, FileText, FlaskConical, Gauge, Home, Keyboard, Link2, Music, Pause, Play, Plus, ScanLine, ShieldCheck, SlidersHorizontal } from "lucide-react";
 import { copyLink, downloadAnalysis, downloadAudio } from "@/lib/actions";
 import { CATEGORY } from "@/lib/categories";
 import { useIndex, useTake } from "@/lib/data";
@@ -7,7 +7,10 @@ import { plainTitle, rankFindings } from "@/lib/findings";
 import { fmtClock } from "@/lib/format";
 import { player, usePlayerState } from "@/lib/player";
 import { useUi, type Layers } from "@/lib/store";
-import { evaluationPath, explorePath, findingPath, groupBySpeech, methodPath, overviewPath, robustnessPath, speechName, takeName } from "@/lib/takes";
+import {
+  analyzePath, evaluationPath, examplesPath, explorePath, findingPath, groupBySpeech, homePath, methodPath, overviewPath, recordingsPath,
+  robustnessPath, speechName, takeName,
+} from "@/lib/takes";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandShortcut } from "@/components/ui/command";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Kbd } from "@/components/ui/kbd";
@@ -15,7 +18,7 @@ import { FindingNumber } from "./FindingNumber";
 import { useCurrentTake } from "./layout/useCurrentTake";
 
 const LAYER_LABEL: Record<keyof Layers, string> = {
-  pitch: "Pitch contour", energy: "Energy contour", reference: "Reference range", deviation: "Deviation heat", truth: "Injected edits",
+  pitch: "Pitch contour", energy: "Energy contour", reference: "Reference range", deviation: "Deviation heat", truth: "Injected edits", threads: "Rhythm threads",
 };
 
 export function CommandPalette() {
@@ -74,15 +77,18 @@ function PaletteBody({ close }: { close: () => void }) {
 
         <CommandGroup heading="Go to">
           {take && view !== "overview" && (
-            <CommandItem value="go to summary overview all findings" onSelect={run(() => navigate(overviewPath(take.id)))}><FileText /> Summary of this recording</CommandItem>
+            <CommandItem value="go to summary overview all findings" onSelect={run(() => navigate(overviewPath(take.id)))}><FileText /> Overview of this recording</CommandItem>
           )}
           {take && view !== "explore" && (
             <CommandItem value="open timeline explorer advanced" onSelect={run(() => navigate(explorePath(take.id)))}><ScanLine /> Timeline explorer</CommandItem>
           )}
-          <CommandItem value="home all recordings" onSelect={run(() => navigate("/"))}><Home /> All recordings</CommandItem>
-          <CommandItem value="evaluation performance precision recall accuracy" onSelect={run(() => navigate(evaluationPath))}><FlaskConical /> Evaluation: performance</CommandItem>
-          <CommandItem value="robustness noise compression audio quality" onSelect={run(() => navigate(robustnessPath))}><ShieldCheck /> Evaluation: robustness to audio quality</CommandItem>
-          <CommandItem value="method how it works pipeline" onSelect={run(() => navigate(methodPath))}><BookOpen /> How it works</CommandItem>
+          <CommandItem value="home start" onSelect={run(() => navigate(homePath))}><Home /> Home</CommandItem>
+          <CommandItem value="new analysis analyse upload recording" onSelect={run(() => navigate(analyzePath))}><Plus /> New analysis</CommandItem>
+          <CommandItem value="your recordings my analyses history" onSelect={run(() => navigate(recordingsPath))}><FileText /> Your recordings</CommandItem>
+          <CommandItem value="lab examples demo controlled" onSelect={run(() => navigate(examplesPath))}><FlaskConical /> Lab: controlled examples</CommandItem>
+          <CommandItem value="lab evaluation performance precision recall accuracy" onSelect={run(() => navigate(evaluationPath))}><FlaskConical /> Lab: performance</CommandItem>
+          <CommandItem value="lab robustness noise compression audio quality" onSelect={run(() => navigate(robustnessPath))}><ShieldCheck /> Lab: robustness to audio quality</CommandItem>
+          <CommandItem value="lab method how it works pipeline" onSelect={run(() => navigate(methodPath))}><BookOpen /> Lab: how it works</CommandItem>
         </CommandGroup>
 
         {take && (
@@ -100,7 +106,7 @@ function PaletteBody({ close }: { close: () => void }) {
         )}
 
         {index && (
-          <CommandGroup heading="Recordings">
+          <CommandGroup heading="Lab recordings">
             {groupBySpeech(index.takes).flatMap((g) =>
               g.takes.map((t) => (
                 <CommandItem key={t.id} value={`recording ${speechName(t.speech_id)} ${takeName(t)} ${t.take_id} ${g.opening}`}

@@ -1,13 +1,12 @@
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { motion } from "motion/react";
+import { MotionConfig, motion } from "motion/react";
 import { toast, Toaster } from "sonner";
 import { isTypingTarget } from "@/lib/keys";
 import { ease } from "@/lib/motion";
 import { player } from "@/lib/player";
 import { useUi } from "@/lib/store";
 import { CommandPalette } from "@/components/CommandPalette";
-import { NowPlaying } from "@/components/NowPlaying";
 import { ShortcutsDialog } from "@/components/ShortcutsDialog";
 import { TopBar } from "./TopBar";
 import { useCurrentTake } from "./useCurrentTake";
@@ -36,9 +35,19 @@ function useGlobalKeys() {
   }, []);
 }
 
+/** Apply the appearance to <html> (index.html applies the saved one before the first paint). */
+function useTheme() {
+  const theme = useUi((s) => s.theme);
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "studio" ? "#0d1117" : "#f5f6f8");
+  }, [theme]);
+}
+
 export function AppShell() {
   const { pathname } = useLocation();
-  const { id, view } = useCurrentTake();
+  useTheme();
+  const { id } = useCurrentTake();
   useGlobalKeys();
 
   // Leaving a recording stops its audio (moving between its own screens does not).
@@ -46,31 +55,46 @@ export function AppShell() {
     if (!id) player.stop();
   }, [id]);
 
-  // Finding pages animate between each other themselves; don't re-fade the whole page.
-  const pageKey = view === "finding" ? `${id}/finding` : pathname;
+  // A recording's three zoom levels share one persistent layout (the stage): only leaving the
+  // recording re-fades the page. Other pages fade in on navigation.
+  const pageKey = id ? `/take/${id}` : pathname;
 
   return (
-    <div className="flex h-full min-w-[1024px] flex-col overflow-hidden bg-background">
-      <TopBar />
-      <motion.main
-        key={pageKey}
-        initial={{ opacity: 0, y: 6 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.28, ease }}
-        className="min-h-0 flex-1 overflow-hidden"
-      >
-        <Outlet />
-      </motion.main>
-      <NowPlaying hidden={view === "explore"} />
-      <CommandPalette />
-      <ShortcutsDialog />
-      <Toaster
-        position="bottom-center"
-        offset={80}
-        toastOptions={{
-          className: "!rounded-xl !border-0 !bg-ink !text-[#fbfaf7] !font-sans !shadow-float [&_[data-description]]:!text-[#fbfaf7]/65",
-        }}
-      />
+    <MotionConfig reducedMotion="user">
+      <div className="flex h-full flex-col overflow-hidden bg-background">
+        <TopBar />
+        <motion.main
+          key={pageKey}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.28, ease }}
+          className="min-h-0 flex-1 overflow-hidden"
+        >
+          <Suspense fallback={<PageFallback />}>
+            <Outlet />
+          </Suspense>
+        </motion.main>
+        <CommandPalette />
+        <ShortcutsDialog />
+        <Toaster
+          position="bottom-center"
+          offset={80}
+          toastOptions={{
+            className: "!rounded-xl !border-0 !bg-ink !text-primary-foreground !font-sans !shadow-float [&_[data-description]]:!text-primary-foreground/65",
+          }}
+        />
+      </div>
+    </MotionConfig>
+  );
+}
+
+/** While a page's code loads: a quiet sheen where the page will be. */
+function PageFallback() {
+  return (
+    <div className="page space-y-4 pt-14">
+      <div className="shimmer h-3 w-40 rounded" />
+      <div className="shimmer h-12 w-2/3 rounded-lg" />
+      <div className="shimmer h-4 w-1/2 rounded" />
     </div>
   );
 }

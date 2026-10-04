@@ -1,140 +1,65 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { useCallback, useEffect, useRef } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowLeft, ArrowRight, CircleCheck, CircleX, Pause, Play, X } from "lucide-react";
+import { ArrowRight, CircleCheck, CircleX, Pause, Play, X } from "lucide-react";
 import { CATEGORY } from "@/lib/categories";
-import { useTake } from "@/lib/data";
-import { plainEvidence, plainTitle, rankFindings, takeRange, truthFor } from "@/lib/findings";
+import { plainEvidence, plainTitle, takeRange, truthFor } from "@/lib/findings";
 import { fmt } from "@/lib/format";
-import { isTypingTarget } from "@/lib/keys";
-import { ease, spring } from "@/lib/motion";
-import { usePlayerState, useTakeAudio, type Player } from "@/lib/player";
-import { useUi } from "@/lib/store";
-import { findingPath, overviewPath } from "@/lib/takes";
+import { spring } from "@/lib/motion";
+import { player, usePlayerState, type Player } from "@/lib/player";
+import { useCaptureOnUnmount, useFlightTarget } from "@/lib/flight";
+import { findingPath } from "@/lib/takes";
 import { kindLabel } from "@/lib/validation";
 import type { Take, Word } from "@/lib/types";
 import { FindingNumber } from "@/components/FindingNumber";
-import { PageState } from "@/components/PageState";
 import { SeverityBadge } from "@/components/SeverityBadge";
-import { Timeline } from "./Timeline";
+import { useTakeContext } from "@/features/stage/context";
+import { useStage } from "@/features/stage/store";
 import { Transcript } from "./Transcript";
-import { TransportBar } from "./TransportBar";
-import { useView } from "./useView";
 
-/** Advanced view: the whole recording with every lane. Reached on purpose from the overview
- *  or a finding. Findings are numbered markers; selecting one opens a summary sheet that
- *  leads back into the guided finding page. */
+/** Every measurement: the stage above shows all lanes (it unfolded from the overview or a
+ *  finding); here the transcript, with the selected finding's summary sheet. Selection lives in
+ *  the URL (?f=<finding number>), so the stage, J / K and shared links all agree. Keys are the
+ *  recording's (useStageKeys). */
 export function Explorer() {
-  const { id } = useParams();
-  const { data: take, error } = useTake(id);
-  if (error) return <PageState title="Could not load this recording" detail={error} />;
-  if (!take) return <ExplorerSkeleton />;
-  return <ExplorerBody key={take.id} take={take} />;
-}
-
-function ExplorerBody({ take }: { take: Take }) {
-  const player = useTakeAudio(take.audio);
-  const { view, setView, zoom, fit, current } = useView(take.duration);
-  const layers = useUi((s) => s.layers);
-  const ranking = useMemo(() => rankFindings(take), [take]);
-  const ranks = useMemo(() => {
-    const r: number[] = [];
-    ranking.forEach((fi, k) => (r[fi] = k + 1));
-    return r;
-  }, [ranking]);
-  const byTime = useMemo(() => take.flaws.map((_, i) => i).sort((a, b) => take.flaws[a].start - take.flaws[b].start), [take]);
-  const [selected, setSelected] = useState<number | null>(null);
+  const { take, ranking, ranks } = useTakeContext();
+  const selected = useStage((s) => s.selected);
   const [params, setParams] = useSearchParams();
-
-  const select = useCallback(
-    (i: number | null, smooth = true) => {
-      setSelected(i);
-      setParams(i === null ? {} : { f: String(ranks[i]) }, { replace: true });
-      if (i === null) return;
-      const f = take.flaws[i];
-      const pad = Math.max(1.4, (f.end - f.start) * 0.75);
-      setView([f.start - pad, f.end + pad], smooth);
-      player.stop();
-      player.seek(f.start);
-    },
-    [take, ranks, setView, player, setParams],
-  );
-
-  // ?f=<finding number> (from "Open in full timeline" or a shared link)
   const fParam = params.get("f");
-  const mounted = useRef(false);
+
+  // ?f= -> selected finding, framed by the camera
   useEffect(() => {
     const n = Number(fParam);
     const i = n >= 1 && n <= ranking.length ? ranking[n - 1] : null;
-    if (i !== null && i !== selected) select(i, mounted.current);
-    mounted.current = true;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fParam]);
+    const s = useStage.getState();
+    s.setSelected(i);
+    if (i === null) return;
+    const f = take.flaws[i];
+    const pad = Math.max(1.4, (f.end - f.start) * 0.75);
+    s.setView([f.start - pad, f.end + pad]);
+    player.stop();
+    player.seek(f.start);
+  }, [fParam, ranking, take]);
 
-  const jumpToWord = useCallback(
-    (w: Word) => {
-      if (w.start === null || w.end === null) return;
-      const [a, b] = current.current;
-      const span = Math.min(b - a, 8);
-      const c = (w.start + w.end) / 2;
-      setView([c - span / 2, c + span / 2]);
-      player.seek(w.start);
-    },
-    [current, setView, player],
-  );
-
-  const step = useCallback(
-    (dir: 1 | -1) => {
-      if (!byTime.length) return;
-      const pos = selected === null ? (dir === 1 ? -1 : 0) : byTime.indexOf(selected);
-      select(byTime[(pos + dir + byTime.length) % byTime.length]);
-    },
-    [byTime, selected, select],
-  );
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (isTypingTarget(e) || e.metaKey || e.ctrlKey || e.altKey) return;
-      if (e.key === " ") { e.preventDefault(); player.toggle(); }
-      else if (e.key === "j" || e.key === "J") step(1);
-      else if (e.key === "k" || e.key === "K") step(-1);
-      else if (e.key === "Escape") { if (selected !== null) select(null); else fit(); }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [player, step, fit, selected, select]);
+  const close = useCallback(() => setParams({}, { replace: true }), [setParams]);
+  const jumpToWord = useCallback((w: Word) => {
+    if (w.start === null || w.end === null) return;
+    const [a, b] = useStage.getState().view;
+    const span = Math.min(b - a, 8), c = (w.start + w.end) / 2;
+    useStage.getState().setView([c - span / 2, c + span / 2]);
+    player.seek(w.start);
+  }, []);
 
   return (
-    <div className="flex h-full flex-col bg-background">
-      <div className="flex shrink-0 items-baseline gap-3 px-5 pt-4 pb-2">
-        <h1 className="font-display text-[24px] leading-none">Timeline explorer</h1>
-        <p className="min-w-0 flex-1 truncate text-[12.5px] text-muted-foreground">
-          Every measurement across the whole recording. Click a numbered finding for its summary · scroll to zoom · drag to pan
-          {take.ground_truth ? " · View › Injected edits shows the answer key" : ""}.
-        </p>
-        <Link to={overviewPath(take.id)} className="inline-flex shrink-0 items-center gap-1.5 text-[12.5px] text-muted-foreground transition-colors hover:text-ink">
-          <ArrowLeft className="size-3.5" /> Summary
-        </Link>
+    <div className="relative h-full bg-surface">
+      <div className="h-full transition-[padding] duration-300 lg:pr-[var(--sheet)]" style={{ ["--sheet" as string]: selected !== null ? "392px" : "0px" }}>
+        <Transcript take={take} selected={selected} player={player} onWord={jumpToWord} />
       </div>
-      <motion.section initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, ease }}
-        className="shrink-0 border-y border-hairline bg-well/60 px-5 pt-3 pb-3">
-        <Timeline take={take} view={view} setView={setView} player={player} selected={selected}
-          onSelect={(i) => select(i)} onWord={jumpToWord} layers={layers} ranks={ranks} />
-      </motion.section>
-
-      <div className="relative min-h-0 flex-1 bg-surface">
-        <div className="h-full transition-[padding] duration-300" style={{ paddingRight: selected !== null ? 384 : 0 }}>
-          <Transcript take={take} selected={selected} player={player} onWord={jumpToWord} />
-        </div>
-        <AnimatePresence>
-          {selected !== null && (
-            <FindingSheet key={selected} take={take} flawIndex={selected} rank={ranks[selected]} player={player} onClose={() => select(null)} />
-          )}
-        </AnimatePresence>
-      </div>
-
-      <TransportBar take={take} player={player} selected={selected} rank={selected !== null ? ranks[selected] : null}
-        onPrev={() => step(-1)} onNext={() => step(1)} onZoom={(k) => zoom(k)} onFit={fit} />
+      <AnimatePresence>
+        {selected !== null && (
+          <FindingSheet key={selected} take={take} flawIndex={selected} rank={ranks[selected]} player={player} onClose={close} />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -148,20 +73,24 @@ function FindingSheet({ take, flawIndex, rank, player, onClose }: { take: Take; 
   const isPlaying = playing && label === myLabel;
   const [a, b] = takeRange(take, f);
   const truth = truthFor(take, f);
+  const root = useRef<HTMLElement>(null);
+  const badge = useFlightTarget<HTMLSpanElement>(`badge-${rank}`);
+  const title = useFlightTarget<HTMLHeadingElement>(`title-${rank}`);
+  useCaptureOnUnmount(root, rank);
   return (
-    <motion.aside
-      initial={{ x: 32, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: 24, opacity: 0 }} transition={spring.smooth}
-      className="absolute top-3 right-3 z-10 flex max-h-[calc(100%-24px)] w-[360px] flex-col overflow-y-auto rounded-2xl bg-surface p-5 shadow-float"
+    <motion.aside ref={root}
+      initial={{ y: 24, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 16, opacity: 0 }} transition={spring.smooth}
+      className="absolute inset-x-2 bottom-2 z-10 flex max-h-[62%] flex-col overflow-y-auto rounded-2xl bg-surface p-5 shadow-float lg:inset-x-auto lg:top-3 lg:right-3 lg:bottom-auto lg:max-h-[calc(100%-24px)] lg:w-[368px]"
     >
       <div className="flex items-center gap-2">
-        <FindingNumber n={rank} category={f.category} active />
+        <FindingNumber n={rank} category={f.category} active ref={badge} flight="badge" />
         <span className="text-[11.5px] font-semibold tracking-[0.12em] uppercase" style={{ color: CATEGORY[f.category].color }}>{CATEGORY[f.category].label}</span>
         <SeverityBadge level={f.severity.level} label={f.severity.label} />
         <button onClick={onClose} aria-label="Close" className="ml-auto grid size-7 place-items-center rounded-md text-faint hover:bg-hover hover:text-ink">
           <X className="size-4" />
         </button>
       </div>
-      <h2 className="mt-3 font-display text-[28px] leading-tight">{plainTitle(f)}</h2>
+      <h2 ref={title} data-flight="title" className="mt-3 font-display text-[28px] leading-tight">{plainTitle(f)}</h2>
       <p className="mt-1 text-[14px] text-muted-foreground">“{f.words.join(" ")}” · {fmt(f.start, 1)}–{fmt(f.end, 1)} s</p>
       {ev && <p className="mt-4 text-[13.5px] leading-relaxed text-ink/80">{ev.lead} {ev.compare}</p>}
       {truth && (
@@ -183,16 +112,5 @@ function FindingSheet({ take, flawIndex, rank, player, onClose }: { take: Take; 
         </Link>
       </div>
     </motion.aside>
-  );
-}
-
-function ExplorerSkeleton() {
-  return (
-    <div className="flex h-full flex-col">
-      <div className="h-[230px] border-b border-hairline bg-well/60 px-5 py-4"><div className="shimmer h-full w-full rounded-lg" /></div>
-      <div className="flex-1 space-y-3 bg-surface p-6">
-        {[92, 78, 85, 60].map((w, i) => <div key={i} className="shimmer h-4 rounded" style={{ width: `${w}%` }} />)}
-      </div>
-    </div>
   );
 }

@@ -9,6 +9,11 @@ export function takeName(t: Pick<TakeSummary, "kind" | "take_id">): string {
   return t.kind === "demo" ? "Demo recording" : t.kind === "user" ? "Your recording" : `Clean recording ${n}`;
 }
 
+/** "talk.wav" for an upload, "Speech 01 · Demo recording" for a dataset recording. */
+export function recordingTitle(take: Pick<Take, "kind" | "display" | "take_id" | "speech_id">): string {
+  return take.kind === "user" ? (take.display?.recording ?? take.take_id) : `${speechName(take.speech_id)} · ${takeName(take)}`;
+}
+
 export const takeKindLabel = (kind: TakeSummary["kind"]) => (kind === "demo" ? "Synthetic demo" : kind === "user" ? "Uploaded" : "Control");
 
 /** A reference delivery's name: the uploaded file name, else "good 01". */
@@ -18,11 +23,16 @@ export const referenceName = (take: Pick<Take, "display">, takeId: string) => ta
 export const overviewPath = (id: string) => `/take/${id}`;
 export const findingPath = (id: string, rank: number) => `/take/${id}/finding/${rank}`;
 export const explorePath = (id: string, rank?: number) => `/take/${id}/explore${rank ? `?f=${rank}` : ""}`;
-export const evaluationPath = "/evaluation";
-export const robustnessPath = "/evaluation/robustness";
-export const methodPath = "/method";
+export const homePath = "/";
 export const analyzePath = "/analyze";
 export const runPath = (runId: string) => `/analyze/${runId}`;
+export const recordingsPath = "/recordings";
+// Lab: how RhetorTrace is tested (controlled examples and the validation reports)
+export const labPath = "/lab";
+export const examplesPath = "/lab/examples";
+export const evaluationPath = "/lab/evaluation";
+export const robustnessPath = "/lab/robustness";
+export const methodPath = "/lab/method";
 
 /** "speech_01/good_01" (validation reports) -> "speech_01__good_01" (take id). */
 export const caseToId = (c: string) => c.replace("/", "__");

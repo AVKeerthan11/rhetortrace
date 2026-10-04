@@ -11,6 +11,7 @@ import type { Category, Take, TakeSummary } from "@/lib/types";
 import { KIND, kindLabel, pct } from "@/lib/validation";
 import { cn } from "@/lib/utils";
 import { TakeMarks } from "@/components/TakeMarks";
+import { LabTabs } from "@/components/LabTabs";
 import { Note, PageHeader, ReadingPage, Section, Table, Td, Th } from "@/components/Page";
 import { PageState } from "@/components/PageState";
 import { ReadingSkeleton } from "./Evaluation";
@@ -108,14 +109,15 @@ export function Method() {
   ];
 
   return (
-    <ReadingPage>
-      <PageHeader eyebrow="Method" title="How RhetorTrace works">
+    <ReadingPage toc>
+      <PageHeader eyebrow="Lab · method" title="How RhetorTrace works">
         <p>
           There is no single right speed or pitch for a speech. So instead of fixed rules, RhetorTrace compares a delivery with good
           deliveries of the <em>same script</em>, word by word, and points to the stretches where it differs from all of them by
           more than good speakers differ from each other.
         </p>
       </PageHeader>
+      <LabTabs />
 
       <Section title="From audio to findings">
         <ol className="relative">

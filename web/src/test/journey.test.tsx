@@ -101,10 +101,12 @@ describe("new analysis journey", () => {
     expect(within(list).getByText("Lining up words with the audio")).toBeInTheDocument();
 
     // succeeded -> the existing overview, fed by /results
-    // breadcrumb and overview heading both name the upload
-    expect(await screen.findAllByText("Your recording · talk.wav", undefined, { timeout: 5000 })).toHaveLength(2);
-    expect(screen.getByText(/compared with the reference deliveries you chose/)).toBeInTheDocument();
-    expect(screen.getByText("anna.wav")).toBeInTheDocument();
+    // the recording stage names the upload; the overview explains the comparison
+    expect(await screen.findByRole("heading", { name: "talk.wav" }, { timeout: 5000 })).toBeInTheDocument();
+    expect(screen.getByText("Your recording")).toBeInTheDocument();
+    expect(await screen.findByText(/compared with the reference deliveries you chose/, undefined, { timeout: 4000 })).toBeInTheDocument();
+    expect(screen.getAllByText("anna.wav").length).toBeGreaterThan(0);
+    expect(screen.getByRole("link", { name: /Overview/ })).toHaveAttribute("aria-current", "page");
     expect(screen.queryByText("What was injected")).not.toBeInTheDocument();
     expect(screen.getByText(new RegExp(`${document.flaws.length} moments differ`))).toBeInTheDocument();
     expect(player.main.src).toMatch(new RegExp(`/api/results/${RUN}/audio/speech_01__recording\\.flac$`));
@@ -156,7 +158,7 @@ describe("new analysis journey", () => {
     expect(screen.getByRole("button", { name: /Analyse/ })).toBeDisabled();
 
     await user.click(screen.getByRole("link", { name: /RhetorTrace home/ }));
-    await user.click((await screen.findAllByRole("link", { name: /Open analysis/ }, { timeout: 4000 }))[0]);
+    await user.click(await screen.findByRole("link", { name: /See it on an example/ }, { timeout: 4000 }));
     expect(await screen.findByText(/Demo recording: \d+ flaws were injected/)).toBeInTheDocument();
   });
 
@@ -164,5 +166,57 @@ describe("new analysis journey", () => {
     server();
     renderAt("/analyze/job-does-not-exist");
     expect(await screen.findByText("No such analysis")).toBeInTheDocument();
+  });
+});
+
+describe("information architecture", () => {
+  it("old addresses redirect into the Lab", async () => {
+    server({ online: false });
+    renderAt("/evaluation");
+    expect(await screen.findByRole("heading", { name: "How often is RhetorTrace right?" }, { timeout: 4000 })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Lab" })).toHaveAttribute("aria-current", "page");
+  });
+
+  it("the Lab lists the controlled examples; Home does not", async () => {
+    server({ online: false });
+    renderAt("/lab/examples");
+    expect(await screen.findAllByRole("link", { name: /Open analysis/ }, { timeout: 4000 })).toHaveLength(2);
+    expect(screen.getAllByText(/Clean recording 0\d/).length).toBe(6);
+  });
+
+  it("Your recordings shows analyses started in this browser, with their state", async () => {
+    server({ statuses: [status({ state: "succeeded", stages: stages(7), finished_at: "2026-10-03T12:01:00Z", results_url: `/results/${RUN}` })] });
+    localStorage.setItem("rhetortrace.recentRuns", JSON.stringify([{ run_id: RUN, name: "talk.wav", submitted_at: "2026-10-03T12:00:00Z" }]));
+    renderAt("/recordings");
+    expect(await screen.findByText("Analysed")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /talk\.wav/ })).toHaveAttribute("href", `/take/${RUN}`);
+  });
+
+  it("an analysis can be deleted from Your recordings, after confirming, and the deletion undone", async () => {
+    server({ statuses: [status({ state: "succeeded", stages: stages(7), results_url: `/results/${RUN}` })] });
+    localStorage.setItem("rhetortrace.recentRuns", JSON.stringify([{ run_id: RUN, name: "talk.wav", submitted_at: "2026-10-03T12:00:00Z" }]));
+    const user = userEvent.setup();
+    renderAt("/recordings");
+    await user.click(await screen.findByRole("button", { name: "Delete talk.wav" }));
+    // nothing is deleted until confirmed
+    expect(screen.getByRole("link", { name: /talk\.wav/ })).toBeInTheDocument();
+    await user.click(within(await screen.findByRole("group", { name: "Delete talk.wav?" })).getByRole("button", { name: "Delete" }));
+    expect(await screen.findByText("No recordings yet.")).toBeInTheDocument();
+    expect(JSON.parse(localStorage.getItem("rhetortrace.recentRuns")!)).toEqual([]);
+    await user.click(await screen.findByRole("button", { name: "Undo" }));
+    expect(await screen.findByRole("link", { name: /talk\.wav/ })).toBeInTheDocument();
+  });
+
+  it("moving between the zoom levels keeps one recording stage", async () => {
+    server({ statuses: [status({ state: "succeeded", stages: stages(7) })] });
+    const user = userEvent.setup();
+    renderAt(`/take/${RUN}`);
+    const stage = await screen.findByRole("region", { name: "Recording" }, { timeout: 5000 });
+    await user.click(screen.getByRole("link", { name: /Start with the most important finding/ }));
+    expect(await screen.findByRole("link", { name: /Finding 1 of/ })).toHaveAttribute("aria-current", "page");
+    expect(screen.getByRole("region", { name: "Recording" })).toBe(stage); // the same element: not re-mounted
+    await user.click(screen.getByRole("link", { name: /Timeline explorer/ }));
+    expect(await screen.findByText("Transcript")).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: "Recording" })).toBe(stage);
   });
 });

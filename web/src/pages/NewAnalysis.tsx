@@ -73,8 +73,8 @@ export function NewAnalysis() {
       </PageHeader>
 
       {online === false && (
-        <motion.div {...rise(2)} role="status" className="mt-8 flex items-start gap-3 rounded-xl bg-highlight-soft/70 px-4 py-3 text-[13.5px] text-ink/85">
-          <CircleAlert className="mt-0.5 size-4 shrink-0" />
+        <motion.div {...rise(2)} role="status" className="mt-8 flex items-start gap-3 rounded-xl border border-warn/25 bg-warn/[0.07] px-4 py-3 text-[13.5px] text-ink/85">
+          <CircleAlert className="mt-0.5 size-4 shrink-0 text-warn" />
           <div className="flex-1">
             <div className="font-medium">The analysis server is not running</div>
             <div className="mt-0.5 text-ink/70">
@@ -136,7 +136,7 @@ export function NewAnalysis() {
 
         <div className="flex items-center gap-4 border-t border-hairline pt-6">
           <button type="submit" disabled={missing.length > 0 || submitting || online === false}
-            className="group inline-flex h-12 items-center gap-2.5 rounded-full bg-ink pr-5 pl-6 text-[15px] font-medium text-primary-foreground shadow-[0_6px_20px_-6px_rgba(27,26,23,0.45)] transition-transform enabled:hover:scale-[1.02] enabled:active:scale-[0.99] disabled:opacity-40">
+            className="group inline-flex h-12 items-center gap-2.5 rounded-full bg-ink pr-5 pl-6 text-[15px] font-medium text-primary-foreground shadow-[0_6px_20px_-6px_color-mix(in_oklab,var(--shadow)_45%,transparent)] transition-transform enabled:hover:scale-[1.02] enabled:active:scale-[0.99] disabled:opacity-40">
             {submitting ? <><LoaderCircle className="size-4 animate-spin" /> Uploading…</> : <>Analyse <ArrowRight className="size-4 transition-transform group-enabled:group-hover:translate-x-1" /></>}
           </button>
           <span className="text-[13px] text-muted-foreground">

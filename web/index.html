@@ -4,7 +4,16 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f7f5f0" />
+    <meta name="theme-color" content="#0d1117" />
+    <script>
+      // the saved appearance, before the first paint (default: the dark studio)
+      try {
+        var t = JSON.parse(localStorage.getItem("rhetortrace:ui") || "{}").state;
+        document.documentElement.dataset.theme = (t && t.theme) || "studio";
+      } catch (e) {
+        document.documentElement.dataset.theme = "studio";
+      }
+    </script>
     <title>RhetorTrace</title>
   </head>
   <body>

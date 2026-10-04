@@ -3,15 +3,19 @@ __pycache__/
 *.py[cod]
 .venv/
 .env
+.pytest_cache/
 
 # IDE
 .vscode/
 .idea/
 
-# Audio
+# Audio: derived / generated files are ignored...
 *.wav
 *.mp3
 *.flac
+# ...except the dataset recordings the pipeline analyses (16 kHz mono PCM-16).
+# Dashboard audio (web/public/audio/*.flac) is regenerated from them.
+!dataset/speech_*/audio/*.wav
 
 # Local data
 dataset/raw/
@@ -21,8 +25,10 @@ dataset/processed/
 results/tmp/
 *.npz
 
-# OS
-.DS_Store
-Thumbs.db
 # New-recording analyses (src.pipeline)
 runs/
+
+# Logs and OS files
+*.log
+.DS_Store
+Thumbs.db

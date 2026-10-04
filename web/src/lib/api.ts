@@ -195,6 +195,30 @@ export function recentRuns(): RecentRun[] {
   }
 }
 
+/** Take a run off this browser's list (the server's copy is untouched). Returns where it was,
+ *  so restoreRun can put it back. */
+export function forgetRun(runId: string): number {
+  const runs = recentRuns();
+  const at = runs.findIndex((r) => r.run_id === runId);
+  try {
+    localStorage.setItem(RECENT_KEY, JSON.stringify(runs.filter((r) => r.run_id !== runId)));
+  } catch {
+    // storage unavailable: nothing was stored to begin with
+  }
+  return at;
+}
+
+/** Undo forgetRun: the run back at its old place in the list. */
+export function restoreRun(run: RecentRun, at: number) {
+  const runs = recentRuns().filter((r) => r.run_id !== run.run_id);
+  runs.splice(Math.max(0, Math.min(at, runs.length)), 0, run);
+  try {
+    localStorage.setItem(RECENT_KEY, JSON.stringify(runs));
+  } catch {
+    // storage unavailable
+  }
+}
+
 export function rememberRun(run: RecentRun) {
   try {
     localStorage.setItem(RECENT_KEY, JSON.stringify([run, ...recentRuns().filter((r) => r.run_id !== run.run_id)].slice(0, 8)));

@@ -16,6 +16,18 @@ class ResizeObserverStub {
 }
 globalThis.ResizeObserver ??= ResizeObserverStub as unknown as typeof ResizeObserver;
 
+// scroll-reveal animations (motion's whileInView / useInView) observe visibility
+class IntersectionObserverStub {
+  readonly root = null;
+  readonly rootMargin = "0px";
+  readonly thresholds = [0];
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+  takeRecords() { return []; }
+}
+globalThis.IntersectionObserver ??= IntersectionObserverStub as unknown as typeof IntersectionObserver;
+
 Object.defineProperty(HTMLMediaElement.prototype, "play", { configurable: true, value: () => Promise.resolve() });
 Object.defineProperty(HTMLMediaElement.prototype, "pause", { configurable: true, value: () => {} });
 Object.defineProperty(HTMLMediaElement.prototype, "load", { configurable: true, value: () => {} });

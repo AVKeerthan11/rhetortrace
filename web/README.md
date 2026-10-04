@@ -1,32 +1,33 @@
-# React + TypeScript + Vite
+# RhetorTrace dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React 19 + TypeScript + Vite. The dashboard reads analysis documents produced by the Python pipeline
+and never recomputes analysis values (types: `src/lib/types.ts`).
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev          # http://localhost:5173 ; /api is proxied to the analysis server (port 8000)
+npm test             # Vitest unit tests
+npm run test:e2e     # Playwright end to end (starts the analysis server itself)
+npm run build        # type check + production build
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Data sources:
+
+* **Demo and Lab**: static files in `public/data/` and `public/audio/`, written by
+  `python scripts/build_dashboard.py` (the audio `.flac` files are git-ignored; after a fresh clone run
+  `python -m src.features.pitch --all` and `python -m src.features.energy --all` first).
+* **Your analyses**: the analysis server (`python -m src.server`), `GET /results/{run_id}`.
+
+Layout:
+
+| path | contents |
+|---|---|
+| `src/pages/` | Home, New analysis, Your recordings, Lab (evaluation, robustness, method, examples) |
+| `src/features/stage/` | the recording stage shared by Overview, Finding and Explorer: lanes, rhythm threads, instruments, keyboard model |
+| `src/features/finding/` | a finding: hear it, evidence chain, severity scale, word timing |
+| `src/features/timeline/` | the Explorer and its transcript |
+| `src/features/home/` | the Home opening scene |
+| `src/lib/` | data loading, player, shared time cursor, visual grammar, score allocation, alignment mapping |
+| `e2e/` | Playwright journey against the real analysis server |
+
+See the [main README](../README.md) for how the dashboard fits the pipeline.
